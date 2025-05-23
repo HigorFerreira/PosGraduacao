@@ -20,6 +20,12 @@ class HanoiState:
                 if block > tower[i-1]: return False
         return True
 
+    def generatePossibleWays(self):
+        pass
+
+    def generateImage(self, x=0, y=0):
+        pass
+
 
 print(HanoiState([ 3, 2, 1 ]).isValid())
 print(HanoiState([ 4, 3, 2, 1 ]).isValid())
