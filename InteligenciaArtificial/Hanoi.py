@@ -1,8 +1,4 @@
-
-from typing import Literal
-
-
-Block=Literal[1, 2, 3, 4]
+from hlib import Block
 
 class HanoiState:
     towers: list[list[Block]]
