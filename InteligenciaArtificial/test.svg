@@ -3,16 +3,21 @@
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 160 120"
     >
+
+    <rect width="160" height="120" style="fill:white" />
+    <rect x="10" y="10" width="140" height="100" style="fill:white;stroke:black;stroke-width:0.5" />
     
     <g transform="translate(0,120) scale(1,-1)">
+
+
         <g id="torreA" transform="translate(30,10)">
             <rect width="5" height="80" />
 
             <g transform="translate(-17.5,0)">
                 <rect y="5" width="40" height="10" style="fill:blue" />
-                <rect y="20" width="30" height="10" style="fill:red" />
-                <rect y="35" width="20" height="10" style="fill:yellow" />
-                <rect y="50" width="10" height="10" style="fill:pink" />
+                <rect x="5" y="20" width="30" height="10" style="fill:red" />
+                <rect x="10" y="35" width="20" height="10" style="fill:yellow" />
+                <rect x="15" y="50" width="10" height="10" style="fill:pink" />
             </g>
         </g>
 
