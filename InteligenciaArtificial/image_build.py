@@ -11,14 +11,22 @@ def svg_head(width=160, height=120, child=""):
     </svg>
     """
 
-def head(x=0, y=0, child=""):
+def head(x=0, y=0, child="", label=""):
+    label_txt = "" if not label else f"""
+    \r<text x="10" y="7" font-size="5">
+        \r{label}
+    \r</text>"""
+    
     return f"""
-    <g transform="translate({x},{y})">
-        <rect width="160" height="120" style="fill:white" />
-        
-        <g transform="translate(0,120) scale(1,-1)">
-            { child }    
+    <g>
+        <g transform="translate({x},{y})">
+            <rect width="160" height="120" style="fill:white" />
+            
+            <g transform="translate(0,120) scale(1,-1)">
+                { child }    
+            </g>
         </g>
+        { label_txt }
     </g>
     """
 
@@ -47,7 +55,7 @@ def plot_tower(tower: list[Block], id: str, x: int, y: int):
     </g>
     """
 
-def plot_game(towers: list[list[Block]]):
+def plot_game(towers: list[list[Block]], label=""):
     labels = { 0: 'A', 1: 'B', 2: 'C' }
     sep="\n\t\t"
     def process(obj: tuple[int, list]):
@@ -64,6 +72,7 @@ def plot_game(towers: list[list[Block]]):
                         enumerate(towers)
                     )
                 )
-            )
+            ),
+            label=label
         )
     )
