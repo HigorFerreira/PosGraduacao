@@ -1,4 +1,4 @@
-from hlib import Block
+from hanoi_lib import Block
 from image_build import plot_game
 
 class HanoiState:
@@ -22,25 +22,34 @@ class HanoiState:
 
     def generateImage(self, x=0, y=0):
         return plot_game(self.towers)
-
-
-a=HanoiState([ 3, 2, 1 ])
-b=HanoiState([ 4, 3, 2 ], [ 1 ])
-c=HanoiState([ 3, 1, 2 ])
-d=HanoiState([ 1, 2, 3 ])
-
-print(a.isValid())
-print(b.isValid())
-print(c.isValid())
-print(d.isValid())
-
-with open("a.svg", "w") as f: f.write(a.generateImage())
-with open("b.svg", "w") as f: f.write(b.generateImage())
-with open("c.svg", "w") as f: f.write(c.generateImage())
-with open("d.svg", "w") as f: f.write(d.generateImage())
-
-# Approved test
+    
+    def serialize(self):
+        return "\n".join(
+            list(map(
+                lambda blocks: "".join(list(map(lambda block: f"{block}", blocks))),
+                self.towers
+            ))
+        )
+    
+    def __eq__(self, value):
+        if type(value) != HanoiState: return False
+        return self.serialize() == value.serialize()
+    
+    
+class Node:
+    state: HanoiState
+    children: list[HanoiState]
+    def __init__(self, state: HanoiState):
+        self.state = state
 
 class Tree:
     def __init__(self) -> None:
         pass
+
+
+
+a=HanoiState([ 4, 3, 2, 1 ])
+b=HanoiState([ 4, 3, 2, 1 ])
+print(a.serialize())
+print(b.serialize())
+print(a == b)

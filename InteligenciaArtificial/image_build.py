@@ -1,4 +1,4 @@
-from hlib import Block
+from hanoi_lib import Block
 
 def svg_head(width=160, height=120, child=""):
     return f"""
