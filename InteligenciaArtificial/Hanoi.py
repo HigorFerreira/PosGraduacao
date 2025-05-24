@@ -6,5 +6,7 @@ print(a.serialize())
 print(b.serialize())
 print(a == b)
 with open("initial.svg", "w") as f: f.write(a.generateImage(label="Initial State"))
-for i, state in enumerate(a.generatePossibleWays(), start=1):
+generated_ways = a.generatePossibleWays()
+print(generated_ways)
+for i, state in enumerate(generated_ways, start=1):
     with open(f"child-{i}.svg", "w") as f: f.write(state.generateImage(label=f"Initial > Child[{i}]"))
