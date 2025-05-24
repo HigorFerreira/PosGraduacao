@@ -1,4 +1,5 @@
 from .types import Block
+from image_build import plot_game
 
 class HanoiState:
     towers: list[list[Block]]

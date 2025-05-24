@@ -1,4 +1,4 @@
-from hanoi_lib import Block
+from hanoi_lib.types import Block
 
 def svg_head(width=160, height=120, child=""):
     return f"""
@@ -48,15 +48,19 @@ def plot_tower(tower: list[Block], id: str, x: int, y: int):
     """
 
 def plot_game(towers: list[list[Block]]):
+    labels = { 0: 'A', 1: 'B', 2: 'C' }
     sep="\n\t\t"
+    def process(obj: tuple[int, list]):
+        i, item = obj
+        return plot_tower(item, f"Tower{labels[i]}", 30+i*50, 0)
+    
     return svg_head(
         child=head(
             0, 0,
             sep.join(
                 list(
                     map(
-                        lambda cur: plot_tower(cur[1],
-                        f"Tower{cur[0]}", 30+cur[0]*50, 0),
+                        lambda obj: process(obj),
                         enumerate(towers)
                     )
                 )
