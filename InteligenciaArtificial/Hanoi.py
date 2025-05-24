@@ -25,7 +25,7 @@ class HanoiState:
 
 
 a=HanoiState([ 3, 2, 1 ])
-b=HanoiState([ 4, 3, 2, 1 ])
+b=HanoiState([ 4, 3, 2 ], [ 1 ])
 c=HanoiState([ 3, 1, 2 ])
 d=HanoiState([ 1, 2, 3 ])
 
