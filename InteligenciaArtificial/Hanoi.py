@@ -1,10 +1,6 @@
 from hanoi_lib import HanoiState, Tree, Node
 
-a=HanoiState([ 4, 3, 2, 1 ])
-b=HanoiState([ 4, 3, 2, 1 ])
-print(a.serialize())
-print(b.serialize())
-print(a == b)
+a=HanoiState([ 4, 3 ], [], [ 2, 1 ])
 with open("initial.svg", "w") as f: f.write(a.generateImage(label="Initial State"))
 generated_ways = a.generatePossibleWays()
 print(generated_ways)
