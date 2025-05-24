@@ -38,7 +38,7 @@ def plot_tower(tower: list[Block], id: str, x: int, y: int):
         <rect width="5" height="80" />
 
         <g transform="translate(-17.5,0)">
-            {sep.join(list(map(lambda obj: f'<rect x="{obj[0]*5}" y="5" width="{obj[1]*10}" height="10" style="fill:{colors[obj[1]]}" />', enumerate(tower))))}
+            {sep.join(list(map(lambda obj: f'<rect x="{obj[0]*5}" y="{5+obj[0]*15}" width="{obj[1]*10}" height="10" style="fill:{colors[str(obj[1])]}" />', enumerate(tower))))}
         </g>
     </g>
     """

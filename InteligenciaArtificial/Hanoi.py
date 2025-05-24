@@ -21,8 +21,8 @@ class HanoiState:
         pass
 
     def generateImage(self, x=0, y=0):
-        plot_game(self.towers)
-        
+        return plot_game(self.towers)
+
 
 a=HanoiState([ 3, 2, 1 ])
 b=HanoiState([ 4, 3, 2, 1 ])
@@ -33,6 +33,11 @@ print(a.isValid())
 print(b.isValid())
 print(c.isValid())
 print(d.isValid())
+
+with open("a.svg", "w") as f: f.write(a.generateImage())
+with open("b.svg", "w") as f: f.write(b.generateImage())
+with open("c.svg", "w") as f: f.write(c.generateImage())
+with open("d.svg", "w") as f: f.write(d.generateImage())
 
 # Approved test
 
