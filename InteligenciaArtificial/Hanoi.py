@@ -1,4 +1,5 @@
 from hlib import Block
+from image_build import plot_game
 
 class HanoiState:
     towers: list[list[Block]]
@@ -20,13 +21,18 @@ class HanoiState:
         pass
 
     def generateImage(self, x=0, y=0):
-        pass
+        plot_game(self.towers)
+        
 
+a=HanoiState([ 3, 2, 1 ])
+b=HanoiState([ 4, 3, 2, 1 ])
+c=HanoiState([ 3, 1, 2 ])
+d=HanoiState([ 1, 2, 3 ])
 
-print(HanoiState([ 3, 2, 1 ]).isValid())
-print(HanoiState([ 4, 3, 2, 1 ]).isValid())
-print(HanoiState([ 3, 1, 2 ]).isValid())
-print(HanoiState([ 1, 2, 3 ]).isValid())
+print(a.isValid())
+print(b.isValid())
+print(c.isValid())
+print(d.isValid())
 
 # Approved test
 

@@ -1,5 +1,16 @@
 from hlib import Block
 
+def svg_head(width=160, height=120, child=""):
+    return f"""
+    <svg
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 {width} {height}"
+        >
+        {child}
+    </svg>
+    """
+
 def head(x=0, y=0, child=""):
     return f"""
     <g transform="translate({x},{y})">
@@ -7,38 +18,7 @@ def head(x=0, y=0, child=""):
         <rect x="10" y="10" width="145" height="100" style="fill:white;stroke:black;stroke-width:0.5" />
         
         <g transform="translate(0,120) scale(1,-1)">
-            <g id="torreA" transform="translate(30,10)">
-                <rect width="5" height="80" />
-
-                <g transform="translate(-17.5,0)">
-                    <rect y="5" width="40" height="10" style="fill:blue" />
-                    <rect x="5" y="20" width="30" height="10" style="fill:red" />
-                    <rect x="10" y="35" width="20" height="10" style="fill:yellow" />
-                    <rect x="15" y="50" width="10" height="10" style="fill:pink" />
-                </g>
-            </g>
-
-            <g id="torreB" transform="translate(80,10)">
-                <rect width="5" height="80" />
-
-                <g transform="translate(-17.5,0)">
-                    <rect y="5" width="40" height="10" style="fill:blue" />
-                    <rect x="5" y="20" width="30" height="10" style="fill:red" />
-                    <rect x="10" y="35" width="20" height="10" style="fill:yellow" />
-                    <rect x="15" y="50" width="10" height="10" style="fill:pink" />
-                </g>
-            </g>
-
-            <g id="torreC" transform="translate(130,10)">
-                <rect width="5" height="80" />
-
-                <g transform="translate(-17.5,0)">
-                    <rect y="5" width="40" height="10" style="fill:blue" />
-                    <rect x="5" y="20" width="30" height="10" style="fill:red" />
-                    <rect x="10" y="35" width="20" height="10" style="fill:yellow" />
-                    <rect x="15" y="50" width="10" height="10" style="fill:pink" />
-                </g>
-            </g>        
+            { child }    
         </g>
     </g>
     """
@@ -51,16 +31,30 @@ def plot_tower(tower: list[Block], id: str, x: int, y: int):
         "1": "pink",
     }
 
+    sep = "\n\t\t\t"
+
     return f"""
     <g id="{id}" transform="translate({x},{y})">
         <rect width="5" height="80" />
 
         <g transform="translate(-17.5,0)">
-            {"\n".join(list(map(lambda obj: f'<rect x="{obj[0]*5}" y="5" width="{obj[1]*10}" height="10" style="fill:{colors[obj[1]]}" />', enumerate(tower))))}
-            <rect x="0" y="5" width="40" height="10" style="fill:blue" />
-            <rect x="5" y="20" width="30" height="10" style="fill:red" />
-            <rect x="10" y="35" width="20" height="10" style="fill:yellow" />
-            <rect x="15" y="50" width="10" height="10" style="fill:pink" />
+            {sep.join(list(map(lambda obj: f'<rect x="{obj[0]*5}" y="5" width="{obj[1]*10}" height="10" style="fill:{colors[obj[1]]}" />', enumerate(tower))))}
         </g>
     </g>
     """
+
+def plot_game(towers: list[list[Block]]):
+    return svg_head(
+        child=head(
+            0, 0,
+            "\n\t\t".join(
+                list(
+                    map(
+                        lambda cur: plot_tower(cur[1],
+                        f"Tower{cur[0]}", 30+cur[0]*50, 0),
+                        enumerate(towers)
+                    )
+                )
+            )
+        )
+    )
