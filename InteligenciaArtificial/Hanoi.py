@@ -1,7 +1,19 @@
 from hanoi_lib import HanoiState, Tree, Node
 import os
 
-tree = Tree(Node(HanoiState([ 3, 2, 1 ])))
+if not os.path.exists(os.path.join(os.getcwd(), 'path')):
+    os.mkdir("path", 0o777)
+
+
+test = HanoiState([ 2 ], [ 1 ])
+with open(f"path/test-1.svg", "w") as f: f.write(test.generateImage())
+
+for i, case in enumerate(test.generatePossibleWays(), start=1):
+    with open(f"path/test-{i+1}.svg", "w") as f: f.write(case.generateImage())
+
+exit(0)
+
+tree = Tree(Node(HanoiState([ 2, 1 ])))
 
 print("Mounting tree...")
 tree.mountTree(tree.root)
@@ -19,8 +31,6 @@ sucess, path = tree.dfs(tree.root, lambda node: goalFunction(node))
 if sucess: print("Path found")
 else: print("No path found")
 
-if not os.path.exists(os.path.join(os.getcwd(), 'path')):
-    os.mkdir("path", 0o777)
 for i, step in enumerate(path):
     with open(f"path/step-{i+1}.svg", "w") as f:
         f.write(step.get_state().generateImage(label=f"Passo {i+1}"))
