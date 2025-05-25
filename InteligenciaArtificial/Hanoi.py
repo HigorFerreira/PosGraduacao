@@ -15,15 +15,15 @@ if not os.path.exists(os.path.join(os.getcwd(), 'path')):
 # shutil.rmtree(os.path.join(os.getcwd(), "path"), ignore_errors=True)
 # exit(0)
 
-test = HanoiState([ 2 ], [ 1 ])
-with open(f"path/test-1.svg", "w") as f: f.write(test.generateImage())
+# test = HanoiState([ 2 ], [ 1 ])
+# with open(f"path/test-1.svg", "w") as f: f.write(test.generateImage())
 
-for i, case in enumerate(test.generatePossibleWays(), start=1):
-    with open(f"path/test-{i+1}.svg", "w") as f: f.write(case.generateImage())
+# for i, case in enumerate(test.generatePossibleWays(), start=1):
+#     with open(f"path/test-{i+1}.svg", "w") as f: f.write(case.generateImage())
 
-input("Type anything to delete path")
-shutil.rmtree(os.path.join(os.getcwd(), "path"), ignore_errors=True)
-exit(0)
+# input("Type anything to delete path")
+# shutil.rmtree(os.path.join(os.getcwd(), "path"), ignore_errors=True)
+# exit(0)
 
 tree = Tree(Node(HanoiState([ 3, 2, 1 ])))
 
@@ -46,3 +46,6 @@ else: print("No path found")
 for i, step in enumerate(path):
     with open(f"path/step-{i+1}.svg", "w") as f:
         f.write(step.get_state().generateImage(label=f"Passo {i+1}"))
+
+input("Type anything to delete path")
+shutil.rmtree(os.path.join(os.getcwd(), "path"), ignore_errors=True)
