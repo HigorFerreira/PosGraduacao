@@ -18,30 +18,22 @@ class HanoiState:
         return True
 
     def generatePossibleWays(self) -> list['HanoiState']:
-        states = []
+        states: list['HanoiState'] = []
+        towers = [
+            self.towers[0].copy(),
+            self.towers[1].copy(),
+            self.towers[2].copy(),
+        ]
 
-        for i, tower in enumerate(self.towers):
-            if len(tower) == 0:
-                continue
-            
-            from_towers = set(range(len(self.towers)))
-            from_towers.remove(i)
-
-            old_tower = tower.copy()
-            popped_block = old_tower.pop()
-            for j in list(from_towers):
-                new_towers = [
-                    self.towers[0].copy(),
-                    self.towers[1].copy(),
-                    self.towers[2].copy(),
-                ]
-                new_towers[i] = old_tower
-                new_towers[j].append(popped_block)
-                states.append(HanoiState(
-                    new_towers[0],
-                    new_towers[1],
-                    new_towers[2],
-                ))
+        for i, tower in enumerate(towers):
+            tower_indexes = set(range(3))
+            tower_indexes.remove(i)
+            for j in tower_indexes:
+                target_tower = towers[j]
+                if len(tower) == 0: break
+                block = tower.pop()
+                target_tower.append(block)
+                states.append(HanoiState(towers[0], towers[1], towers[2]))
 
         return states
 

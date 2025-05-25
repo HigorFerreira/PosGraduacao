@@ -15,8 +15,8 @@ def goalFunction(node: Node):
     return len(towerA) == 0 and len(towerB) == 0 or len(towerA) == 0 and len(towerC) == 0
 
 print("Finding a path...")
-path = tree.dfs(tree.root, lambda node: goalFunction(node))
-if len(path) != 0: print("Path found")
+sucess, path = tree.dfs(tree.root, lambda node: goalFunction(node))
+if sucess: print("Path found")
 else: print("No path found")
 
 if not os.path.exists(os.path.join(os.getcwd(), 'path')):

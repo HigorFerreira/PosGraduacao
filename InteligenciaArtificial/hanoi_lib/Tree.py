@@ -14,7 +14,7 @@ class Tree:
         for child in base.get_children():
             self.mountTree(child, level+1, maxLevel)
 
-    def dfs(self, start_node: Node, check: Callable[['Node'], bool]):
+    def dfs(self, start_node: Node, check: Callable[['Node'], bool]) -> tuple[bool, list[Node]]:
         counter = 0
         visited: set[str] = set()
         stack: list[Node] = []
@@ -23,7 +23,7 @@ class Tree:
         stack.append(start_node)
         
         while True:
-            if len(stack) == 0: return []
+            if len(stack) == 0: return False, processed_stack
             node = stack.pop()
             if node.get_state().serialize() in visited: continue
             if not node.get_state().isValid(): continue
@@ -36,5 +36,5 @@ class Tree:
             # print(stack)
             # return processed_stack
             counter += 1
-            if(check(node)): return processed_stack
+            if(check(node)): return True, processed_stack
 
