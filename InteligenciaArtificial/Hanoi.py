@@ -1,7 +1,7 @@
 from hanoi_lib import HanoiState, Tree, Node
 import os
 
-tree = Tree(Node(HanoiState([ 3, 2, 1 ])))
+tree = Tree(Node(HanoiState([ 2, 1 ])))
 
 print("Mounting tree...")
 tree.mountTree(tree.root)
