@@ -6,6 +6,8 @@ def svg_head(width=160, height=120, child=""):
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 {width} {height}"
+        width="{5*width}px"
+        height="{5*height}px"
         >
         {child}
     </svg>
@@ -18,7 +20,7 @@ def head(x=0, y=0, child="", label=""):
     \r</text>"""
     
     return f"""
-    <g>
+    <g transform="scale({1},{1})">
         <g transform="translate({x},{y})">
             <rect width="160" height="120" style="fill:white" />
             
