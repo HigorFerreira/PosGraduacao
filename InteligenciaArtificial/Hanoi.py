@@ -11,6 +11,8 @@ if not os.path.exists(os.path.join(os.getcwd(), 'path')):
 # test_tower_a.pop()
 # test_tower_a.pop()
 # with open(f"path/test-imutable.svg", "w") as f: f.write(imutable.generateImage())
+# input("Type anything to delete path")
+# shutil.rmtree(os.path.join(os.getcwd(), "path"), ignore_errors=True)
 # exit(0)
 
 test = HanoiState([ 2 ], [ 1 ])
