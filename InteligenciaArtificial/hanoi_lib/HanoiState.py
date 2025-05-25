@@ -38,7 +38,7 @@ class HanoiState:
                         towers[2],
                     ))
 
-                return states
+        return states
 
     def generateImage(self, x=0, y=0, label=""):
         return plot_game(self.towers, label=label)
