@@ -4,7 +4,16 @@ tree = Tree(Node(HanoiState([ 3, 2, 1 ])))
 
 tree.mountTree(tree.root)
 
-path = tree.dfs(tree.root, lambda node: len(node.get_state().towers[0]) == 0)
+def goalFunction(node: Node):
+    towerA = node.get_state().towers[0]
+    towerB = node.get_state().towers[0]
+    towerC = node.get_state().towers[0]
+
+    return len(towerA) == 0 and len(towerB) == 0\
+        or len(towerA) == 0 and len(towerC) == 0
+
+
+path = tree.dfs(tree.root, lambda node: goalFunction(node))
 print("\n\nPATH", path)
 
 with open('test.svg', 'w') as f: f.write(path[0].get_state().generateImage())
