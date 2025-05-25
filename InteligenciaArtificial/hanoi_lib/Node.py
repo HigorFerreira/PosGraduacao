@@ -2,7 +2,7 @@ from .HanoiState import HanoiState
 
 class Node:
     state: HanoiState
-    children: list['Node']
+    children: list['Node'] = []
     def __init__(self, state: HanoiState):
         self.state = state
 
