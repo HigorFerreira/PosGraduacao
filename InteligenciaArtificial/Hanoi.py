@@ -2,6 +2,12 @@ from hanoi_lib import HanoiState, Tree, Node
 import os
 import shutil
 
+def end():
+    input("Type anything to delete path")
+    shutil.rmtree(os.path.join(os.getcwd(), "path"), ignore_errors=True)
+    shutil.rmtree(os.path.join(os.getcwd(), "__pycache__"), ignore_errors=True)
+    exit(0)
+
 if not os.path.exists(os.path.join(os.getcwd(), 'path')):
     os.mkdir("path", 0o777)
 
@@ -11,19 +17,16 @@ if not os.path.exists(os.path.join(os.getcwd(), 'path')):
 # test_tower_a.pop()
 # test_tower_a.pop()
 # with open(f"path/test-imutable.svg", "w") as f: f.write(imutable.generateImage())
-# input("Type anything to delete path")
-# shutil.rmtree(os.path.join(os.getcwd(), "path"), ignore_errors=True)
-# exit(0)
 
-test = HanoiState([ 2 ], [ 1 ])
-with open(f"path/test-1.svg", "w") as f: f.write(test.generateImage())
+# end()
 
-for i, case in enumerate(test.generatePossibleWays(), start=1):
-    with open(f"path/test-{i+1}.svg", "w") as f: f.write(case.generateImage())
+# test = HanoiState([ 2 ], [ 1 ])
+# with open(f"path/test-1.svg", "w") as f: f.write(test.generateImage())
 
-input("Type anything to delete path")
-shutil.rmtree(os.path.join(os.getcwd(), "path"), ignore_errors=True)
-exit(0)
+# for i, case in enumerate(test.generatePossibleWays(), start=1):
+#     with open(f"path/test-{i+1}.svg", "w") as f: f.write(case.generateImage())
+
+# end()
 
 tree = Tree(Node(HanoiState([ 3, 2, 1 ])))
 
@@ -47,5 +50,4 @@ for i, step in enumerate(path):
     with open(f"path/step-{i+1}.svg", "w") as f:
         f.write(step.get_state().generateImage(label=f"Passo {i+1}"))
 
-input("Type anything to delete path")
-shutil.rmtree(os.path.join(os.getcwd(), "path"), ignore_errors=True)
+end()
