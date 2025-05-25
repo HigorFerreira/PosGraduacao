@@ -5,7 +5,14 @@ if not os.path.exists(os.path.join(os.getcwd(), 'path')):
     os.mkdir("path", 0o777)
 
 
-test = HanoiState([ 2 ], [ 1 ])
+test_tower_a = [ 4, 3, 2, 1 ]
+imutable = HanoiState(test_tower_a)
+test_tower_a.pop()
+test_tower_a.pop()
+with open(f"path/test-imutable.svg", "w") as f: f.write(imutable.generateImage())
+exit(0)
+
+test = HanoiState([ 3, 2, 1 ])
 with open(f"path/test-1.svg", "w") as f: f.write(test.generateImage())
 
 for i, case in enumerate(test.generatePossibleWays(), start=1):
