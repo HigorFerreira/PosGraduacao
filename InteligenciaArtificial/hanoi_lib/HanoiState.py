@@ -22,7 +22,7 @@ class HanoiState:
         return True
 
     def generatePossibleWays(self) -> list['HanoiState']:
-        states = []
+        states: list['HanoiState'] = []
 
         for i in range(len(self.towers)):
             towers = copy.deepcopy(self.towers)
