@@ -5,9 +5,9 @@ class HanoiState:
     towers: list[list[Block]]
     def __init__(self, towerA: list[Block] = [], towerB: list[Block] = [], towerC: list[Block] = []):
         self.towers = [
-            towerA,
-            towerB,
-            towerC,
+            towerA.copy(),
+            towerB.copy(),
+            towerC.copy(),
         ]
 
     def isValid(self) -> bool:
@@ -18,30 +18,23 @@ class HanoiState:
         return True
 
     def generatePossibleWays(self) -> list['HanoiState']:
-        states = []
+        states: list['HanoiState'] = []
 
-        for i, tower in enumerate(self.towers):
-            if len(tower) == 0:
-                continue
-            
-            from_towers = set(range(len(self.towers)))
-            from_towers.remove(i)
-
-            old_tower = tower.copy()
-            popped_block = old_tower.pop()
-            for j in list(from_towers):
-                new_towers = [
-                    self.towers[0].copy(),
-                    self.towers[1].copy(),
-                    self.towers[2].copy(),
-                ]
-                new_towers[i] = old_tower
-                new_towers[j].append(popped_block)
+        for i in range(len(self.towers)):
+            towers = list(map(lambda tower: tower.copy(), self.towers))
+            indexes = set(range(len(self.towers)))
+            indexes.remove(i)
+            if len(towers[i]) == 0: continue
+            block = towers[i].pop()
+            for j in indexes:
+                towers[j].append(block)
                 states.append(HanoiState(
-                    new_towers[0],
-                    new_towers[1],
-                    new_towers[2],
+                    towers[0],
+                    towers[1],
+                    towers[2],
                 ))
+                # towers[j].pop()
+                # towers[i].append(block)
 
         return states
 
