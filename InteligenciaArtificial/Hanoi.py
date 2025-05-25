@@ -1,5 +1,6 @@
 from hanoi_lib import HanoiState, Tree, Node
 import os
+import shutil
 
 if not os.path.exists(os.path.join(os.getcwd(), 'path')):
     os.mkdir("path", 0o777)
@@ -12,13 +13,15 @@ if not os.path.exists(os.path.join(os.getcwd(), 'path')):
 # with open(f"path/test-imutable.svg", "w") as f: f.write(imutable.generateImage())
 # exit(0)
 
-# test = HanoiState([ 2 ], [ 1 ])
-# with open(f"path/test-1.svg", "w") as f: f.write(test.generateImage())
+test = HanoiState([ 2 ], [ 1 ])
+with open(f"path/test-1.svg", "w") as f: f.write(test.generateImage())
 
-# for i, case in enumerate(test.generatePossibleWays(), start=1):
-#     with open(f"path/test-{i+1}.svg", "w") as f: f.write(case.generateImage())
+for i, case in enumerate(test.generatePossibleWays(), start=1):
+    with open(f"path/test-{i+1}.svg", "w") as f: f.write(case.generateImage())
 
-# exit(0)
+input("Type anything to delete path")
+shutil.rmtree(os.path.join(os.getcwd(), "path"), ignore_errors=True)
+exit(0)
 
 tree = Tree(Node(HanoiState([ 3, 2, 1 ])))
 
