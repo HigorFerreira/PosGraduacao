@@ -34,10 +34,10 @@ def head(x=0, y=0, child="", label=""):
 
 def plot_tower(tower: list[Block], id: str, x: int, y: int):
     colors = {
-        "4": "blue",
-        "3": "red",
-        "2": "yellow",
-        "1": "pink",
+        "4": "#2A5CAA",
+        "3": "#1A9BDB",
+        "2": "#2EC4E6",
+        "1": "#00FFFF",
     }
 
     sep = "\n\t\t\t"
