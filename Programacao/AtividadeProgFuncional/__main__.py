@@ -63,9 +63,14 @@ class BinaryTree:
             
 a = Node(5)
 b = Node(2)
+c = Node(5)
 
 print(a)
 print(b)
 print(a == b)
+print()
 print(a > b)
 print(a < b)
+print()
+print(a > c)
+print(a >= c)
