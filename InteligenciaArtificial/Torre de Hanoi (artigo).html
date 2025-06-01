@@ -1,0 +1,262 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome file</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="torre-de-hanoi-artigo">Torre de Hanoi (artigo)</h1>
+<p>By: Higor Ferreira Alves Santos<br>
+<strong>v1.0</strong></p>
+<hr>
+<h2 id="proposta">Proposta</h2>
+<p>Usar o algorítmo DFS (Depth First Search. Busca em profundidade), para solucionar o jogo da torre de Hanoi</p>
+<h2 id="resumo">Resumo</h2>
+<p>Para propósitos de desafio, optou-se por não utilizar nenhuma bilbioteca externa ao python afim de se tentar aplicar o conceito puramente nos recursos oferecidos pela linguagem no prazo definido pelo orientador (23/05/2025).  O algorítmo retorna ao final um caminho solução para o problema. Até a data de 25/05/2025, o algorítmo ainda não está retornando uma resposta satisfatória para o jogo com três blocos, mas apenas para 2. Acredita-se que o problema está em como os nós filhos são gerados, a combinação de diferentes estados a partir de um estado pai não está gerando passos considerados corretos dentro das normas do jogo.<br>
+Para desenhar a sequência de passos foi escolhido o padrão SVG (Scalable Vector Graphics). Padrão este de fácil compreenção tanto para seres humanos, quanto facilmente lido por qualquer navegador Web ou aplicativo de visualização de fotos.</p>
+<h3 id="solução-para-dois-blocos">Solução para dois blocos:</h3>
+<div style="display: grid; grid-template-columns: repeat(2,1fr);row-gap:70px;">
+    <img src="/solution2/step-1.svg" />
+    <img src="/solution2/step-2.svg" />
+    <img src="/solution2/step-3.svg" />
+    <img src="/solution2/step-4.svg" />
+    <img src="/solution2/step-5.svg" />
+</div>
+<p>Nota-se que a solução se dá em 5 passos, com o passo 2 parecendo-se desnecessário.</p>
+<h3 id="solução-para-três-blocos">Solução para três blocos:</h3>
+<div style="display: grid; grid-template-columns: repeat(2,1fr);row-gap:70px;">
+    <img src="/solution3/step-1.svg" />
+    <img src="/solution3/step-2.svg" />
+    <img src="/solution3/step-3.svg" />
+    <img src="/solution3/step-4.svg" />
+    <img src="/solution3/step-5.svg" />
+    <img src="/solution3/step-6.svg" />
+    <img src="/solution3/step-7.svg" />
+    <img src="/solution3/step-8.svg" />
+    <img src="/solution3/step-9.svg" />
+    <img src="/solution3/step-10.svg" />
+    <img src="/solution3/step-11.svg" />
+    <img src="/solution3/step-12.svg" />
+    <img src="/solution3/step-13.svg" />
+    <img src="/solution3/step-14.svg" />
+    <img src="/solution3/step-15.svg" />
+    <img src="/solution3/step-16.svg" />
+    <img src="/solution3/step-17.svg" />
+    <img src="/solution3/step-18.svg" />
+    <img src="/solution3/step-19.svg" />
+
+</div>
+<p>Aqui podemos notar claramente onde o algorítimo se perde. Do passo 10 para o passo 11, as torres 2 e 3 simplesmente trocam de lugar. Algo semelhante também ocorre do passo 15 para o 16 e 17.</p>
+<h2 id="implementação">Implementação</h2>
+<p>O ponto de entrada do código é o arquivo <strong><a href="http://Hanoi.py">Hanoi.py</a></strong>. Todo o código fonte pode ser encontrado em <a href="https://github.com/HigorFerreira/PosGraduacao/tree/master/InteligenciaArtificial">https://github.com/HigorFerreira/PosGraduacao/tree/master/InteligenciaArtificial</a>, <strong>commit c5e65541e7300aa641a64794e87edfed644991f4</strong>.</p>
+<hr>
+<blockquote>
+<p><a href="http://Hanoi.py">Hanoi.py</a></p>
+</blockquote>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> hanoi_lib <span class="token keyword">import</span> HanoiState<span class="token punctuation">,</span> Tree<span class="token punctuation">,</span> Node
+<span class="token keyword">import</span> os
+
+<span class="token comment"># Criando a árvore</span>
+tree <span class="token operator">=</span> Tree<span class="token punctuation">(</span>Node<span class="token punctuation">(</span>HanoiState<span class="token punctuation">(</span><span class="token punctuation">[</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span> <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Montando a árvore</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Mounting tree..."</span><span class="token punctuation">)</span>
+tree<span class="token punctuation">.</span>mountTree<span class="token punctuation">(</span>tree<span class="token punctuation">.</span>root<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Tree mountted"</span><span class="token punctuation">)</span>
+
+
+<span class="token comment"># Função Objetivo</span>
+<span class="token keyword">def</span> <span class="token function">goalFunction</span><span class="token punctuation">(</span>node<span class="token punctuation">:</span> Node<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    towerA <span class="token operator">=</span> node<span class="token punctuation">.</span>get_state<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>towers<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+    towerB <span class="token operator">=</span> node<span class="token punctuation">.</span>get_state<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>towers<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+    towerC <span class="token operator">=</span> node<span class="token punctuation">.</span>get_state<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>towers<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">return</span> <span class="token builtin">len</span><span class="token punctuation">(</span>towerA<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">and</span> <span class="token builtin">len</span><span class="token punctuation">(</span>towerB<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">or</span> <span class="token builtin">len</span><span class="token punctuation">(</span>towerA<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">and</span> <span class="token builtin">len</span><span class="token punctuation">(</span>towerC<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span>
+
+<span class="token comment"># Utilizando DFS para procurar a solução</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Finding a path..."</span><span class="token punctuation">)</span>
+sucess<span class="token punctuation">,</span> path <span class="token operator">=</span> tree<span class="token punctuation">.</span>dfs<span class="token punctuation">(</span>tree<span class="token punctuation">.</span>root<span class="token punctuation">,</span> <span class="token keyword">lambda</span> node<span class="token punctuation">:</span> goalFunction<span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> sucess<span class="token punctuation">:</span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Path found"</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"No path found"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Desenhando os passos</span>
+<span class="token keyword">if</span> <span class="token operator">not</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>exists<span class="token punctuation">(</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>os<span class="token punctuation">.</span>getcwd<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    os<span class="token punctuation">.</span>mkdir<span class="token punctuation">(</span><span class="token string">"path"</span><span class="token punctuation">,</span> <span class="token number">0o777</span><span class="token punctuation">)</span>
+
+<span class="token keyword">for</span> i<span class="token punctuation">,</span> step <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span>f<span class="token string">"path/step-{i+1}.svg"</span><span class="token punctuation">,</span> <span class="token string">"w"</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+        f<span class="token punctuation">.</span>write<span class="token punctuation">(</span>step<span class="token punctuation">.</span>get_state<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>generateImage<span class="token punctuation">(</span>label<span class="token operator">=</span>f<span class="token string">"Passo {i+1}"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Nota-se que o DFS utiliza uma <strong>lambda function</strong> para testar se a condição desejada foi alcançada:</p>
+<pre class=" language-python"><code class="prism  language-python">sucess<span class="token punctuation">,</span> path <span class="token operator">=</span> tree<span class="token punctuation">.</span>dfs<span class="token punctuation">(</span>tree<span class="token punctuation">.</span>root<span class="token punctuation">,</span> <span class="token keyword">lambda</span> node<span class="token punctuation">:</span> goalFunction<span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p>A condição desejada é quando há duas torres vazias, e uma delas é a torre inicial:</p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">def</span> <span class="token function">goalFunction</span><span class="token punctuation">(</span>node<span class="token punctuation">:</span> Node<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    towerA <span class="token operator">=</span> node<span class="token punctuation">.</span>get_state<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>towers<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+    towerB <span class="token operator">=</span> node<span class="token punctuation">.</span>get_state<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>towers<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+    towerC <span class="token operator">=</span> node<span class="token punctuation">.</span>get_state<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>towers<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">return</span> <span class="token builtin">len</span><span class="token punctuation">(</span>towerA<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">and</span> <span class="token builtin">len</span><span class="token punctuation">(</span>towerB<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">or</span> <span class="token builtin">len</span><span class="token punctuation">(</span>towerA<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">and</span> <span class="token builtin">len</span><span class="token punctuation">(</span>towerC<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span>
+</code></pre>
+<hr>
+<h3 id="modelagem">Modelagem</h3>
+<p>Para modelar o jogo, optou-se por uma lista de três listas de <strong>blocos</strong>, cada um representando uma torre. Os blocos são simplesmente número que variam de 1 a 4. Naturalmente, 4 é o maior bloco possível e 1 o menor:</p>
+<blockquote>
+<p>hanoi_lib/HanoiState.py</p>
+</blockquote>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> <span class="token punctuation">.</span>types <span class="token keyword">import</span> Block
+<span class="token keyword">from</span> image_build <span class="token keyword">import</span> plot_game
+<span class="token keyword">import</span> copy
+
+<span class="token keyword">class</span> <span class="token class-name">HanoiState</span><span class="token punctuation">:</span>
+    towers<span class="token punctuation">:</span> <span class="token builtin">list</span><span class="token punctuation">[</span><span class="token builtin">list</span><span class="token punctuation">[</span>Block<span class="token punctuation">]</span><span class="token punctuation">]</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span>
+	    towerA<span class="token punctuation">:</span> <span class="token builtin">list</span><span class="token punctuation">[</span>Block<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+	    towerB<span class="token punctuation">:</span> <span class="token builtin">list</span><span class="token punctuation">[</span>Block<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+	    towerC<span class="token punctuation">:</span> <span class="token builtin">list</span><span class="token punctuation">[</span>Block<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+	<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>towers <span class="token operator">=</span> <span class="token punctuation">[</span>
+            copy<span class="token punctuation">.</span>deepcopy<span class="token punctuation">(</span>towerA<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            copy<span class="token punctuation">.</span>deepcopy<span class="token punctuation">(</span>towerB<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            copy<span class="token punctuation">.</span>deepcopy<span class="token punctuation">(</span>towerC<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token comment"># towerA,</span>
+            <span class="token comment"># towerB,</span>
+            <span class="token comment"># towerC,</span>
+        <span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">isValid</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token builtin">bool</span><span class="token punctuation">:</span>
+        <span class="token keyword">for</span> tower <span class="token keyword">in</span> self<span class="token punctuation">.</span>towers<span class="token punctuation">:</span>
+            <span class="token keyword">for</span> i<span class="token punctuation">,</span> block <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>tower<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">if</span> i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span> <span class="token keyword">continue</span>
+                <span class="token keyword">if</span> block <span class="token operator">&gt;</span> tower<span class="token punctuation">[</span>i<span class="token number">-1</span><span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token keyword">return</span> <span class="token boolean">False</span>
+        <span class="token keyword">return</span> <span class="token boolean">True</span>
+
+    <span class="token keyword">def</span> <span class="token function">generatePossibleWays</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token builtin">list</span><span class="token punctuation">[</span><span class="token string">'HanoiState'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+        states<span class="token punctuation">:</span> <span class="token builtin">list</span><span class="token punctuation">[</span><span class="token string">'HanoiState'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>towers<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>towers<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                indexes <span class="token operator">=</span> <span class="token builtin">set</span><span class="token punctuation">(</span><span class="token builtin">range</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>towers<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                indexes<span class="token punctuation">.</span>remove<span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+                <span class="token keyword">for</span> j <span class="token keyword">in</span> indexes<span class="token punctuation">:</span>
+                    towers <span class="token operator">=</span> copy<span class="token punctuation">.</span>deepcopy<span class="token punctuation">(</span>self<span class="token punctuation">.</span>towers<span class="token punctuation">)</span>
+                    block <span class="token operator">=</span> towers<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+                    towers<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">.</span>append<span class="token punctuation">(</span>block<span class="token punctuation">)</span>
+                    states<span class="token punctuation">.</span>append<span class="token punctuation">(</span>HanoiState<span class="token punctuation">(</span>
+                        towers<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                        towers<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                        towers<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+        <span class="token keyword">return</span> states
+
+    <span class="token keyword">def</span> <span class="token function">generateImage</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> y<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> label<span class="token operator">=</span><span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> plot_game<span class="token punctuation">(</span>self<span class="token punctuation">.</span>towers<span class="token punctuation">,</span> label<span class="token operator">=</span>label<span class="token punctuation">)</span>
+    
+    <span class="token keyword">def</span> <span class="token function">serialize</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">"\n"</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>
+            <span class="token builtin">list</span><span class="token punctuation">(</span><span class="token builtin">map</span><span class="token punctuation">(</span>
+                <span class="token keyword">lambda</span> blocks<span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token builtin">list</span><span class="token punctuation">(</span><span class="token builtin">map</span><span class="token punctuation">(</span><span class="token keyword">lambda</span> block<span class="token punctuation">:</span> f<span class="token string">"{block}"</span><span class="token punctuation">,</span> blocks<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                self<span class="token punctuation">.</span>towers
+            <span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span>
+    
+    <span class="token keyword">def</span> <span class="token function">__eq__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token builtin">type</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token operator">==</span> HanoiState<span class="token punctuation">:</span> <span class="token keyword">return</span> self<span class="token punctuation">.</span>serialize<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> value<span class="token punctuation">.</span>serialize<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> <span class="token builtin">type</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token builtin">str</span><span class="token punctuation">:</span> <span class="token keyword">return</span> self<span class="token punctuation">.</span>serialize<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> value
+        <span class="token keyword">else</span><span class="token punctuation">:</span> <span class="token keyword">return</span> <span class="token boolean">False</span>  
+</code></pre>
+<p>Cada instância <strong>HanoiState</strong> recebe uma cópia das torres que são passadas pois o estado deve ser <strong>imutável</strong>. Isto é bastante útil para a função <strong>generatePossibleWays</strong>, pois a partir de um estado pai, diversas manipulações são feitas de forma a gerar os estados filhos, de forma que o estado pai continue mantendo seu estado após operações de <strong>desempilhamento</strong> em suas respectivas torres.<br>
+É a função <strong>generatePossibleWays</strong> em que acredita-se estar gerando os estados problemáticos da solução de três blocos discutida anteriormente.<br>
+A função <strong>isValid</strong> checa se não há blocos maiores por cima de blocos menores. Mais tarde, esta funcão ajudará o dfs no percorrimento.<br>
+A função <strong>generateImage</strong> gera a imagem do estado atual.<br>
+as função <strong>serialize</strong> e <strong>__eq__</strong> trabalham em conjunto para testar se dois estados são iguais. Graças a ela, a saída do seguinte código é <strong>True</strong>:</p>
+<pre class=" language-python"><code class="prism  language-python">a <span class="token operator">=</span> HanoiState<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+b <span class="token operator">=</span> HanoiState<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>a <span class="token operator">==</span> b<span class="token punctuation">)</span>
+</code></pre>
+<p>Mesmo que sejam objetos diferentes, seus estados representam a mesma coisa, e tal igualdade será avaliada como verdadeira.</p>
+<h3 id="nó">Nó</h3>
+<p>Um nó consiste basicamente de seu estado e seus estados filhos.</p>
+<blockquote>
+<p>hanoi_lib/Node.py</p>
+</blockquote>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> <span class="token punctuation">.</span>HanoiState <span class="token keyword">import</span> HanoiState
+
+<span class="token keyword">class</span> <span class="token class-name">Node</span><span class="token punctuation">:</span>
+    state<span class="token punctuation">:</span> HanoiState
+    children<span class="token punctuation">:</span> <span class="token builtin">list</span><span class="token punctuation">[</span><span class="token string">'Node'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> state<span class="token punctuation">:</span> HanoiState<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>state <span class="token operator">=</span> state
+
+    <span class="token keyword">def</span> <span class="token function">set_children</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> children<span class="token punctuation">:</span> <span class="token builtin">list</span><span class="token punctuation">[</span><span class="token string">'Node'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>children <span class="token operator">=</span> children
+
+    <span class="token keyword">def</span> <span class="token function">get_children</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">return</span> self<span class="token punctuation">.</span>children
+
+    <span class="token keyword">def</span> <span class="token function">get_state</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>state
+</code></pre>
+<h3 id="árvore-tree">Árvore (tree)</h3>
+<p>A montagem da árvore ocorre nesta parte. Em <strong>mountTree</strong> pode-se notar o uso do <strong>generatePossibleWays</strong> nos nós. A montagem é feita até o décimo nó de profundidade, pois a partir disso, o consumo de memória começa a se tornar insustentável. Uma possível melhor abordagem para solucionar este problema é montar a árvore dinamicamente a medida que o DFS vai percorrendo-a:</p>
+<pre class=" language-python"><code class="prism  language-python"><span class="token keyword">from</span> hanoi_lib <span class="token keyword">import</span> Node
+<span class="token keyword">from</span> typing <span class="token keyword">import</span> Callable
+
+<span class="token keyword">class</span> <span class="token class-name">Tree</span><span class="token punctuation">:</span>
+    root<span class="token punctuation">:</span> Node
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> root<span class="token punctuation">:</span> Node<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>root <span class="token operator">=</span> root
+
+    <span class="token keyword">def</span> <span class="token function">mountTree</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> base<span class="token punctuation">:</span> Node<span class="token punctuation">,</span> level<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> maxLevel<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> level <span class="token operator">==</span> maxLevel<span class="token punctuation">:</span> <span class="token keyword">return</span>
+        ways <span class="token operator">=</span> base<span class="token punctuation">.</span>get_state<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>generatePossibleWays<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        ways <span class="token operator">=</span> <span class="token builtin">list</span><span class="token punctuation">(</span><span class="token builtin">map</span><span class="token punctuation">(</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> Node<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">,</span> ways<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        base<span class="token punctuation">.</span>set_children<span class="token punctuation">(</span>ways<span class="token punctuation">)</span>
+        <span class="token keyword">for</span> child <span class="token keyword">in</span> base<span class="token punctuation">.</span>get_children<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>mountTree<span class="token punctuation">(</span>child<span class="token punctuation">,</span> level<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span> maxLevel<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">dfs</span><span class="token punctuation">(</span>
+		    self<span class="token punctuation">,</span>
+		    start_node<span class="token punctuation">:</span> Node<span class="token punctuation">,</span>
+		    check<span class="token punctuation">:</span> Callable<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token string">'Node'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token builtin">bool</span><span class="token punctuation">]</span>
+	    <span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token builtin">tuple</span><span class="token punctuation">[</span><span class="token builtin">bool</span><span class="token punctuation">,</span> <span class="token builtin">list</span><span class="token punctuation">[</span>Node<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+	    
+        counter <span class="token operator">=</span> <span class="token number">0</span>
+        visited<span class="token punctuation">:</span> <span class="token builtin">set</span><span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token builtin">set</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        stack<span class="token punctuation">:</span> <span class="token builtin">list</span><span class="token punctuation">[</span>Node<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        processed_stack<span class="token punctuation">:</span> <span class="token builtin">list</span><span class="token punctuation">[</span>Node<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+        stack<span class="token punctuation">.</span>append<span class="token punctuation">(</span>start_node<span class="token punctuation">)</span>
+
+        <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>stack<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span> <span class="token keyword">return</span> <span class="token boolean">False</span><span class="token punctuation">,</span> processed_stack
+            node <span class="token operator">=</span> stack<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> node<span class="token punctuation">.</span>get_state<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>serialize<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">in</span> visited<span class="token punctuation">:</span> <span class="token keyword">continue</span>
+            <span class="token keyword">if</span> <span class="token operator">not</span> node<span class="token punctuation">.</span>get_state<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>isValid<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">continue</span>
+
+            <span class="token comment"># print(stack)</span>
+            visited<span class="token punctuation">.</span>add<span class="token punctuation">(</span>node<span class="token punctuation">.</span>get_state<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>serialize<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            processed_stack<span class="token punctuation">.</span>append<span class="token punctuation">(</span>node<span class="token punctuation">)</span>
+            <span class="token comment"># print(processed_stack)</span>
+            stack <span class="token operator">=</span> <span class="token punctuation">[</span> <span class="token operator">*</span>stack<span class="token punctuation">,</span> <span class="token operator">*</span>node<span class="token punctuation">.</span>get_children<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">]</span>
+            <span class="token comment"># print(stack)</span>
+            <span class="token comment"># return processed_stack</span>
+            counter <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>check<span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">return</span> <span class="token boolean">True</span><span class="token punctuation">,</span> processed_stack
+
+</code></pre>
+<p>A busca em profundidade é implementada na funcão <strong>dfs</strong>. Nota-se que o percorrimento é iniciado com um nó de partida. Utiliza-se um conjunto denominado <em><strong>visited</strong></em> para não entrar em nós já visitados. A função <strong>check</strong> que é recebida como parâmetro é utilizada como condição de parada do algorítimo. Caso a árvore seja percorrida em sucesso, o retorno é dado em: <code>if len(stack) == 0: return False, processed_stack</code>.</p>
+<h2 id="conclusão">Conclusão</h2>
+<p>O objetivo de encontrar uma solução para três blocos não foi alcançado, uma vez que a saída gera passos incorretos. Para futuro trabalho e revisão deste artigo, além de possíveis melhorias, é necessário:</p>
+<ul>
+<li>a) Melhorar a função <strong>generatePossibleWays</strong> para gerar filhos corretamente</li>
+<li>b) Montar a árvore dinamicamente para prevenir estouros de memória</li>
+</ul>
+</div>
+</body>
+
+</html>

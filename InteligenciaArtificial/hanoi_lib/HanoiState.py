@@ -25,18 +25,18 @@ class HanoiState:
         states: list['HanoiState'] = []
 
         for i in range(len(self.towers)):
-            indexes = set(range(len(self.towers)))
-            indexes.remove(i)
-            for j in indexes:
-                if len(self.towers[i]) == 0: continue
-                towers = copy.deepcopy(self.towers)
-                block = towers[i].pop()
-                towers[j].append(block)
-                states.append(HanoiState(
-                    towers[0],
-                    towers[1],
-                    towers[2],
-                ))
+            if len(self.towers[i]) != 0:
+                indexes = set(range(len(self.towers)))
+                indexes.remove(i)
+                for j in indexes:
+                    towers = copy.deepcopy(self.towers)
+                    block = towers[i].pop()
+                    towers[j].append(block)
+                    states.append(HanoiState(
+                        towers[0],
+                        towers[1],
+                        towers[2],
+                    ))
 
         return states
 

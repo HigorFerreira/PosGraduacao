@@ -21,7 +21,7 @@ class Tree:
         processed_stack: list[Node] = []
 
         stack.append(start_node)
-        
+
         while True:
             if len(stack) == 0: return False, processed_stack
             node = stack.pop()
