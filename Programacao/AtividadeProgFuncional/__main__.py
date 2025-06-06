@@ -4,7 +4,7 @@
 from typing import Callable, Literal, Optional
 
 
-class Node:
+class Node(int):
     value: int
     parent: Optional['Node']
     right: Optional['Node']
@@ -15,9 +15,17 @@ class Node:
         self.left = None
         self.right = None
         self.parent = None
+        
+    def __str__(self): return f'Node({self.value})'
 
-    def __str__(self):
-        return f'Node({self.value})'
+    
+    def __ge__(self, value: 'Node'): return self.value >= value.value
+    def __gt__(self, value: 'Node'): return self.value > value.value
+    def __le__(self, value: 'Node'): return self.value <= value.value
+    def __lt__(self, value: 'Node'): return self.value < value.value
+    def __eq__(self, value: 'Node'): return self.value == value.value
+    
+
 
 
 class BinaryTree:
@@ -39,10 +47,6 @@ class BinaryTree:
 
         node.parent = parent_node
 
-        print('Parent node:', parent_node)
-        print(f'{ 'Left' if left else 'Right' } Node', node)
-        print(20*'-', '\n')
-
     def walk(self, callback: Callable[[Node], Literal['right', 'left']], prev_node: Node | None = None, node: Node | None = None):
         if node is None: return self.walk(callback, self.root, self.root)
         
@@ -57,10 +61,16 @@ class BinaryTree:
                 if left is None: return prev_node
                 return self.walk(callback, prev_node, left)
             
+a = Node(5)
+b = Node(2)
+c = Node(5)
 
-tree = BinaryTree()
-tree.insert(Node(5))
-print(dict(tree=tree))
-tree.insert(Node(2))
-tree.insert(Node(1))
-tree.insert(Node(3))
+print(a)
+print(b)
+print(a == b)
+print()
+print(a > b)
+print(a < b)
+print()
+print(a > c)
+print(a >= c)
