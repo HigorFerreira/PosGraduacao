@@ -1,0 +1,131 @@
+% File: main.tex
+% Date: 2015, April
+% Authors: Gustavo Peixoto, Leon Lima.
+% Description: Latex template file for seminar short papers presented at PPG-EM/UERJ.
+% Version: 1.0
+% Available online on: www.gesar.uerj.br
+
+%% PREAMBLE
+\documentclass[date,twocolumn,a4paper]{ppgem} 
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{pgf-pie}
+
+
+
+\setlist{nolistsep}
+
+
+%% TITLE
+\Title{
+Python: Paradigma Funcional Aplicado à Transformação de Dados
+}
+
+% PLEASE, DO NOT CHANGE THE PAGENUMBER{2}
+\PageNumber{2}
+
+% %% INSTITUTION
+% \InstA{Rio de Janeiro State University} 
+% \InstB{} 
+
+\pagestyle{fancy}
+
+\begin{document}
+\thispagestyle{plain}
+\makeheader
+
+
+
+%% KEYWORDS
+% \begin{keywords}
+% Max of 4 keywords, comma separeted, {\LaTeX} typesetting, standardization.
+% \end{keywords}
+
+%% BODY
+\section*{RESUMO}
+Resumo aqui
+
+\section{INTRODUÇÃO}
+\subsection{Imutabilidade}
+\subsection{Funções puras}
+
+\section{OBJETIVO}
+
+
+\section{METODOLOGIA}
+
+\section{PRÁTICA}
+
+\subsection{List Comprehensions}
+\subsection{Funções de ordem superior}
+\subsection{Composição de Funções}
+\subsection{Pipelines de Transformação}
+
+% region
+% \section{DADOS DA PESQUISA}
+
+% Na tabela 1 podemos ver os dados colhidos da pesquisa
+
+% \begin{table}[h!]
+%   \centering
+%   \caption{Tabela com os dados dividos por gênero}
+%   \label{tbl:something}
+%   \renewcommand{\arraystretch}{1.5}
+%   \begin{tabular}{c c c c}
+%     \hline
+%     TOTAL & 208.901 & 316.546 & 525.447 \\
+%     \hline
+%     55 a 59 & 47.264 & 78.516 & 125.780 \\
+%     60 a 64 & 46.523 & 70.388 & 116.911 \\
+%     65 a 69 & 41.550 & 59.444 & 100.994 \\
+%     70 a 74 & 33.293 & 46.776 & 80.069 \\
+%     75 a 79 & 22.609 & 32.651 & 55.260 \\
+%     80 e + & 17.662 & 28.771 & 46.433 \\    
+%     \hline
+%   \end{tabular}
+% \end{table}
+
+% % =====================================================================
+
+% \section{GRÁFICOS}
+
+
+% \begin{tikzpicture}
+% \begin{axis}[
+%     ybar,
+%     symbolic x coords={55-59, 60-64, 65-69, 70-74, 75-79, 80+},
+%     xtick=data,
+%     bar width=8pt,
+%     x tick label style={rotate=45, anchor=east},
+%     legend style={at={(0.5,-0.15)},
+%     anchor=north,legend columns=-1},
+%     ymin=0,ymax=50,
+%     enlarge x limits=0.15
+% ]
+% \addplot[draw=blue,fill=blue] coordinates {
+%     (55-59, 47.264) (60-64, 46.523) (65-69, 41.55) (70-74, 33.293) (75-79, 22.609) (80+, 17.662)
+% };
+% \addplot[draw=red,fill=red] coordinates {
+%     (55-59, 47.264) (60-64, 46.523) (65-69, 41.55) (70-74, 33.293) (75-79, 22.609) (80+, 17.662)
+% };
+% \legend{Masculino, Feminino}
+% \end{axis}
+% \end{tikzpicture}
+
+
+% \begin{figure}[h!]
+%     \centering
+%     \caption{Distribuição entre os gêneros}
+%     \label{img:pizza}
+%     \begin{tikzpicture}
+%         \pie[rotate=90, text=legend, radius=2, before number=\phantom, after number=\%, explode=0.1, color={blue!50, red!50}]{
+%             39.76/Masculine,
+%             60.24/Feminino
+%         }
+%     \end{tikzpicture}
+% \end{figure}
+% endregion
+
+\end{document}
