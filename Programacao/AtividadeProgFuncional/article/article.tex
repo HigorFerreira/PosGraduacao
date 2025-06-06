@@ -1,161 +1,197 @@
-    % File: main.tex
-    % Date: 2015, April
-    % Authors: Gustavo Peixoto, Leon Lima.
-    % Description: Latex template file for seminar short papers presented at PPG-EM/UERJ.
-    % Version: 1.0
-    % Available online on: www.gesar.uerj.br
+% File: main.tex
+% Date: 2015, April
+% Authors: Gustavo Peixoto, Leon Lima.
+% Description: Latex template file for seminar short papers presented at PPG-EM/UERJ.
+% Version: 1.0
+% Available online on: www.gesar.uerj.br
 
-    %% PREAMBLE
-    \documentclass[date,twocolumn,a4paper]{ppgem} 
-    \usepackage{amsmath}
-    \usepackage{enumitem}
-    \usepackage{pgfplots}
-    \usepackage{tikz}
-    \usepackage{pgf-pie}
-
-
-
-    \setlist{nolistsep}
-
-
-    %% TITLE
-    \Title{
-    Python: Paradigma Funcional Aplicado à Transformação de Dados
-    }
-
-    % PLEASE, DO NOT CHANGE THE PAGENUMBER{2}
-    \PageNumber{2}
-
-    % %% INSTITUTION
-    % \InstA{Rio de Janeiro State University} 
-    % \InstB{} 
-
-    \pagestyle{fancy}
-
-    \begin{document}
-    \thispagestyle{plain}
-    \makeheader
+%% PREAMBLE
+\documentclass[date,twocolumn,a4paper]{ppgem} 
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{pgf-pie}
+\usepackage{minted}
 
 
 
-    %% KEYWORDS
-    % \begin{keywords}
-    % Max of 4 keywords, comma separeted, {\LaTeX} typesetting, standardization.
-    % \end{keywords}
+\setlist{nolistsep}
 
-    %% BODY
-    \section*{RESUMO}
-    Resumo aqui
 
-    \section{INTRODUÇÃO}
-    \subsection{Imutabilidade}
-    \subsection{Funções puras}
+%% TITLE
+\Title{
+Python: Paradigma Funcional Aplicado à Transformação de Dados
+}
 
-    \section{OBJETIVO}
-    O objetivo deste objeto é escrever código manutenível e de fácil compreensão se utilizando da abordagem funcional
-    afim de demonstrar os efeitos positivos do mesmo.
+% PLEASE, DO NOT CHANGE THE PAGENUMBER{2}
+\PageNumber{2}
 
-    \section{METODOLOGIA}
-    % O objetivo desta pesquisa é escrever código mantenível e de fácil compreensão, a fim de demonstrar os efeitos positivos do paradigma funcional. Para isso, serão comparadas (através de exemplos práticos) as abordagens de resolução de problemas sob as perspectivas do paradigma não funcional e funcional. Essa comparação permitirá avaliar as diferenças entre os paradigmas e observar características como:
+% %% INSTITUTION
+% \InstA{Rio de Janeiro State University} 
+% \InstB{} 
 
-    % * Facilidade de compreensão
-    % * Facilidade de manutenção
-    % * Clareza do código
-    % * Entre outros aspectos relevantes
-    Este estudo adotará uma abordagem comparativa entre os paradigmas funcional e imperativo, analisando soluções para problemas comuns em ambas as abordagens. A metodologia consistirá em:
+\pagestyle{fancy}
+
+\begin{document}
+\thispagestyle{plain}
+\makeheader
+
+
+
+%% KEYWORDS
+% \begin{keywords}
+% Max of 4 keywords, comma separeted, {\LaTeX} typesetting, standardization.
+% \end{keywords}
+
+%% BODY
+\section*{RESUMO}
+Resumo aqui
+
+\section{INTRODUÇÃO}
+\subsection{Imutabilidade}
+\subsection{Funções puras}
+
+\section{OBJETIVO}
+O objetivo deste objeto é escrever código manutenível e de fácil compreensão se utilizando da abordagem funcional
+afim de demonstrar os efeitos positivos do mesmo.
+
+\section{METODOLOGIA}
+% O objetivo desta pesquisa é escrever código mantenível e de fácil compreensão, a fim de demonstrar os efeitos positivos do paradigma funcional. Para isso, serão comparadas (através de exemplos práticos) as abordagens de resolução de problemas sob as perspectivas do paradigma não funcional e funcional. Essa comparação permitirá avaliar as diferenças entre os paradigmas e observar características como:
+
+% * Facilidade de compreensão
+% * Facilidade de manutenção
+% * Clareza do código
+% * Entre outros aspectos relevantes
+Este estudo adotará uma abordagem comparativa entre os paradigmas funcional e imperativo, analisando soluções para problemas comuns em ambas as abordagens. A metodologia consistirá em:
+\begin{enumerate}
+    \item Seleção de Problemas: Escolha de um problema representativo, computacionalmente resolvível.
+    \item Implementação Comparada: Desenvolvimento das soluções em na abordagem funcional e imperativa
+    \item Análise Quantitativa: Avaliação de aspectos como:
     \begin{enumerate}
-        \item Seleção de Problemas: Escolha de um problema representativo, computacionalmente resolvível.
-        \item Implementação Comparada: Desenvolvimento das soluções em na abordagem funcional e imperativa
-        \item Análise Quantitativa: Avaliação de aspectos como:
-        \begin{enumerate}
-            \item Quantidade de linhas de código
-            \item Tempo de execução
-            % \item Uso de métricas como complexidade ciclomática e linhas de código (LOC) para apoio quantitativo.
-        \end{enumerate}
-        \item Análise Qualitativa: Avaliação de aspectos como:
-        \begin{enumerate}
-            \item Facilidade de compreensão
-            \item Legibilidade (mediante revisão por pares)
-            \item Manutenibilidade (tempo para introduzir modificações)
-            \item Clareza (análise de estrutura e redundância)
-        \end{enumerate}
-        \item Ferramentas: Todo o trabalho será desenvolvido utilizando a linguagem python
-            e o ambiente de \textit{notebooks} do \textit{jupyter}\footnote{O que é notebook do jupyter?}
+        \item Quantidade de linhas de código
+        \item Tempo de execução
+        % \item Uso de métricas como complexidade ciclomática e linhas de código (LOC) para apoio quantitativo.
     \end{enumerate}
+    \item Análise Qualitativa: Avaliação de aspectos como:
+    \begin{enumerate}
+        \item Facilidade de compreensão
+        \item Legibilidade (mediante revisão por pares)
+        \item Manutenibilidade (tempo para introduzir modificações)
+        \item Clareza (análise de estrutura e redundância)
+    \end{enumerate}
+    \item Ferramentas: Todo o trabalho será desenvolvido utilizando a linguagem python
+        e o ambiente de \textit{notebooks} do \textit{jupyter}\footnote{O que é notebook do jupyter?}
+\end{enumerate}
 
 
 
 
-    \section{PRÁTICA}
+\section{PRÁTICA}
 
-    \subsection{List Comprehensions}
-    \subsection{Funções de ordem superior}
-    \subsection{Composição de Funções}
-    \subsection{Pipelines de Transformação}
+Testando a escrita e apresentação do código python no artigo:
 
-    % region
-    % \section{DADOS DA PESQUISA}
+\renewcommand{\listingscaption}{Código}
 
-    % Na tabela 1 podemos ver os dados colhidos da pesquisa
+\begin{listing}[!ht]
+\begin{minted}{python}
+lista_de_palavras = [ "Python", "é", "uma",
+                    "ótima", "linguagem" ]
+                    
+for palavra in lista_de_palavras:
+vogais = 0
+for letra in palavra:
+    if letra in "aeiouáéíóúãõâêô":
+    vogais += 1
+print(f'{palavra} ==> Tem {vogais} vogais')
+\end{minted}
+\caption{Exemplo de contagem de vogais em palavras}
+\label{listing:2}
+\end{listing}
 
-    % \begin{table}[h!]
-    %   \centering
-    %   \caption{Tabela com os dados dividos por gênero}
-    %   \label{tbl:something}
-    %   \renewcommand{\arraystretch}{1.5}
-    %   \begin{tabular}{c c c c}
-    %     \hline
-    %     TOTAL & 208.901 & 316.546 & 525.447 \\
-    %     \hline
-    %     55 a 59 & 47.264 & 78.516 & 125.780 \\
-    %     60 a 64 & 46.523 & 70.388 & 116.911 \\
-    %     65 a 69 & 41.550 & 59.444 & 100.994 \\
-    %     70 a 74 & 33.293 & 46.776 & 80.069 \\
-    %     75 a 79 & 22.609 & 32.651 & 55.260 \\
-    %     80 e + & 17.662 & 28.771 & 46.433 \\    
-    %     \hline
-    %   \end{tabular}
-    % \end{table}
+\pagebreak
+Curiosidade: Este código pode ser reescrito em apenas duas linhas utilizando a abordagem funcional.
 
-    % % =====================================================================
+% \begin{listing}[!ht]
+% \begin{minted}{c}
+% #include <stdio.h>
+% int main() {
+%     printf("Hello, World!"); /*printf() outputs the quoted string*/
+%     return 0;
+% }
+% \end{minted}
+% \caption{Hello World in C}
+% \label{listing:2}
+% \end{listing}
 
-    % \section{GRÁFICOS}
+\subsection{List Comprehensions}
+\subsection{Funções de ordem superior}
+\subsection{Composição de Funções}
+\subsection{Pipelines de Transformação}
+
+% region
+% \section{DADOS DA PESQUISA}
+
+% Na tabela 1 podemos ver os dados colhidos da pesquisa
+
+% \begin{table}[h!]
+%   \centering
+%   \caption{Tabela com os dados dividos por gênero}
+%   \label{tbl:something}
+%   \renewcommand{\arraystretch}{1.5}
+%   \begin{tabular}{c c c c}
+%     \hline
+%     TOTAL & 208.901 & 316.546 & 525.447 \\
+%     \hline
+%     55 a 59 & 47.264 & 78.516 & 125.780 \\
+%     60 a 64 & 46.523 & 70.388 & 116.911 \\
+%     65 a 69 & 41.550 & 59.444 & 100.994 \\
+%     70 a 74 & 33.293 & 46.776 & 80.069 \\
+%     75 a 79 & 22.609 & 32.651 & 55.260 \\
+%     80 e + & 17.662 & 28.771 & 46.433 \\    
+%     \hline
+%   \end{tabular}
+% \end{table}
+
+% % =====================================================================
+
+% \section{GRÁFICOS}
 
 
-    % \begin{tikzpicture}
-    % \begin{axis}[
-    %     ybar,
-    %     symbolic x coords={55-59, 60-64, 65-69, 70-74, 75-79, 80+},
-    %     xtick=data,
-    %     bar width=8pt,
-    %     x tick label style={rotate=45, anchor=east},
-    %     legend style={at={(0.5,-0.15)},
-    %     anchor=north,legend columns=-1},
-    %     ymin=0,ymax=50,
-    %     enlarge x limits=0.15
-    % ]
-    % \addplot[draw=blue,fill=blue] coordinates {
-    %     (55-59, 47.264) (60-64, 46.523) (65-69, 41.55) (70-74, 33.293) (75-79, 22.609) (80+, 17.662)
-    % };
-    % \addplot[draw=red,fill=red] coordinates {
-    %     (55-59, 47.264) (60-64, 46.523) (65-69, 41.55) (70-74, 33.293) (75-79, 22.609) (80+, 17.662)
-    % };
-    % \legend{Masculino, Feminino}
-    % \end{axis}
-    % \end{tikzpicture}
+% \begin{tikzpicture}
+% \begin{axis}[
+%     ybar,
+%     symbolic x coords={55-59, 60-64, 65-69, 70-74, 75-79, 80+},
+%     xtick=data,
+%     bar width=8pt,
+%     x tick label style={rotate=45, anchor=east},
+%     legend style={at={(0.5,-0.15)},
+%     anchor=north,legend columns=-1},
+%     ymin=0,ymax=50,
+%     enlarge x limits=0.15
+% ]
+% \addplot[draw=blue,fill=blue] coordinates {
+%     (55-59, 47.264) (60-64, 46.523) (65-69, 41.55) (70-74, 33.293) (75-79, 22.609) (80+, 17.662)
+% };
+% \addplot[draw=red,fill=red] coordinates {
+%     (55-59, 47.264) (60-64, 46.523) (65-69, 41.55) (70-74, 33.293) (75-79, 22.609) (80+, 17.662)
+% };
+% \legend{Masculino, Feminino}
+% \end{axis}
+% \end{tikzpicture}
 
 
-    % \begin{figure}[h!]
-    %     \centering
-    %     \caption{Distribuição entre os gêneros}
-    %     \label{img:pizza}
-    %     \begin{tikzpicture}
-    %         \pie[rotate=90, text=legend, radius=2, before number=\phantom, after number=\%, explode=0.1, color={blue!50, red!50}]{
-    %             39.76/Masculine,
-    %             60.24/Feminino
-    %         }
-    %     \end{tikzpicture}
-    % \end{figure}
-    % endregion
+% \begin{figure}[h!]
+%     \centering
+%     \caption{Distribuição entre os gêneros}
+%     \label{img:pizza}
+%     \begin{tikzpicture}
+%         \pie[rotate=90, text=legend, radius=2, before number=\phantom, after number=\%, explode=0.1, color={blue!50, red!50}]{
+%             39.76/Masculine,
+%             60.24/Feminino
+%         }
+%     \end{tikzpicture}
+% \end{figure}
+% endregion
 
-    \end{document}
+\end{document}
