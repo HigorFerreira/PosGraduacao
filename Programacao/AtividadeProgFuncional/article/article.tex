@@ -1,0 +1,147 @@
+% File: main.tex
+% Date: 2015, April
+% Authors: Gustavo Peixoto, Leon Lima.
+% Description: Latex template file for seminar short papers presented at PPG-EM/UERJ.
+% Version: 1.0
+% Available online on: www.gesar.uerj.br
+
+%% PREAMBLE
+\documentclass[date,twocolumn,a4paper]{ppgem} 
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{pgf-pie}
+\usepackage{minted}
+
+
+
+\setlist{nolistsep}
+
+
+%% TITLE
+\Title{
+Python: Paradigma Funcional Aplicado à Transformação de Dados
+}
+
+% PLEASE, DO NOT CHANGE THE PAGENUMBER{2}
+\PageNumber{2}
+
+% %% INSTITUTION
+% \InstA{Rio de Janeiro State University} 
+% \InstB{} 
+
+\pagestyle{fancy}
+
+
+\newenvironment{pythoncode}[1][]{%
+    \minted[%
+        linenos,
+        xleftmargin=2mm,
+        tabsize=2,
+        breaklines,
+        autogobble,
+        numbersep=5pt,
+        #1 % Allow optional extra parameters
+    ]{python}%
+}{%
+    \endminted%
+}
+
+\begin{document}
+\thispagestyle{plain}
+\makeheader
+
+
+
+%% KEYWORDS
+% \begin{keywords}
+% Max of 4 keywords, comma separeted, {\LaTeX} typesetting, standardization.
+% \end{keywords}
+
+%% BODY
+\section*{RESUMO}
+Resumo aqui
+
+\section{INTRODUÇÃO}
+\subsection{Imutabilidade}
+\subsection{Funções puras}
+
+\section{OBJETIVO}
+O objetivo deste estudo é escrever código manutenível e de fácil compreensão se utilizando da abordagem funcional
+afim de demonstrar os efeitos positivos da mesma.
+
+\section{METODOLOGIA}
+% O objetivo desta pesquisa é escrever código mantenível e de fácil compreensão, a fim de demonstrar os efeitos positivos do paradigma funcional. Para isso, serão comparadas (através de exemplos práticos) as abordagens de resolução de problemas sob as perspectivas do paradigma não funcional e funcional. Essa comparação permitirá avaliar as diferenças entre os paradigmas e observar características como:
+
+% * Facilidade de compreensão
+% * Facilidade de manutenção
+% * Clareza do código
+% * Entre outros aspectos relevantes
+Este estudo adotará uma abordagem comparativa entre os paradigmas funcional e imperativo, analisando soluções para problemas comuns em ambas as abordagens. A metodologia consistirá em:
+\begin{enumerate}
+    \item Seleção de Problemas: Escolha de um problema representativo, computacionalmente resolvível.
+    \item Implementação Comparada: Desenvolvimento das soluções em na abordagem funcional e imperativa
+    \item Análise Quantitativa: Avaliação de aspectos como:
+    \begin{enumerate}
+        \item Quantidade de linhas de código
+        \item Tempo de execução
+        % \item Uso de métricas como complexidade ciclomática e linhas de código (LOC) para apoio quantitativo.
+    \end{enumerate}
+    \item Análise Qualitativa: Avaliação de aspectos como:
+    \begin{enumerate}
+        \item Facilidade de compreensão
+        \item Legibilidade (mediante revisão por pares)
+        \item Manutenibilidade (tempo para introduzir modificações)
+        \item Clareza (análise de estrutura e redundância)
+    \end{enumerate}
+    \item Ferramentas: Todo o trabalho será desenvolvido utilizando a linguagem python
+        e o ambiente de \textit{notebooks} do \textit{jupyter}\footnote{O que é notebook do jupyter?}
+\end{enumerate}
+
+
+
+
+\section{PRÁTICA}
+
+Testando a escrita e apresentação do código python no artigo:
+
+\renewcommand{\listingscaption}{Código}
+
+\begin{listing}[!ht]
+\begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+lista_de_palavras = [ "Python", "é", "uma", "ótima", "linguagem" ]
+for palavra in lista_de_palavras:
+vogais = 0
+for letra in palavra:
+    if letra in "aeiouáéíóúãõâêô":
+    vogais += 1
+print(f'{palavra} ==> Tem {vogais} vogais')
+\end{minted}
+\caption{Exemplo de contagem de vogais em palavras}
+\label{listing:2}
+\end{listing}
+
+\pagebreak
+Curiosidade: Este código pode ser reescrito em apenas duas linhas utilizando a abordagem funcional.
+
+% \mint{python}|palavras_vogais = { palavra: sum([1 for letra in|\noindent
+% \mint{python}|palavra if letra in "aeiouáéíóúãõâêô"]) for|\noindent
+% \mint{python}|palavra in lista_de_palavras }|\noindent
+
+\begin{listing}[!ht]
+\begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+palavras_vogais = { palavra: sum([1 for letra in palavra if letra in "aeiouáéíóúãõâêô"]) for palavra in lista_de_palavras
+\end{minted}
+\caption{Exemplo de contagem de vogais em palavras (funcional)}
+\label{listing:2}
+\end{listing}
+
+
+\subsection{List Comprehensions}
+\subsection{Funções de ordem superior}
+\subsection{Composição de Funções}
+\subsection{Pipelines de Transformação}
+
+
+\end{document}
