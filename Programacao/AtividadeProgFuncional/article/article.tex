@@ -33,6 +33,21 @@ Python: Paradigma Funcional Aplicado à Transformação de Dados
 
 \pagestyle{fancy}
 
+
+\newenvironment{pythoncode}[1][]{%
+    \minted[%
+        linenos,
+        xleftmargin=2mm,
+        tabsize=2,
+        breaklines,
+        autogobble,
+        numbersep=5pt,
+        #1 % Allow optional extra parameters
+    ]{python}%
+}{%
+    \endminted%
+}
+
 \begin{document}
 \thispagestyle{plain}
 \makeheader
@@ -53,8 +68,8 @@ Resumo aqui
 \subsection{Funções puras}
 
 \section{OBJETIVO}
-O objetivo deste objeto é escrever código manutenível e de fácil compreensão se utilizando da abordagem funcional
-afim de demonstrar os efeitos positivos do mesmo.
+O objetivo deste estudo é escrever código manutenível e de fácil compreensão se utilizando da abordagem funcional
+afim de demonstrar os efeitos positivos da mesma.
 
 \section{METODOLOGIA}
 % O objetivo desta pesquisa é escrever código mantenível e de fácil compreensão, a fim de demonstrar os efeitos positivos do paradigma funcional. Para isso, serão comparadas (através de exemplos práticos) as abordagens de resolução de problemas sob as perspectivas do paradigma não funcional e funcional. Essa comparação permitirá avaliar as diferenças entre os paradigmas e observar características como:
@@ -94,10 +109,8 @@ Testando a escrita e apresentação do código python no artigo:
 \renewcommand{\listingscaption}{Código}
 
 \begin{listing}[!ht]
-\begin{minted}{python}
-lista_de_palavras = [ "Python", "é", "uma",
-                    "ótima", "linguagem" ]
-                    
+\begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+lista_de_palavras = [ "Python", "é", "uma", "ótima", "linguagem" ]
 for palavra in lista_de_palavras:
 vogais = 0
 for letra in palavra:
@@ -112,86 +125,23 @@ print(f'{palavra} ==> Tem {vogais} vogais')
 \pagebreak
 Curiosidade: Este código pode ser reescrito em apenas duas linhas utilizando a abordagem funcional.
 
-% \begin{listing}[!ht]
-% \begin{minted}{c}
-% #include <stdio.h>
-% int main() {
-%     printf("Hello, World!"); /*printf() outputs the quoted string*/
-%     return 0;
-% }
-% \end{minted}
-% \caption{Hello World in C}
-% \label{listing:2}
-% \end{listing}
+% \mint{python}|palavras_vogais = { palavra: sum([1 for letra in|\noindent
+% \mint{python}|palavra if letra in "aeiouáéíóúãõâêô"]) for|\noindent
+% \mint{python}|palavra in lista_de_palavras }|\noindent
+
+\begin{listing}[!ht]
+\begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+palavras_vogais = { palavra: sum([1 for letra in palavra if letra in "aeiouáéíóúãõâêô"]) for palavra in lista_de_palavras
+\end{minted}
+\caption{Exemplo de contagem de vogais em palavras (funcional)}
+\label{listing:2}
+\end{listing}
+
 
 \subsection{List Comprehensions}
 \subsection{Funções de ordem superior}
 \subsection{Composição de Funções}
 \subsection{Pipelines de Transformação}
 
-% region
-% \section{DADOS DA PESQUISA}
-
-% Na tabela 1 podemos ver os dados colhidos da pesquisa
-
-% \begin{table}[h!]
-%   \centering
-%   \caption{Tabela com os dados dividos por gênero}
-%   \label{tbl:something}
-%   \renewcommand{\arraystretch}{1.5}
-%   \begin{tabular}{c c c c}
-%     \hline
-%     TOTAL & 208.901 & 316.546 & 525.447 \\
-%     \hline
-%     55 a 59 & 47.264 & 78.516 & 125.780 \\
-%     60 a 64 & 46.523 & 70.388 & 116.911 \\
-%     65 a 69 & 41.550 & 59.444 & 100.994 \\
-%     70 a 74 & 33.293 & 46.776 & 80.069 \\
-%     75 a 79 & 22.609 & 32.651 & 55.260 \\
-%     80 e + & 17.662 & 28.771 & 46.433 \\    
-%     \hline
-%   \end{tabular}
-% \end{table}
-
-% % =====================================================================
-
-% \section{GRÁFICOS}
-
-
-% \begin{tikzpicture}
-% \begin{axis}[
-%     ybar,
-%     symbolic x coords={55-59, 60-64, 65-69, 70-74, 75-79, 80+},
-%     xtick=data,
-%     bar width=8pt,
-%     x tick label style={rotate=45, anchor=east},
-%     legend style={at={(0.5,-0.15)},
-%     anchor=north,legend columns=-1},
-%     ymin=0,ymax=50,
-%     enlarge x limits=0.15
-% ]
-% \addplot[draw=blue,fill=blue] coordinates {
-%     (55-59, 47.264) (60-64, 46.523) (65-69, 41.55) (70-74, 33.293) (75-79, 22.609) (80+, 17.662)
-% };
-% \addplot[draw=red,fill=red] coordinates {
-%     (55-59, 47.264) (60-64, 46.523) (65-69, 41.55) (70-74, 33.293) (75-79, 22.609) (80+, 17.662)
-% };
-% \legend{Masculino, Feminino}
-% \end{axis}
-% \end{tikzpicture}
-
-
-% \begin{figure}[h!]
-%     \centering
-%     \caption{Distribuição entre os gêneros}
-%     \label{img:pizza}
-%     \begin{tikzpicture}
-%         \pie[rotate=90, text=legend, radius=2, before number=\phantom, after number=\%, explode=0.1, color={blue!50, red!50}]{
-%             39.76/Masculine,
-%             60.24/Feminino
-%         }
-%     \end{tikzpicture}
-% \end{figure}
-% endregion
 
 \end{document}
