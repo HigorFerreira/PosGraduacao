@@ -2,11 +2,12 @@ from typing import Literal
 from random import random
 from copy import deepcopy
 import numpy as np
+from toolz import compose, pipe
 
 class Individual:
     gens: list[bool]
     def __init__(self, gens: list[bool]):
-        self.gens = gens
+        self.gens = pipe(gens, lambda x: map(bool, x), list)
 
     
     def mutating(self, factor=0.2) -> 'Literal':
@@ -24,15 +25,27 @@ class Individual:
 
         return Individual([ *genome1[0:int(len(genome1)/2)], *genome2[int(len(genome2)/2):len(genome2)] ])
 
-    def fitness(self, benefit: list[int]):
+    def fitness(self, benefit: list[int]) -> int:
         if len(benefit) != len(self.gens): raise Exception('Benefit array does not length of gens array')
-        pass
+        return pipe(
+            self.gens,
+            lambda x: map(int, x),
+            enumerate,
+            lambda en: [ x*benefit[i] for i, x in en ],
+            sum
+        )
 
     def __repr__(self):
-        return " ".join(list(map(lambda x: str(int(x)), self.gens)))
+        # list(map(lambda x: str(int(x)), self.gens))
+        return " ".join(pipe(
+            self.gens,
+            lambda x: map(int, x),
+            lambda x: map(str, x),
+            list
+        ))
 
 
 
-i = Individual([ False, True, True, False, False, False, False, True ])
-print(i)
-print(i.mutating())
+# i = Individual([ False, True, True, False, False, False, False, True ])
+# print(i)
+# print(i.mutating())
