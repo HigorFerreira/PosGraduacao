@@ -26,6 +26,9 @@ class Individual:
         return Individual([ *genome1[0:int(len(genome1)/2)], *genome2[int(len(genome2)/2):len(genome2)] ])
 
     def fitness(self, benefit: list[int]) -> int:
+        # print(len(benefit))
+        # print(len(self.gens))
+
         if len(benefit) != len(self.gens): raise Exception('Benefit array does not length of gens array')
         return pipe(
             self.gens,
