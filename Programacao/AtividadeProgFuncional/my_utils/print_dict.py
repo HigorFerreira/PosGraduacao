@@ -2,7 +2,7 @@ from typing import Callable, Any
 from functools import wraps
 
 
-def print_dict(print_fn):
+def print_dict(print_fn: Callable[[Any, Any], str] | None = None):
     def decorator(func: Callable[[], dict]):
         @wraps(func)
         def wrapper(*args, **kwargs):
