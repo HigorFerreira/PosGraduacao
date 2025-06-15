@@ -56,9 +56,9 @@ class Individual:
         return Individual(new_genome)
 
     def fitness(self, weigth_constraints: list[int], benefits: list[int], costs: list[list[int]]) -> int:
-        print(dict(weigth_constraints=weigth_constraints))
-        print(dict(costs=costs))
-        print(dict(benefits=benefits))
+        # print(dict(weigth_constraints=weigth_constraints))
+        # print(dict(costs=costs))
+        # print(dict(benefits=benefits))
         # return
         if len(costs) != len(self.gens): raise Exception('Costs doesn\'t fit gens')
         if len(weigth_constraints) != len(self.gens): raise Exception('weigth_constraint doesn\' fit gen dimensions')
