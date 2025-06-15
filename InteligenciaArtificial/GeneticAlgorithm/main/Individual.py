@@ -39,7 +39,7 @@ class Individual:
     def crossover(self, pair: 'Individual'):
         new_genome = []
         for i, gen_part in enumerate(self.gens):
-            if len(gen_part) != pair.gens[i]:
+            if len(gen_part) != len(pair.gens[i]):
                 raise Exception('Gen sizes doesn\'t fit pair')
             
         for i, gen_part in enumerate(self.gens):
