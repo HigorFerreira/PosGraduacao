@@ -8,11 +8,11 @@ class Population:
     size: int
     population: list[Individual]
 
-    def __init__(self, size=100, population: list[Individual] | None = None):
+    def __init__(self, size=100, individual_size=100, population: list[Individual] | None = None):
         self.size = size
         if population is None:
             self.population = [
-                Individual.from_random()
+                Individual.from_random(individual_size)
                 for _ in range(0, size)
             ]
         else:
