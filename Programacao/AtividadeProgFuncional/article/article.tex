@@ -64,12 +64,15 @@ Python: Paradigma Funcional Aplicado à Transformação de Dados
 Resumo aqui
 
 \section{INTRODUÇÃO}
-\subsection{Imutabilidade}
-\subsection{Funções puras}
+
 
 \section{OBJETIVO}
 O objetivo deste estudo é escrever código manutenível e de fácil compreensão se utilizando da abordagem funcional
 afim de demonstrar os efeitos positivos da mesma.
+
+\section{FUNDAMENTOS TEÓRICOS}
+\subsection{Imutabilidade}
+\subsection{Funções puras}
 
 \section{METODOLOGIA}
 % O objetivo desta pesquisa é escrever código mantenível e de fácil compreensão, a fim de demonstrar os efeitos positivos do paradigma funcional. Para isso, serão comparadas (através de exemplos práticos) as abordagens de resolução de problemas sob as perspectivas do paradigma não funcional e funcional. Essa comparação permitirá avaliar as diferenças entre os paradigmas e observar características como:
@@ -102,28 +105,28 @@ Este estudo adotará uma abordagem comparativa entre os paradigmas funcional e i
 
 
 
+\renewcommand{\listingscaption}{Código}
+
 \section{PRÁTICA}
 
 Testando a escrita e apresentação do código python no artigo:
 
-\renewcommand{\listingscaption}{Código}
+% \begin{listing}[!ht]
+% \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+% lista_de_palavras = [ "Python", "é", "uma", "ótima", "linguagem" ]
+% for palavra in lista_de_palavras:
+% vogais = 0
+% for letra in palavra:
+%     if letra in "aeiouáéíóúãõâêô":
+%     vogais += 1
+% print(f'{palavra} ==> Tem {vogais} vogais')
+% \end{minted}
+% \caption{Exemplo de contagem de vogais em palavras}
+% \label{listing:2}
+% \end{listing}
 
-\begin{listing}[!ht]
-\begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
-lista_de_palavras = [ "Python", "é", "uma", "ótima", "linguagem" ]
-for palavra in lista_de_palavras:
-vogais = 0
-for letra in palavra:
-    if letra in "aeiouáéíóúãõâêô":
-    vogais += 1
-print(f'{palavra} ==> Tem {vogais} vogais')
-\end{minted}
-\caption{Exemplo de contagem de vogais em palavras}
-\label{listing:2}
-\end{listing}
-
-\pagebreak
-Curiosidade: Este código pode ser reescrito em apenas duas linhas utilizando a abordagem funcional.
+% \pagebreak
+% Curiosidade: Este código pode ser reescrito em apenas duas linhas utilizando a abordagem funcional.
 
 % \mint{python}|palavras_vogais = { palavra: sum([1 for letra in|\noindent
 % \mint{python}|palavra if letra in "aeiouáéíóúãõâêô"]) for|\noindent
@@ -137,10 +140,90 @@ palavras_vogais = { palavra: sum([1 for letra in palavra if letra in "aeiouáé�
 \label{listing:2}
 \end{listing}
 
-
+(Israel)
 \subsection{List Comprehensions}
+
+\subsubsection{Definição e Conceito}
+As compreensões de lista (\textit{list comprehensions}) são uma forma prática e expressiva de criar listas em Python a partir de sequências iteráveis. Com uma única linha de código, é possível aplicar transformações e filtros aos elementos, de maneira mais clara e concisa do que com laços tradicionais. Elas se alinham aos princípios do paradigma funcional por evitarem efeitos colaterais, privilegiarem a imutabilidade e expressarem a transformação de dados de forma declarativa.
+
+\subsubsection{Estrutura Sintática}
+A forma geral de uma compreensão de lista é:
+
+\begin{minted}[linenos]{python}
+[expressao for item in iteravel if condicao]
+\end{minted}
+
+Cada parte da expressão representa:
+\begin{itemize}
+  \item \textbf{expressao}: a transformação aplicada a cada item
+  \item \textbf{item in iteravel}: a iteração sobre os dados
+  \item \textbf{if condicao}: (opcional) aplica um filtro
+\end{itemize}
+
+\subsubsection{Comparativo com o Paradigma Imperativo}
+\textbf{Imperativo}:
+\begin{minted}[linenos]{python}
+resultado = []
+for x in range(10):
+    if x % 2 == 0:
+        resultado.append(x * x)
+\end{minted}
+
+\textbf{Funcional com list comprehension}:
+\begin{minted}[linenos]{python}
+resultado = [x * x for x in range(10) if x % 2 == 0]
+\end{minted}
+
+A versão funcional torna o código mais claro e expressivo.
+
+\subsubsection{Integração com Funções de Alta Ordem}
+List comprehensions podem substituir combinações de \texttt{map()} e \texttt{filter()}, mantendo a clareza:
+
+\begin{minted}[linenos]{python}
+# map + filter
+list(map(lambda x: x*x, filter(lambda x: x % 2 == 0, range(10))))
+
+# list comprehension
+[x*x for x in range(10) if x % 2 == 0]
+\end{minted}
+
+\subsubsection{Casos Avançados e Boas Práticas}
+\begin{itemize}
+  \item \textbf{Aninhamento}:
+  \begin{minted}[linenos]{python}
+[[i*j for j in range(1, 4)] for i in range(1, 4)]
+  \end{minted}
+  \item \textbf{Condicional ternário}:
+  \begin{minted}[linenos]{python}
+['par' if x % 2 == 0 else 'impar' for x in range(5)]
+  \end{minted}
+  \item \textbf{Múltiplos \texttt{for}}:
+  \begin{minted}[linenos]{python}
+[(x, y) for x in [1, 2] for y in [10, 20]]
+  \end{minted}
+\end{itemize}
+
+\subsubsection{Aplicação em Transformação de Dados}
+Um exemplo clássico na análise de dados:
+
+\begin{minted}[linenos]{python}
+import csv
+
+with open("dados.csv") as f:
+    reader = csv.DictReader(f)
+    dados = [int(row["idade"]) for row in reader if row["ativo"] == "sim"]
+\end{minted}
+
+Esse exemplo mostra uma transformação funcional e imutável sobre os dados lidos de um CSV.
+
+\subsubsection{Considerações Finais}
+As compreensões de lista são bastante usadas em Python por facilitarem a escrita de um código mais claro e direto. Elas contribuem para um estilo mais funcional e ajudam a manter o código legível, conciso e fácil de testar. Por isso, são uma boa escolha em tarefas de transformação de dados, especialmente quando queremos montar pipelines simples e objetivos. Quando usadas com bom senso, tornam o código mais fácil de entender e manter no dia a dia.
+
+
 \subsection{Funções de ordem superior}
+(Feliper)
 \subsection{Composição de Funções}
+(Rodolfo)
 \subsection{Pipelines de Transformação}
 
 
