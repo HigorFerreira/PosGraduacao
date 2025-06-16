@@ -2,6 +2,7 @@ from copy import deepcopy
 from random import random
 from .Individual import Individual
 from toolz import pipe
+from .utils import intervals
 
 class Population:
     size: int
@@ -18,24 +19,26 @@ class Population:
             self.population = population
 
     def selection(self, weigth_constraints: list[int], benefits: list[int], costs: list[list[int]]):
-        new_popl = []
-        popl = deepcopy(self.population)
-        fitness = {}
-        for i, individual in pipe(
-            map(lambda x: x.fitness(weigth_constraints, benefits, costs),popl),
-            list,
-            enumerate
-        ):
-            fitness[i] = individual
-
-        return fitness
+        ppl = deepcopy(self.population)
+        ppl_sorted: list[Individual] = []
+        fitness_arr = [ el.fitness(weigth_constraints, benefits, costs) for el in ppl ]
+        fitness_arr_sorted = sorted(enumerate(fitness_arr), key=lambda x: x[1])
         
-        # popl.sort(key=lambda x: x.fitness(weigth_constraints, benefits, costs))
+        total_fitness = sum([ val for _, val in fitness_arr_sorted ])
+        fitness_arr_sorted_percent = [ (i, val/total_fitness) for i, val in fitness_arr_sorted ]
 
+        for i, _ in fitness_arr_sorted:
+            ppl_sorted.append(ppl[i])
 
-        # return Population(
-        #     size=self.size,
-        #     population=popl
-        # )
+        new_ppl: list[Individual] = []
+        fitness_intervals = intervals([ val for _, val in fitness_arr_sorted_percent ])
         
-    
+        for _ in range(self.size):
+            r = random()
+            for i, itv in enumerate(fitness_intervals):
+                inf, sup = itv
+                if r >= inf and r < sup:
+                    new_ppl.append(deepcopy(ppl_sorted[i]))
+                    break
+
+        return Population(size=self.size, population=new_ppl)
