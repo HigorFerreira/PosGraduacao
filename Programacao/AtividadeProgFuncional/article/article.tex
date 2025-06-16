@@ -13,6 +13,7 @@
 \usepackage{tikz}
 \usepackage{pgf-pie}
 \usepackage{minted}
+% \usepackage{biblatex}
 
 
 
@@ -71,6 +72,7 @@ Python: Paradigma Funcional Aplicado à Transformação de Dados
     afim de demonstrar os efeitos positivos da mesma.
 
     \section{FUNDAMENTOS TEÓRICOS}
+    De acordo com W3Schools\cite{w3schools_python}, ``Python é uma linguagem de programação popular. Python pode ser usado no servidor para criar aplicações web.''
     \subsection{Imutabilidade}
     \subsection{Funções puras}
 
@@ -164,7 +166,7 @@ Python: Paradigma Funcional Aplicado à Transformação de Dados
     \end{listing}
 
     A versão funcional torna o código mais claro e expressivo.
-    \subsubsection{Integração com Funções de Alta Ordem}
+    \subsubsection{Integração com Funções de Alta Ordem\footnote{Veja o capítulo 5.2}}
     List comprehensions podem substituir combinações de \texttt{map()} e \texttt{filter()}, mantendo a clareza:
 
     \begin{listing}[!ht]
@@ -175,7 +177,7 @@ Python: Paradigma Funcional Aplicado à Transformação de Dados
             # list comprehension
             [x*x for x in range(10) if x % 2 == 0]
         \end{minted}
-        \caption{List comprehension - Comparação com Funções de Alta Ordem\footnote{Veja o capítulo 2.2}}
+        \caption{List comprehension - Comparação com Funções de Alta Ordem}
         \label{listing:2}
     \end{listing}
 
@@ -220,5 +222,11 @@ Python: Paradigma Funcional Aplicado à Transformação de Dados
     \subsection{Composição de Funções}
     (Rodolfo)
     \subsection{Pipelines de Transformação}
+
+
+    \cite{amarante2001}
+    \section{REFERÊNCIAS}
+    \bibliographystyle{plain}
+    \bibliography{MinhasReferencias}
 
 \end{document}
