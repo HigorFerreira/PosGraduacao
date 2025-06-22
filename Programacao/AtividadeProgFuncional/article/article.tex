@@ -13,6 +13,7 @@
 \usepackage{tikz}
 \usepackage{pgf-pie}
 \usepackage{minted}
+\usepackage[numbers, sort&compress]{natbib}  % citações numéricas por padrão
 % \usepackage{biblatex}
 
 
@@ -131,7 +132,7 @@ Python: Paradigma Funcional Aplicado à Transformação de Dados
             \caption{Exemplo de função impura}
             \label{listing:impura}
         \end{listing}
-        \\Observa-se nas linhas 7 e 9 que as chamdas à função incrementa retorna os resultados esperados.\\
+        \\Observa-se nas linhas 7 e 9 que as chamadas à função \textbf{incrementa} retorna os resultados esperados.\\
         Agora, digamos que em algum ponto do programa a variável \textbf{contador} seja alterada conforme o
         Código \ref{listing:impura-retorno}:
 
@@ -158,7 +159,39 @@ Python: Paradigma Funcional Aplicado à Transformação de Dados
             Impasse em que processos ficam bloqueados mutuamente, cada um esperando por um recurso retido por outro. Comum em SOs e bancos de dados, ocorre mesmo com recursos não-preemptíveis (ex.: dispositivos, memória), independente da quantidade disponível. Pode envolver threads em um único processo\cite{wiki_deadlock}.
         } e os mais derivados problemas em computação concorrente e parelela, tornando o uso de semáforos, filas e etc obrigatórios, adicionando grandes complexidades ao código fonte.
 
+    \subsubsection{Purificando a função}
+    O Código \ref{listing:purificada} demonstra a versão purificada da função \textbf{incrementa} na linha 3:
+    \begin{listing}[!ht]
+        \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+            contador = 0
+
+            def incrementa(original, valor):
+                return original + valor
+
+
+            print(contador:=incrementa(contador, 5))
+            # Saída: 5 (esperado)
+            print(contador:=incrementa(contador, 2))
+            # Saída: 8 (esperado)
+
+            contador = 100
+            print(contador:=incrementa(contador, 5))
+            # Saída: 105 (esperado)
+        \end{minted}
+        \caption{Função purificada}
+        \label{listing:purificada}
+    \end{listing}\linebreak
+
+    Nota-se que as saídas nas linhas 7, 9 e 13 são as mesmas da versão anterior do código. A diferença é que agora a função
+    \textbf{incrementa} não altera nenhuma variável/estado externo ao seu escopo. Sempre que \textbf{incrementa} é chamada,
+    a variável \textbf{contador} é atualizada com o novo valor do retorno da função. Observa-se agora que na linha 13 a saída
+    105 é esperada, pois o parâmetro não depente mais somente do valor 5 a ser incrementado, mas também do valor original de
+    \textbf{contador}.
+    Desta forma, a função torna-se pura por não alterar escopos externos a ela. De certa forma, pode-se dizer que a função está a trabalhar
+    com o conceito de \textbf{imutabilidade} dentro dos limites de seu escopo (embora \textbf{contador} seja reatribuído diversas vezes).
+
     \subsection{Imutabilidade}
+        A imutabilidade se refere à impossibilidade de mudança de estado de um objeto/varíavel no programa. Em outras palavras: "Dizemos que uma variável é imutável, se após um valor ser vinculado a essa variável, a linguagem não permitir que lhe seja associado outro valor." (\citeauthor{queiroz_func_prog}, \citeyear{queiroz_func_prog})
         Imutabilidade (em se tratando de um objeto), é um objeto cujo estado não pode ser modificado após sua criação. (Wikipédia, 2025)\cite{wiki_immutable}
     
     % endregion
@@ -270,7 +303,7 @@ Python: Paradigma Funcional Aplicado à Transformação de Dados
 
     % \cite{amarante2001}
     \section{REFERÊNCIAS}\\
-    \bibliographystyle{plain}
+    \bibliographystyle{plainnat}                % ou abbrvnat, unsrtnat, etc.
     \bibliography{MinhasReferencias}
 
 \end{document}

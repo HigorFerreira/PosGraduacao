@@ -1,14 +1,14 @@
 contador = 0
 
-def incrementa(valor):
-    contador += valor
-    return contador
+def incrementa(original, valor):
+    return original + valor
 
-print(incrementa(5))
+
+print(contador:=incrementa(contador, 5))
 # Saída: 5 (esperado)
-print(incrementa(2))
+print(contador:=incrementa(contador, 2))
 # Saída: 8 (esperado)
 
 contador = 100
-print(incrementa(5))
-# Saída: 105 (inesperado)
+print(contador:=incrementa(contador, 5))
+# Saída: 105 (esperado)
