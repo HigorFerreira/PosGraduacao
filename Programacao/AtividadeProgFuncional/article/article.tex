@@ -191,8 +191,11 @@ Python: Paradigma Funcional Aplicado à Transformação de Dados
     com o conceito de \textbf{imutabilidade} dentro dos limites de seu escopo (embora \textbf{contador} seja reatribuído diversas vezes).
 
     \subsection{Imutabilidade}
-        A imutabilidade se refere à impossibilidade de mudança de estado de um objeto/varíavel no programa. Em outras palavras: "Dizemos que uma variável é imutável, se após um valor ser vinculado a essa variável, a linguagem não permitir que lhe seja associado outro valor." (\citeauthor{queiroz_func_prog}, \citeyear{queiroz_func_prog})
-        Imutabilidade (em se tratando de um objeto), é um objeto cujo estado não pode ser modificado após sua criação. (Wikipédia, 2025)\cite{wiki_immutable}
+        A imutabilidade se refere à impossibilidade de mudança de estado de um objeto/varíavel no programa. Em outras palavras: "Dizemos que uma variável é imutável, se após um valor ser vinculado a essa variável, a linguagem não permitir que lhe seja associado outro valor." (\citeauthor{queiroz_func_prog}, \citeyear{queiroz_func_prog}, p.25).\linebreak
+        Segundo \citeauthor{queiroz_func_prog} (\citeyear{queiroz_func_prog}) a imutabilidade tem grande importância para que máquinas que se comunicam entre
+        si em um ambiente de programação distribuída não tenham que lidar com estados inconsistentes.\linebreak
+        Ainda, segundo \citeauthor{goncalves_func_prog} (\citeyear{goncalves_func_prog}) não é necessário sincronizar o acesso ao código com a programação funcional,
+        pois leituras concorrentes são inofensivas, tornando este cenário ideal para o uso de multi-threading.
     
     % endregion
     
