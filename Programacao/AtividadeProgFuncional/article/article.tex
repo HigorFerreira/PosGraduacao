@@ -52,8 +52,7 @@ Python: Paradigma Funcional Aplicado à Transformação de Dados
 \begin{document}
     \thispagestyle{plain}
     \makeheader
-
-
+    \renewcommand{\listingscaption}{Código}
 
     %% KEYWORDS
     % \begin{keywords}
@@ -71,12 +70,7 @@ Python: Paradigma Funcional Aplicado à Transformação de Dados
     O objetivo deste estudo é escrever código manutenível e de fácil compreensão se utilizando da abordagem funcional
     afim de demonstrar os efeitos positivos da mesma.
 
-    \section{FUNDAMENTOS TEÓRICOS}
-    De acordo com W3Schools\cite{w3schools_python}, ``Python é uma linguagem de programação popular. Python pode ser usado no servidor para criar aplicações web.''
-    \subsection{Imutabilidade}
-    Imutabilidade (em se tratando de um objeto), é um objeto cujo estado não pode ser modificado após sua criação. (Wikipédia, 2025)\cite{wiki_immutable}
-    \subsection{Funções puras}
-
+    % region Metodologia
     \section{METODOLOGIA}
     % O objetivo desta pesquisa é escrever código mantenível e de fácil compreensão, a fim de demonstrar os efeitos positivos do paradigma funcional. Para isso, serão comparadas (através de exemplos práticos) as abordagens de resolução de problemas sob as perspectivas do paradigma não funcional e funcional. Essa comparação permitirá avaliar as diferenças entre os paradigmas e observar características como:
 
@@ -91,7 +85,7 @@ Python: Paradigma Funcional Aplicado à Transformação de Dados
         \item Análise Quantitativa: Avaliação de aspectos como:
         \begin{enumerate}
             \item Quantidade de linhas de código
-            \item Tempo de execução
+            % \item Tempo de execução
             % \item Uso de métricas como complexidade ciclomática e linhas de código (LOC) para apoio quantitativo.
         \end{enumerate}
         \item Análise Qualitativa: Avaliação de aspectos como:
@@ -105,24 +99,64 @@ Python: Paradigma Funcional Aplicado à Transformação de Dados
             e o ambiente de \textit{notebooks} do \textit{jupyter}\footnote{O que é notebook do jupyter?}
     \end{enumerate}
 
+    % endregion
 
+    % region Fundamentos Teóricos
+    \section{FUNDAMENTOS TEÓRICOS}
+        O Paradigma de Programação Funcional (abreviado do inglês como \textbf{FP}, \textit{\textbf{Functional Programming}}), é um modo de pensar
+        a resolução dos problemas computáveis a partir da composição de funções\cite{queiroz_func_prog}.
+        Linguagens que oferecem total suporte a este paradigma geralmente permitem que funcções sejam atribuídas a variáveis, passadas como parâmetros
+        e retornadas de outras funções.
+    \subsection{Funções puras}
+        Pode-se dizer que uma função é pura quando retorna sempre a mesma saída, dados os mesmos argumentos\cite{queiroz_func_prog}. Em resumo, as funções
+        puras não podem alterar nenhuma estado externo ao seu escopo.\\
+        \textbf{Exemplo:}
+        Digamos que queira-se implementar um contador para uso geral conforme código abaixo. Os incrementos de valores sempre são dados através da função
+        \textbf{incrementa} definida na linha 3.
+        \begin{listing}[!ht]
+            \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+                contador = 0
 
+                def incrementa(valor):
+                    contador += valor
+                    return contador
 
-    \renewcommand{\listingscaption}{Código}
+                print(incrementa(5))
+                # Saída: 5 (esperado)
+                print(incrementa(2))
+                # Saída: 8 (esperado)
+            \end{minted}
+            \caption{Exemplo de função impura}
+            \label{listing:impura}
+        \end{listing}
+        \\Observa-se nas linhas 7 e 9 que as chamdas à função incrementa retorna os resultados esperados.\\
+        Agora, digamos que em algum ponto do programa a variável \textbf{contador} seja alterada conforme o
+        Código \ref{listing:impura-retorno}:
 
+        \begin{listing}[!ht]
+            \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt,firstnumber=12]{python}
+                contador = 100
+                print(incrementa(5))
+                # Saída: 105 (inesperado)
+            \end{minted}
+            \caption{Retorno inesperado de função impura}
+            \label{listing:impura-retorno}
+        \end{listing}
+
+        \\Persebe-se na saída da linha 13, que a chamada da função \textbf{incrementa} com parâmetro 5 retorna resultados imprevisíveis. Ao comparar
+        a linha 13 com a linha 7 do Código \ref{listing:impura}, nota-se claramente a quebra do conceito de função pura. Isto introduz comportamentos inconssistentes
+        que podem levar a \textit{bugs}\footnote{} inesperados no código. Bugs desta natureza geralmente são difíceis de rastrear, a situação é ainda
+        mais sensível em códigos de natureza \textit{\textbf{Multi-Threading}}\footnote{}.\\
+        Em resumo: Qualquer função que altere estados fora de seu escopo\footnote{} é impura por natureza, pois a alteração de estados globais geram escopos compartilhados, gerando ambientes em que mais de uma função pode tentar alterar o mesmo recurso.
+
+    \subsection{Imutabilidade}
+        Imutabilidade (em se tratando de um objeto), é um objeto cujo estado não pode ser modificado após sua criação. (Wikipédia, 2025)\cite{wiki_immutable}
+    
+    % endregion
+    
+    % region Prática
     \section{PRÁTICA}
 
-    Testando a escrita e apresentação do código python no artigo:
-
-    \begin{listing}[!ht]
-        \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
-            palavras_vogais = { palavra: sum([1 for letra in palavra if letra in "aeiouáéíóúãõâêô"]) for palavra in lista_de_palavras }
-        \end{minted}
-        \caption{Exemplo de contagem de vogais em palavras (funcional)}
-        \label{listing:2}
-    \end{listing}
-
-    (Israel)
     \subsection{List Comprehensions}
     As compreensões de lista (\textit{list comprehensions}) são uma forma prática e expressiva de criar listas em Python a partir de sequências iteráveis. Com uma única linha de código, é possível aplicar transformações e filtros aos elementos, de maneira mais clara e concisa do que com laços tradicionais. Elas se alinham aos princípios do paradigma funcional por evitarem efeitos colaterais, privilegiarem a imutabilidade e expressarem a transformação de dados de forma declarativa.
 
@@ -223,9 +257,9 @@ Python: Paradigma Funcional Aplicado à Transformação de Dados
     \subsection{Composição de Funções}
     (Rodolfo)
     \subsection{Pipelines de Transformação}
+    % endregion
 
-
-    \cite{amarante2001}
+    % \cite{amarante2001}
     \section{REFERÊNCIAS}
     \bibliographystyle{plain}
     \bibliography{MinhasReferencias}
