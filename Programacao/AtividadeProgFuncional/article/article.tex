@@ -96,7 +96,9 @@ Python: Paradigma Funcional Aplicado à Transformação de Dados
             \item Clareza (análise de estrutura e redundância)
         \end{enumerate}
         \item Ferramentas: Todo o trabalho será desenvolvido utilizando a linguagem python
-            e o ambiente de \textit{notebooks} do \textit{jupyter}\footnote{O que é notebook do jupyter?}
+            e o ambiente de \textit{notebooks} do \textit{jupyter}\footnote{
+                 Ambiente web interativo para criar documentos com código, texto (Markdown), fórmulas e gráficos. Usa formato JSON (.ipynb) organizado em células de entrada/saída\cite{wiki_jupyter_notebook}.
+            }
     \end{enumerate}
 
     % endregion
@@ -104,12 +106,12 @@ Python: Paradigma Funcional Aplicado à Transformação de Dados
     % region Fundamentos Teóricos
     \section{FUNDAMENTOS TEÓRICOS}
         O Paradigma de Programação Funcional (abreviado do inglês como \textbf{FP}, \textit{\textbf{Functional Programming}}), é um modo de pensar
-        a resolução dos problemas computáveis a partir da composição de funções\cite{queiroz_func_prog}.
+        a resolução dos problemas computáveis a partir da composição de funções\cite{queiroz_func_prog}.\\
         Linguagens que oferecem total suporte a este paradigma geralmente permitem que funcções sejam atribuídas a variáveis, passadas como parâmetros
         e retornadas de outras funções.
     \subsection{Funções puras}
         Pode-se dizer que uma função é pura quando retorna sempre a mesma saída, dados os mesmos argumentos\cite{queiroz_func_prog}. Em resumo, as funções
-        puras não podem alterar nenhuma estado externo ao seu escopo.\\
+        puras não podem alterar nenhum estado externo ao seu escopo\footnote{Contexto onde variáveis/expressões são acessíveis. Escopos filhos herdam dos pais, mas não o contrário. Funções criam escopos isolados (ex.: variáveis internas não são acessíveis externamente)\cite{mdn_escopo}.}.\\
         \textbf{Exemplo:}
         Digamos que queira-se implementar um contador para uso geral conforme código abaixo. Os incrementos de valores sempre são dados através da função
         \textbf{incrementa} definida na linha 3.
@@ -141,13 +143,20 @@ Python: Paradigma Funcional Aplicado à Transformação de Dados
             \end{minted}
             \caption{Retorno inesperado de função impura}
             \label{listing:impura-retorno}
-        \end{listing}
+        \end{listing}\pagebreak
 
-        \\Persebe-se na saída da linha 13, que a chamada da função \textbf{incrementa} com parâmetro 5 retorna resultados imprevisíveis. Ao comparar
+        Persebe-se na saída da linha 13, que a chamada da função \textbf{incrementa} com parâmetro 5 retorna resultados imprevisíveis. Ao comparar
         a linha 13 com a linha 7 do Código \ref{listing:impura}, nota-se claramente a quebra do conceito de função pura. Isto introduz comportamentos inconssistentes
-        que podem levar a \textit{bugs}\footnote{} inesperados no código. Bugs desta natureza geralmente são difíceis de rastrear, a situação é ainda
-        mais sensível em códigos de natureza \textit{\textbf{Multi-Threading}}\footnote{}.\\
-        Em resumo: Qualquer função que altere estados fora de seu escopo\footnote{} é impura por natureza, pois a alteração de estados globais geram escopos compartilhados, gerando ambientes em que mais de uma função pode tentar alterar o mesmo recurso.
+        que podem levar a \textit{bugs}\footnote{
+            Erro em sistemas eletrônicos/software que causa comportamentos inesperados (ex.: travamentos, resultados incorretos). Pode surgir no código-fonte, frameworks, SO ou compiladores. Comum em computação, jogos e cibernética\cite{wiki_bug}.
+        } inesperados no código. Bugs desta natureza geralmente são difíceis de rastrear, a situação é ainda
+        mais sensível em códigos de natureza \textit{\textbf{Multi-Threading}}\footnote{
+            Paradigma que aumenta a eficiência do sistema ao executar múltiplas threads/tarefas simultaneamente, assim como o multiprocessamento. Essencial para a computação moderna\cite{wiki_multithreading} (adaptado).
+        }.\\
+        Em resumo: Qualquer função que altere estados fora de seu escopo é impura por natureza, pois a alteração de estados globais geram escopos compartilhados em que um mesmo recurso pode ser concorrentemente disputado.
+        É este tipo de abordagem que leva a problemas de deadlock\footnote{
+            Impasse em que processos ficam bloqueados mutuamente, cada um esperando por um recurso retido por outro. Comum em SOs e bancos de dados, ocorre mesmo com recursos não-preemptíveis (ex.: dispositivos, memória), independente da quantidade disponível. Pode envolver threads em um único processo\cite{wiki_deadlock}.
+        } e os mais derivados problemas em computação concorrente e parelela, tornando o uso de semáforos, filas e etc obrigatórios, adicionando grandes complexidades ao código fonte.
 
     \subsection{Imutabilidade}
         Imutabilidade (em se tratando de um objeto), é um objeto cujo estado não pode ser modificado após sua criação. (Wikipédia, 2025)\cite{wiki_immutable}
@@ -260,7 +269,7 @@ Python: Paradigma Funcional Aplicado à Transformação de Dados
     % endregion
 
     % \cite{amarante2001}
-    \section{REFERÊNCIAS}
+    \section{REFERÊNCIAS}\\
     \bibliographystyle{plain}
     \bibliography{MinhasReferencias}
 
