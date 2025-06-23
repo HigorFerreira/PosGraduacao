@@ -5,6 +5,10 @@ from .Node import Node
 class BinaryTree:
     root: Node | None = None
 
+    def __init__(self, arr: list[int]):
+        for i in arr:
+            self.insert(Node(i))
+
     def insert(self, node: Node, parent: Node | None = None):
         if self.root is None: self.root = node; return deepcopy(node)
         if parent is None: parent = self.root
