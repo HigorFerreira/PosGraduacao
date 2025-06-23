@@ -15,19 +15,64 @@ sobre a árvore afim de realizar algumas operações mais comuns.
     \label{listing:abp}
 \end{listing}
 
-Nota-se na linha 4 que a árvire \textbf{tree} é criada a partir de uma lista de inteiros. O objetivo
+Nota-se na linha 4 que a árvore \textbf{tree} é criada a partir de uma lista de inteiros. O objetivo
 é analisar as chamadas e usos de funções sobre operações comuns desta estrutura de dados, tais como:
 
-\begin{itemize}
+\begin{enumerate}
     \item Percorrimento da árvore em ordem
     \item Uso da Busca em Profundidade, do inglês: \textit{Depth First Search} (DFS)\footnote{
         Algoritmo de exploração de grafos que percorre ramificações até o fim antes de retroceder (backtracking). Usado em árvores, grafos e labirintos – estudado desde o século XIX por Trémaux (\citeauthor{wiki_dfs}, \citeyear{wiki_dfs})\cite{wiki_dfs}.
     }, para obter informações, como:
-    \begin{itemize}
+    \begin{enumerate}
         \item Checar a presença de um determinado nó na árvore
         \item Listar os nós folha da árvore
         \item Percorrer determinado nó até a raiz
         \item Calcular a altura da árvore
         \item Calcular o balanceamento da árvore
-    \end{itemize}
+    \end{enumerate}
+\end{enumerate}
+
+\subsection{Usos}
+\subsubsection{Percorrimento em ordem}
+Conforme mostrado no Código \ref{listing:abp}, a árvore binária é incializada com uma lista de inteiros totalmente desordenada.
+Um dos usos mais comuns da Árvore Binária são os percorrimentos em:
+\begin{itemize}
+    \item\textbf{Pré-Ordem}
+    \item\textbf{Em-Ordem}
+    \item\textbf{Pós-Ordem}
 \end{itemize}
+
+O percorrimento \textbf{Em-Ordem} pode ser utilizado para percorrer todos os nós da árvore de forma que os nós mais à esquerda são visitados primeiro. Dada a natureza de inserção dos itens em uma Árvore Binária,
+sabe-se que os items cujos valores sejam menores estarão à esquerda, ao passo que os maiores à direita. Desta forma, pode-se imprimir a lista totalmente ordenada conforme mostrado no Côdigo \ref{listing:abp-in-order}:
+
+\begin{listing}[!ht]
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+    tree.inOrderWalk(lambda node: print(node.value, end=" "))
+    # Saída: 1 2 3 4 5 6 9 10 
+    \end{minted}
+    \caption{Percorrimento em ordem}
+    \label{listing:abp-in-order}
+\end{listing}
+
+Nota-se no código \ref{listing:abp-in-order} o nível de abstração quando aplicada a programação funcional, pois a medida que o percorrimento ocorre, cada nó encontrado chama a funçåo lambda\footnote{
+    Explicar a função lambda
+} passada como segundo parâmetro de \textbf{inOrderWalk}. A função então desempenha o papel de imprimir o valor do nó
+Observa-se que ao contrário de simplesmente imprimir o nó, poderia fazer-se qualquer outra operação com o mesmo, como empilhá-los para formar uma nova lista
+ordenada, por exemplo.
+
+\subsubsection{Depth First Search (DFS)}
+
+\begin{listing}[!ht]
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+    tree.dfs(lambda node: node.value == 1)
+    # Saída: Node(1)
+    tree.dfs(lambda node: node.value == 11)
+    # Saída: None
+    \end{minted}
+    \caption{DFS: }
+    \label{listing:dfs}
+\end{listing}
+
+\subsection{Implementação}
+\subsubsection{Node}
+\subsubsection{BinaryTree}
