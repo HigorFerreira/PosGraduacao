@@ -157,7 +157,7 @@ Python: Paradigma Funcional Aplicado à Transformação de Dados
         Em resumo: Qualquer função que altere estados fora de seu escopo é impura por natureza, pois a alteração de estados globais geram escopos compartilhados em que um mesmo recurso pode ser concorrentemente disputado.
         É este tipo de abordagem que leva a problemas de deadlock\footnote{
             Impasse em que processos ficam bloqueados mutuamente, cada um esperando por um recurso retido por outro. Comum em SOs e bancos de dados, ocorre mesmo com recursos não-preemptíveis (ex.: dispositivos, memória), independente da quantidade disponível. Pode envolver threads em um único processo\cite{wiki_deadlock}.
-        } e os mais derivados problemas em computação concorrente e parelela, tornando o uso de semáforos, filas e etc obrigatórios, adicionando grandes complexidades ao código fonte.
+        } e os mais derivados problemas em computação concorrente e parelela. Desta forma o uso de semáforos, filas e etc acabam sendo obrigatórios, adicionando grandes complexidades ao código fonte.
 
     \subsubsection{Purificando a função}
     O Código \ref{listing:purificada} demonstra a versão purificada da função \textbf{incrementa} na linha 3:
@@ -194,8 +194,8 @@ Python: Paradigma Funcional Aplicado à Transformação de Dados
         A imutabilidade se refere à impossibilidade de mudança de estado de um objeto/varíavel no programa. Em outras palavras: "Dizemos que uma variável é imutável, se após um valor ser vinculado a essa variável, a linguagem não permitir que lhe seja associado outro valor." (\citeauthor{queiroz_func_prog}, \citeyear{queiroz_func_prog}, p.25).\linebreak
         Segundo \citeauthor{queiroz_func_prog} (\citeyear{queiroz_func_prog}) a imutabilidade tem grande importância para que máquinas que se comunicam entre
         si em um ambiente de programação distribuída não tenham que lidar com estados inconsistentes.\linebreak
-        Ainda, segundo \citeauthor{goncalves_func_prog} (\citeyear{goncalves_func_prog}) não é necessário sincronizar o acesso ao código com a programação funcional,
-        pois leituras concorrentes são inofensivas, tornando este cenário ideal para o uso de multi-threading.
+        Ainda, segundo \citeauthor{goncalves_func_prog} (\citeyear{goncalves_func_prog}) não é necessário sincronizar o acesso ao código quando a imutabilidade está aplicada, pois leituras concorrentes são inofensivas, tornando este cenário ideal para o uso de multi-threading sem que hajam os efeitos adversos
+        do acesso sumltâneo a recursos compaartilhados (mutáveis).
     
     % endregion
     
