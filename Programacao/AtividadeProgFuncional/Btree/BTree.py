@@ -34,3 +34,18 @@ class BinaryTree:
                 inOrderRecursive(node.right)
 
         inOrderRecursive(self.root)
+
+    def dfs(self, callback: Callable[[Node], bool] | None = None) -> Node | None:
+
+        def _dfs(node: Node):
+            if node is None: return
+            # print(node)
+            if callback:
+                res = callback(node)
+                if res:
+                    return deepcopy(node)
+            if res:=_dfs(node.left): return res
+            if res:=_dfs(node.right): return res
+        
+
+        return _dfs(self.root)
