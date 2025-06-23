@@ -1,0 +1,33 @@
+\section{CASO DE USO: ÁRVORE BINÁRIA DE PESQUISA}
+
+O Código \ref{listing:abp} abaixo demonstra a instanciação de uma árvore binária de pesquisa, os detalhes da implementação
+serão discutidos adiante. O objetivo em um primeiro momento é demonstrar a facilidade de usar implementações funcionais
+sobre a árvore afim de realizar algumas operações mais comuns.
+
+\begin{listing}[!ht]
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+    from Btree import BinaryTree, Node
+    from toolz import compose, compose_left
+    
+    tree = BinaryTree([ 5, 2, 6, 10, 1, 3, 4, 9 ])
+    \end{minted}
+    \caption{Árvore Binária de Pesquisa}
+    \label{listing:abp}
+\end{listing}
+
+Nota-se na linha 4 que a árvire \textbf{tree} é criada a partir de uma lista de inteiros. O objetivo
+é analisar as chamadas e usos de funções sobre operações comuns desta estrutura de dados, tais como:
+
+\begin{itemize}
+    \item Percorrimento da árvore em ordem
+    \item Uso da Busca em Profundidade, do inglês: \textit{Depth First Search} (DFS)\footnote{
+        Algoritmo de exploração de grafos que percorre ramificações até o fim antes de retroceder (backtracking). Usado em árvores, grafos e labirintos – estudado desde o século XIX por Trémaux (\citeauthor{wiki_dfs}, \citeyear{wiki_dfs})\cite{wiki_dfs}.
+    }, para obter informações, como:
+    \begin{itemize}
+        \item Checar a presença de um determinado nó na árvore
+        \item Listar os nós folha da árvore
+        \item Percorrer determinado nó até a raiz
+        \item Calcular a altura da árvore
+        \item Calcular o balanceamento da árvore
+    \end{itemize}
+\end{itemize}
