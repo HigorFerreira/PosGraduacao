@@ -11,14 +11,5 @@ class Node:
         self.left = None
         self.right = None
         self.parent = None
-        
-    # def __str__(self): return f'Node({self.value})'
 
     def __repr__(self): return f'Node({self.value})'
-
-    
-    def __ge__(self, value: 'Node'): return self.value >= value.value
-    def __gt__(self, value: 'Node'): return self.value > value.value
-    def __le__(self, value: 'Node'): return self.value <= value.value
-    def __lt__(self, value: 'Node'): return self.value < value.value
-    def __eq__(self, value: 'Node'): return self.value == value.value

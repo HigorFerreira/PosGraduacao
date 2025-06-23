@@ -13,7 +13,7 @@ class BinaryTree:
         if self.root is None: self.root = node; return deepcopy(node)
         if parent is None: parent = self.root
 
-        if node < parent:
+        if node.value < parent.value:
             if parent.left is None:
                 node.parent = parent
                 parent.left = node
@@ -35,20 +35,21 @@ class BinaryTree:
 
         inOrderRecursive(self.root)
 
-    def search(node: Node):
-        pass
 
     def dfs(self, callback: Callable[[Node], bool] | None = None) -> Node | None:
-
         def _dfs(node: Node):
             if node is None: return
             # print(node)
             if callback:
                 res = callback(node)
                 if res:
-                    return deepcopy(node)
+                    return node
             if res:=_dfs(node.left): return res
             if res:=_dfs(node.right): return res
-        
 
         return _dfs(self.root)
+    
+    def goToRoot(self, node: Node, callback: Callable[[Node], None] | None = None):
+        callback(node)
+        if node == self.root: return
+        self.goToRoot(node.parent, callback)
