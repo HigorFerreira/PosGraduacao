@@ -1,312 +1,81 @@
-% File: main.tex
-% Date: 2015, April
-% Authors: Gustavo Peixoto, Leon Lima.
-% Description: Latex template file for seminar short papers presented at PPG-EM/UERJ.
-% Version: 1.0
-% Available online on: www.gesar.uerj.br
+% Configurações para o pacote minted
+% Deixa o fundo do código levemente cinza, similar a muitos editores
+% \setminted{
+%     bgcolor=black!5,
+%     linenos,
+%     xleftmargin=2mm,
+%     tabsize=2,
+%     breaklines,
+%     autogobble,
+%     numbersep=5pt
+% }
 
-%% PREAMBLE
-\documentclass[date,twocolumn,a4paper]{ppgem} 
-\usepackage{amsmath}
-\usepackage{enumitem}
-\usepackage{pgfplots}
-\usepackage{tikz}
-\usepackage{pgf-pie}
-\usepackage{minted}
-\usepackage[numbers, sort&compress]{natbib}  % citações numéricas por padrão
-% \usepackage{biblatex}
+\subsection{Funções de Ordem Superior}
+Funções de ordem superior são funções que recebem outras funções como argumento, retornam funções como resultado, ou ambas as coisas. Essa característica é essencial no paradigma funcional, promovendo a composição e reutilização de lógica de forma declarativa e sem efeitos colaterais. Em Python, esse conceito é suportado nativamente por meio de funções como \texttt{map}, \texttt{filter}, \texttt{reduce} e também por funções definidas pelo usuário.
 
+\subsubsection{Definição e Conceito}
+Uma função de ordem superior é qualquer função que manipula outras funções como dados. Isso permite encapsular comportamentos, criar pipelines de transformação e escrever código mais expressivo.
 
+\subsubsection*{1. Seleção do Problema}
 
-\setlist{nolistsep}
+Deseja-se resolver o seguinte problema computacional com base na lista de trabalho \texttt{lista = [ 5, 12, 14, 0, 1, 2, 24, 49, 40, 3, 7 ]}:
+\begin{itemize}
+    \item Ordenar a lista de números
+    \item Filtrar apenas os números pares da lista ordenada
+    \item Calcular o quadrado de cada número filtrado
+\end{itemize}
 
+\subsubsection*{2. Implementação Comparada}
 
-%% TITLE
-\Title{
-Python: Paradigma Funcional Aplicado à Transformação de Dados
-}
+\textbf{Abordagem Imperativa}:
 
-% PLEASE, DO NOT CHANGE THE PAGENUMBER{2}
-\PageNumber{2}
-
-% %% INSTITUTION
-% \InstA{Rio de Janeiro State University} 
-% \InstB{} 
-
-\pagestyle{fancy}
-
-
-\newenvironment{pythoncode}[1][]{%
-    \minted[%
-        linenos,
-        xleftmargin=2mm,
-        tabsize=2,
-        breaklines,
-        autogobble,
-        numbersep=5pt,
-        #1 % Allow optional extra parameters
-    ]{python}%
-}{%
-    \endminted%
-}
-
-\begin{document}
-    \thispagestyle{plain}
-    \makeheader
-    \renewcommand{\listingscaption}{Código}
-
-    %% KEYWORDS
-    % \begin{keywords}
-    % Max of 4 keywords, comma separeted, {\LaTeX} typesetting, standardization.
-    % \end{keywords}
-
-    %% BODY
-    \section*{RESUMO}
-    Resumo aqui
-
-    \section{INTRODUÇÃO}
-
-
-    \section{OBJETIVO}
-    O objetivo deste estudo é escrever código manutenível e de fácil compreensão se utilizando da abordagem funcional
-    afim de demonstrar os efeitos positivos da mesma.
-
-    % region Metodologia
-    \section{METODOLOGIA}
-    % O objetivo desta pesquisa é escrever código mantenível e de fácil compreensão, a fim de demonstrar os efeitos positivos do paradigma funcional. Para isso, serão comparadas (através de exemplos práticos) as abordagens de resolução de problemas sob as perspectivas do paradigma não funcional e funcional. Essa comparação permitirá avaliar as diferenças entre os paradigmas e observar características como:
-
-    % * Facilidade de compreensão
-    % * Facilidade de manutenção
-    % * Clareza do código
-    % * Entre outros aspectos relevantes
-    Este estudo adotará uma abordagem comparativa entre os paradigmas funcional e imperativo, analisando soluções para problemas comuns em ambas as abordagens. A metodologia consistirá em:
-    \begin{enumerate}
-        \item Seleção de Problemas: Escolha de um problema representativo, computacionalmente resolvível.
-        \item Implementação Comparada: Desenvolvimento das soluções em na abordagem funcional e imperativa
-        \item Análise Quantitativa: Avaliação de aspectos como:
-        \begin{enumerate}
-            \item Quantidade de linhas de código
-            % \item Tempo de execução
-            % \item Uso de métricas como complexidade ciclomática e linhas de código (LOC) para apoio quantitativo.
-        \end{enumerate}
-        \item Análise Qualitativa: Avaliação de aspectos como:
-        \begin{enumerate}
-            \item Facilidade de compreensão
-            \item Legibilidade (mediante revisão por pares)
-            \item Manutenibilidade (tempo para introduzir modificações)
-            \item Clareza (análise de estrutura e redundância)
-        \end{enumerate}
-        \item Ferramentas: Todo o trabalho será desenvolvido utilizando a linguagem python
-            e o ambiente de \textit{notebooks} do \textit{jupyter}\footnote{
-                 Ambiente web interativo para criar documentos com código, texto (Markdown), fórmulas e gráficos. Usa formato JSON (.ipynb) organizado em células de entrada/saída\cite{wiki_jupyter_notebook}.
-            }
-    \end{enumerate}
-
-    % endregion
-
-    % region Fundamentos Teóricos
-    \section{FUNDAMENTOS TEÓRICOS}
-        O Paradigma de Programação Funcional (abreviado do inglês como \textbf{FP}, \textit{\textbf{Functional Programming}}), é um modo de pensar
-        a resolução dos problemas computáveis a partir da composição de funções\cite{queiroz_func_prog}.\\
-        Linguagens que oferecem total suporte a este paradigma geralmente permitem que funcções sejam atribuídas a variáveis, passadas como parâmetros
-        e retornadas de outras funções.
-    \subsection{Funções puras}
-        Pode-se dizer que uma função é pura quando retorna sempre a mesma saída, dados os mesmos argumentos\cite{queiroz_func_prog}. Em resumo, as funções
-        puras não podem alterar nenhum estado externo ao seu escopo\footnote{Contexto onde variáveis/expressões são acessíveis. Escopos filhos herdam dos pais, mas não o contrário. Funções criam escopos isolados (ex.: variáveis internas não são acessíveis externamente)\cite{mdn_escopo}.}.\\
-        \textbf{Exemplo:}
-        Digamos que queira-se implementar um contador para uso geral conforme código abaixo. Os incrementos de valores sempre são dados através da função
-        \textbf{incrementa} definida na linha 3.
-        \begin{listing}[!ht]
-            \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
-                contador = 0
-
-                def incrementa(valor):
-                    contador += valor
-                    return contador
-
-                print(incrementa(5))
-                # Saída: 5 (esperado)
-                print(incrementa(2))
-                # Saída: 8 (esperado)
-            \end{minted}
-            \caption{Exemplo de função impura}
-            \label{listing:impura}
-        \end{listing}
-        \\Observa-se nas linhas 7 e 9 que as chamadas à função \textbf{incrementa} retorna os resultados esperados.\\
-        Agora, digamos que em algum ponto do programa a variável \textbf{contador} seja alterada conforme o
-        Código \ref{listing:impura-retorno}:
-
-        \begin{listing}[!ht]
-            \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt,firstnumber=12]{python}
-                contador = 100
-                print(incrementa(5))
-                # Saída: 105 (inesperado)
-            \end{minted}
-            \caption{Retorno inesperado de função impura}
-            \label{listing:impura-retorno}
-        \end{listing}\pagebreak
-
-        Persebe-se na saída da linha 13, que a chamada da função \textbf{incrementa} com parâmetro 5 retorna resultados imprevisíveis. Ao comparar
-        a linha 13 com a linha 7 do Código \ref{listing:impura}, nota-se claramente a quebra do conceito de função pura. Isto introduz comportamentos inconssistentes
-        que podem levar a \textit{bugs}\footnote{
-            Erro em sistemas eletrônicos/software que causa comportamentos inesperados (ex.: travamentos, resultados incorretos). Pode surgir no código-fonte, frameworks, SO ou compiladores. Comum em computação, jogos e cibernética\cite{wiki_bug}.
-        } inesperados no código. Bugs desta natureza geralmente são difíceis de rastrear, a situação é ainda
-        mais sensível em códigos de natureza \textit{\textbf{Multi-Threading}}\footnote{
-            Paradigma que aumenta a eficiência do sistema ao executar múltiplas threads/tarefas simultaneamente, assim como o multiprocessamento. Essencial para a computação moderna\cite{wiki_multithreading} (adaptado).
-        }.\\
-        Em resumo: Qualquer função que altere estados fora de seu escopo é impura por natureza, pois a alteração de estados globais geram escopos compartilhados em que um mesmo recurso pode ser concorrentemente disputado.
-        É este tipo de abordagem que leva a problemas de deadlock\footnote{
-            Impasse em que processos ficam bloqueados mutuamente, cada um esperando por um recurso retido por outro. Comum em SOs e bancos de dados, ocorre mesmo com recursos não-preemptíveis (ex.: dispositivos, memória), independente da quantidade disponível. Pode envolver threads em um único processo\cite{wiki_deadlock}.
-        } e os mais derivados problemas em computação concorrente e parelela. Desta forma o uso de semáforos, filas e etc acabam sendo obrigatórios, adicionando grandes complexidades ao código fonte.
-
-    \subsubsection{Purificando a função}
-    O Código \ref{listing:purificada} demonstra a versão purificada da função \textbf{incrementa} na linha 3:
-    \begin{listing}[!ht]
-        \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
-            contador = 0
-
-            def incrementa(original, valor):
-                return original + valor
-
-
-            print(contador:=incrementa(contador, 5))
-            # Saída: 5 (esperado)
-            print(contador:=incrementa(contador, 2))
-            # Saída: 8 (esperado)
-
-            contador = 100
-            print(contador:=incrementa(contador, 5))
-            # Saída: 105 (esperado)
-        \end{minted}
-        \caption{Função purificada}
-        \label{listing:purificada}
-    \end{listing}\linebreak
-
-    Nota-se que as saídas nas linhas 7, 9 e 13 são as mesmas da versão anterior do código. A diferença é que agora a função
-    \textbf{incrementa} não altera nenhuma variável/estado externo ao seu escopo. Sempre que \textbf{incrementa} é chamada,
-    a variável \textbf{contador} é atualizada com o novo valor do retorno da função. Observa-se agora que na linha 13 a saída
-    105 é esperada, pois o parâmetro não depente mais somente do valor 5 a ser incrementado, mas também do valor original de
-    \textbf{contador}.
-    Desta forma, a função torna-se pura por não alterar escopos externos a ela. De certa forma, pode-se dizer que a função está a trabalhar
-    com o conceito de \textbf{imutabilidade} dentro dos limites de seu escopo (embora \textbf{contador} seja reatribuído diversas vezes).
-
-    \subsection{Imutabilidade}
-        A imutabilidade se refere à impossibilidade de mudança de estado de um objeto/varíavel no programa. Em outras palavras: "Dizemos que uma variável é imutável, se após um valor ser vinculado a essa variável, a linguagem não permitir que lhe seja associado outro valor." (\citeauthor{queiroz_func_prog}, \citeyear{queiroz_func_prog}, p.25).\linebreak
-        Segundo \citeauthor{queiroz_func_prog} (\citeyear{queiroz_func_prog}) a imutabilidade tem grande importância para que máquinas que se comunicam entre
-        si em um ambiente de programação distribuída não tenham que lidar com estados inconsistentes.\linebreak
-        Ainda, segundo \citeauthor{goncalves_func_prog} (\citeyear{goncalves_func_prog}) não é necessário sincronizar o acesso ao código quando a imutabilidade está aplicada, pois leituras concorrentes são inofensivas, tornando este cenário ideal para o uso de multi-threading sem que hajam os efeitos adversos
-        do acesso sumltâneo a recursos compaartilhados (mutáveis).
-    
-    % endregion
-    
-    % region Prática
-    \section{PRÁTICA}
-
-    \subsection{List Comprehensions}
-    As compreensões de lista (\textit{list comprehensions}) são uma forma prática e expressiva de criar listas em Python a partir de sequências iteráveis. Com uma única linha de código, é possível aplicar transformações e filtros aos elementos, de maneira mais clara e concisa do que com laços tradicionais. Elas se alinham aos princípios do paradigma funcional por evitarem efeitos colaterais, privilegiarem a imutabilidade e expressarem a transformação de dados de forma declarativa.
-
-    \subsubsection{Estrutura Sintática}
-    A forma geral de uma compreensão de lista é:
-
-    \begin{listing}[!ht]
-        \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
-            [expressao for item in iteravel if condicao]
-        \end{minted}
-        \caption{Forma geral de uma list comprehension}
-        \label{listing:2}
-    \end{listing}
-
-    Cada parte da expressão representa:
-    \begin{itemize}
-        \item \textbf{expressao}: a transformação aplicada a cada item
-        \item \textbf{item in iteravel}: a iteração sobre os dados
-        \item \textbf{if condicao}: (opcional) aplica um filtro
-    \end{itemize}
-
-    \subsubsection{Comparativo com o Paradigma Imperativo}
-    \textbf{Imperativo}:
-
-    \begin{listing}[!ht]
-        \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
-            resultado = []
-            for x in range(10):
-                if x % 2 == 0:
-                    resultado.append(x * x)
-        \end{minted}
-        \caption{List comprehension - Sequencial/imperativa}
-        \label{listing:2}
-    \end{listing}
-    \textbf{Funcional com list comprehension}:
-    \begin{listing}[!ht]
-        \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
-            resultado = [x * x for x in range(10) if x % 2 == 0]
-        \end{minted}
-        \caption{List comprehension - Forma funcional}
-        \label{listing:2}
-    \end{listing}
-
-    A versão funcional torna o código mais claro e expressivo.
-    \subsubsection{Integração com Funções de Alta Ordem\footnote{Veja o capítulo 5.2}}
-    List comprehensions podem substituir combinações de \texttt{map()} e \texttt{filter()}, mantendo a clareza:
-
-    \begin{listing}[!ht]
-        \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
-            # map + filter
-            list(map(lambda x: x*x, filter(lambda x: x % 2 == 0, range(10))))
-
-            # list comprehension
-            [x*x for x in range(10) if x % 2 == 0]
-        \end{minted}
-        \caption{List comprehension - Comparação com Funções de Alta Ordem}
-        \label{listing:2}
-    \end{listing}
-
-    \subsubsection{Casos Avançados e Boas Práticas}
-    \begin{itemize}
-    \item \textbf{Aninhamento}:
-    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
-    [[i*j for j in range(1, 4)] for i in range(1, 4)]
+\begin{listing}[!ht]
+    \begin{minted}{python}
+        lista = [ 5, 12, 14, 0, 1, 2, 24, 49, 40, 3, 7 ]
+        ordenada = sorted(lista)
+        resultado = []
+        for numero in ordenada:
+            if numero % 2 == 0:
+                resultado.append(numero**2)
     \end{minted}
-    \item \textbf{Condicional ternário}:
-    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
-    ['par' if x % 2 == 0 else 'impar' for x in range(5)]
-    \end{minted}
-    \item \textbf{Múltiplos \texttt{for}}:
-    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
-    [(x, y) for x in [1, 2] for y in [10, 20]]
-    \end{minted}
-    \end{itemize}
+    \caption{Solução imperativa}
+    \label{listing:hof_imperativa}
+\end{listing}
 
-    \subsubsection{Aplicação em Transformação de Dados}
-    Um exemplo clássico na análise de dados:
+\textbf{Abordagem Funcional com Funções de Ordem Superior}:
 
-    \begin{listing}[!ht]
-        \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
-            import csv
+\begin{listing}[!ht]
+\begin{minted}{python}
+lista = [ 5, 12, 14, 0, 1, 2, 24, 49, 40, 3, 7 ]
+resultado = list(map(lambda x: x**2, filter(lambda x: x % 2 == 0, sorted(lista))))
+\end{minted}
+\caption{Solução funcional com \texttt{map()}, \texttt{filter()} e \texttt{sorted()}}
+\label{listing:hof_funcional}
+\end{listing}
 
-            with open("dados.csv") as f:
-                reader = csv.DictReader(f)
-                dados = [int(row["idade"]) for row in reader if row["ativo"] == "sim"]
-        \end{minted}
-        \caption{List comprehension - Aplicação em Transformação de Dados}
-        \label{listing:2}
-    \end{listing}
+\subsubsection*{3. Análise Quantitativa}
+A
+\begin{itemize}
+    \item \textbf{Imperativa}: 4 linhas de código (sem contar a inicialização da lista)
+    \item \textbf{Funcional}: 1 linha de código (sem contar a inicialização da lista)
+\end{itemize}
 
-    Esse exemplo mostra uma transformação funcional e imutável sobre os dados lidos de um CSV.
+\subsubsection*{4. Análise Qualitativa}
 
-    \subsubsection{Considerações Finais}
-    As compreensões de lista são bastante usadas em Python por facilitarem a escrita de um código mais claro e direto. Elas contribuem para um estilo mais funcional e ajudam a manter o código legível, conciso e fácil de testar. Por isso, são uma boa escolha em tarefas de transformação de dados, especialmente quando queremos montar pipelines simples e objetivos. Quando usadas com bom senso, tornam o código mais fácil de entender e manter no dia a dia.
-
-    \input{ordem_superior}
-    
-    \subsection{Composição de Funções}
-    (Rodolfo)
-    \subsection{Pipelines de Transformação}
-    % endregion
-
-    % \cite{amarante2001}
-    \section{REFERÊNCIAS}\\
-    \bibliographystyle{plainnat}                % ou abbrvnat, unsrtnat, etc.
-    \bibliography{MinhasReferencias}
-
-\end{document}
+\begin{table}[H]
+    \centering
+    \caption{Comparação qualitativa entre abordagens}
+    \begin{tabular}{|l|c|c|}
+        \hline
+        \textbf{Critério} & \textbf{Imperativa} & \textbf{Funcional} \\
+        \hline
+        Facilidade de compreensão & Alta para iniciantes & Requer familiaridade com HOFs \\
+        \hline
+        Legibilidade & Alta, pois descreve o "como" & Concisa, pois descreve o "quê" \\
+        \hline
+        Manutenibilidade & Modificações são passo a passo & Pode exigir reescrita da expressão \\
+        \hline
+        Clareza estrutural & Lógica explícita e detalhada & Expressão enxuta e aninhada \\
+        \hline
+    \end{tabular}
+\end{table}
