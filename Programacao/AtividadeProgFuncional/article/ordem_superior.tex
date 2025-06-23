@@ -30,16 +30,16 @@ Deseja-se resolver o seguinte problema computacional com base na lista de trabal
 \textbf{Abordagem Imperativa}:
 
 \begin{listing}[!ht]
-    \begin{minted}{python}
-        lista = [ 5, 12, 14, 0, 1, 2, 24, 49, 40, 3, 7 ]
-        ordenada = sorted(lista)
-        resultado = []
-        for numero in ordenada:
-            if numero % 2 == 0:
-                resultado.append(numero**2)
-    \end{minted}
-    \caption{Solução imperativa}
-    \label{listing:hof_imperativa}
+\begin{minted}{python}
+lista = [ 5, 12, 14, 0, 1, 2, 24, 49, 40, 3, 7 ]
+ordenada = sorted(lista)
+resultado = []
+for numero in ordenada:
+    if numero % 2 == 0:
+        resultado.append(numero**2)
+\end{minted}
+\caption{Solução imperativa}
+\label{listing:hof_imperativa}
 \end{listing}
 
 \textbf{Abordagem Funcional com Funções de Ordem Superior}:
