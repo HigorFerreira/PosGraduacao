@@ -1,0 +1,94 @@
+\subsection{List Comprehensions}
+As compreensões de lista (\textit{list comprehensions}) são uma forma prática e expressiva de criar listas em Python a partir de sequências iteráveis. Com uma única linha de código, é possível aplicar transformações e filtros aos elementos, de maneira mais clara e concisa do que com laços tradicionais. Elas se alinham aos princípios do paradigma funcional por evitarem efeitos colaterais, privilegiarem a imutabilidade e expressarem a transformação de dados de forma declarativa.
+
+\subsubsection{Estrutura Sintática}
+A forma geral de uma compreensão de lista é:
+
+\begin{listing}[!ht]
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+        [expressao for item in iteravel if condicao]
+    \end{minted}
+    \caption{Forma geral de uma list comprehension}
+    \label{listing:2}
+\end{listing}
+
+Cada parte da expressão representa:
+\begin{itemize}
+    \item \textbf{expressao}: a transformação aplicada a cada item
+    \item \textbf{item in iteravel}: a iteração sobre os dados
+    \item \textbf{if condicao}: (opcional) aplica um filtro
+\end{itemize}
+
+\subsubsection{Comparativo com o Paradigma Imperativo}
+\textbf{Imperativo}:
+
+\begin{listing}[!ht]
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+        resultado = []
+        for x in range(10):
+            if x % 2 == 0:
+                resultado.append(x * x)
+    \end{minted}
+    \caption{List comprehension - Sequencial/imperativa}
+    \label{listing:2}
+\end{listing}
+\textbf{Funcional com list comprehension}:
+\begin{listing}[!ht]
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+        resultado = [x * x for x in range(10) if x % 2 == 0]
+    \end{minted}
+    \caption{List comprehension - Forma funcional}
+    \label{listing:2}
+\end{listing}
+
+A versão funcional torna o código mais claro e expressivo.
+\subsubsection{Integração com Funções de Alta Ordem\footnote{Veja o capítulo 5.2}}
+List comprehensions podem substituir combinações de \texttt{map()} e \texttt{filter()}, mantendo a clareza:
+
+\begin{listing}[!ht]
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+        # map + filter
+        list(map(lambda x: x*x, filter(lambda x: x % 2 == 0, range(10))))
+
+        # list comprehension
+        [x*x for x in range(10) if x % 2 == 0]
+    \end{minted}
+    \caption{List comprehension - Comparação com Funções de Alta Ordem}
+    \label{listing:2}
+\end{listing}
+
+\subsubsection{Casos Avançados e Boas Práticas}
+\begin{itemize}
+\item \textbf{Aninhamento}:
+\begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+[[i*j for j in range(1, 4)] for i in range(1, 4)]
+\end{minted}
+\item \textbf{Condicional ternário}:
+\begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+['par' if x % 2 == 0 else 'impar' for x in range(5)]
+\end{minted}
+\item \textbf{Múltiplos \texttt{for}}:
+\begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+[(x, y) for x in [1, 2] for y in [10, 20]]
+\end{minted}
+\end{itemize}
+
+\subsubsection{Aplicação em Transformação de Dados}
+Um exemplo clássico na análise de dados:
+
+\begin{listing}[!ht]
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+        import csv
+
+        with open("dados.csv") as f:
+            reader = csv.DictReader(f)
+            dados = [int(row["idade"]) for row in reader if row["ativo"] == "sim"]
+    \end{minted}
+    \caption{List comprehension - Aplicação em Transformação de Dados}
+    \label{listing:2}
+\end{listing}
+
+Esse exemplo mostra uma transformação funcional e imutável sobre os dados lidos de um CSV.
+
+\subsubsection{Considerações Finais}
+As compreensões de lista são bastante usadas em Python por facilitarem a escrita de um código mais claro e direto. Elas contribuem para um estilo mais funcional e ajudam a manter o código legível, conciso e fácil de testar. Por isso, são uma boa escolha em tarefas de transformação de dados, especialmente quando queremos montar pipelines simples e objetivos. Quando usadas com bom senso, tornam o código mais fácil de entender e manter no dia a dia.
