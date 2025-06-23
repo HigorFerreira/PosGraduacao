@@ -1,0 +1,92 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{minted}
+\usepackage{caption}
+\usepackage{float}
+
+% Configurações para o pacote minted
+% Deixa o fundo do código levemente cinza, similar a muitos editores
+\setminted{
+    bgcolor=black!5,
+    linenos,
+    xleftmargin=2mm,
+    tabsize=2,
+    breaklines,
+    autogobble,
+    numbersep=5pt
+}
+
+\begin{document}
+
+\subsection{Funções de Ordem Superior}
+Funções de ordem superior são funções que recebem outras funções como argumento, retornam funções como resultado, ou ambas as coisas. Essa característica é essencial no paradigma funcional, promovendo a composição e reutilização de lógica de forma declarativa e sem efeitos colaterais. Em Python, esse conceito é suportado nativamente por meio de funções como \texttt{map}, \texttt{filter}, \texttt{reduce} e também por funções definidas pelo usuário.
+
+\subsubsection{Definição e Conceito}
+Uma função de ordem superior é qualquer função que manipula outras funções como dados. Isso permite encapsular comportamentos, criar pipelines de transformação e escrever código mais expressivo.
+
+\subsubsection*{1. Seleção do Problema}
+
+Deseja-se resolver o seguinte problema computacional com base na lista de trabalho \texttt{lista = [ 5, 12, 14, 0, 1, 2, 24, 49, 40, 3, 7 ]}:
+\begin{itemize}
+    \item Ordenar a lista de números
+    \item Filtrar apenas os números pares da lista ordenada
+    \item Calcular o quadrado de cada número filtrado
+\end{itemize}
+
+\subsubsection*{2. Implementação Comparada}
+
+\textbf{Abordagem Imperativa}:
+
+\begin{listing}[!ht]
+\begin{minted}{python}
+lista = [ 5, 12, 14, 0, 1, 2, 24, 49, 40, 3, 7 ]
+ordenada = sorted(lista)
+resultado = []
+for numero in ordenada:
+    if numero % 2 == 0:
+        resultado.append(numero**2)
+\end{minted}
+\caption{Solução imperativa}
+\label{listing:hof_imperativa}
+\end{listing}
+
+\textbf{Abordagem Funcional com Funções de Ordem Superior}:
+
+\begin{listing}[!ht]
+\begin{minted}{python}
+lista = [ 5, 12, 14, 0, 1, 2, 24, 49, 40, 3, 7 ]
+resultado = list(map(lambda x: x**2, filter(lambda x: x % 2 == 0, sorted(lista))))
+\end{minted}
+\caption{Solução funcional com \texttt{map()}, \texttt{filter()} e \texttt{sorted()}}
+\label{listing:hof_funcional}
+\end{listing}
+
+\subsubsection*{3. Análise Quantitativa}
+
+\begin{itemize}
+    \item \textbf{Imperativa}: 4 linhas de código (sem contar a inicialização da lista)
+    \item \textbf{Funcional}: 1 linha de código (sem contar a inicialização da lista)
+\end{itemize}
+
+\subsubsection*{4. Análise Qualitativa}
+
+\begin{table}[H]
+\centering
+\caption{Comparação qualitativa entre abordagens}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Critério} & \textbf{Imperativa} & \textbf{Funcional} \\
+\hline
+Facilidade de compreensão & Alta para iniciantes & Requer familiaridade com HOFs \\
+\hline
+Legibilidade & Alta, pois descreve o "como" & Concisa, pois descreve o "quê" \\
+\hline
+Manutenibilidade & Modificações são passo a passo & Pode exigir reescrita da expressão \\
+\hline
+Clareza estrutural & Lógica explícita e detalhada & Expressão enxuta e aninhada \\
+\hline
+\end{tabular}
+\end{table}
+
+\end{document}
