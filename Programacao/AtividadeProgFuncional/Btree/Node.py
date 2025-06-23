@@ -1,7 +1,6 @@
 from typing import Optional
 
-
-class Node(int):
+class Node:
     value: int
     parent: Optional['Node']
     right: Optional['Node']
@@ -18,8 +17,8 @@ class Node(int):
     def __repr__(self): return f'Node({self.value})'
 
     
-    def __ge__(self, value: 'Node'): return self.value >= value.value
-    def __gt__(self, value: 'Node'): return self.value > value.value
-    def __le__(self, value: 'Node'): return self.value <= value.value
-    def __lt__(self, value: 'Node'): return self.value < value.value
-    def __eq__(self, value: 'Node'): return self.value == value.value
+    # def __ge__(self, value: 'Node'): return self.value >= value.value
+    # def __gt__(self, value: 'Node'): return self.value > value.value
+    # def __le__(self, value: 'Node'): return self.value <= value.value
+    # def __lt__(self, value: 'Node'): return self.value < value.value
+    # def __eq__(self, value: 'Node'): return self.value == value.value

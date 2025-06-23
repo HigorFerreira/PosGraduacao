@@ -8,7 +8,7 @@ class BinaryTree:
         if self.root is None: self.root = node; return deepcopy(node)
         if parent is None: parent = self.root
 
-        if node < parent:
+        if node.value < parent.value:
             if parent.left is None:
                 node.parent = parent
                 parent.left = node
@@ -21,15 +21,11 @@ class BinaryTree:
             return deepcopy(node)
         return self.insert(node, parent.right)
     
-    def dfs(self, node: Node = None, action: Node = None):
-        print('N ->', node, '   A ->', action)
+    def inOrderWalk(self):
+        def inOrderRecursive(node: Node | None):
+            if node is not None:
+                inOrderRecursive(node.left)
+                print(node)
+                inOrderRecursive(node.right)
 
-        if action:
-            print(action)
-            if action.right is None: return self.dfs(None, action.parent)
-            return
-
-        if node is None: return self.dfs(self.root)
-        if node.left is not None: return self.dfs(node.left)
-        return self.dfs(None, node)
-
+        inOrderRecursive(self.root)
