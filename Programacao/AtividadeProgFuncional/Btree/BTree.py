@@ -1,4 +1,5 @@
 from copy import deepcopy
+from typing import Callable
 from .Node import Node
 
 class BinaryTree:
@@ -21,11 +22,11 @@ class BinaryTree:
             return deepcopy(node)
         return self.insert(node, parent.right)
     
-    def inOrderWalk(self):
+    def inOrderWalk(self, callback: Callable[[Node], None] | None = None):
         def inOrderRecursive(node: Node | None):
             if node is not None:
                 inOrderRecursive(node.left)
-                print(node)
+                if callback: callback(deepcopy(node))
                 inOrderRecursive(node.right)
 
         inOrderRecursive(self.root)
