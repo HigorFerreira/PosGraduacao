@@ -118,7 +118,7 @@ o valor \textbf{True}. Quando uma função retorna \textbf{True}, a \textbf{dfs}
 \end{listing}
 
 No Código \ref{listing:dfs-encontra-no-1} pode-se observar que mais nós são visitados. Ao final, depois de percorrer
-os nós $5,2,1$, finalmente é retornado o nó $1$ por ele ter sido encontrado.
+os nós $(5,2,1)$, finalmente é retornado o nó $1$ por ele ter sido encontrado.
 
 \begin{listing}[H]
     \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
@@ -153,6 +153,91 @@ Finalmente, quando um determinado nó não é encontrado, a árvore inteira é p
 
 \subsubsection{DFS: Encontrar nós folha}
 
-\subsection{Implementação}
-\subsubsection{Node}
-\subsubsection{BinaryTree}
+O Código \ref{listing:dfs-encontra-folhas} demonstra como obter uma lista dos nós folha usando dfs a partir da árvore.
+A natureza do percorrimento dfs é ideal para encontrar tais nós. São encontrados 3 nós de acordo com a linha 3:
+
+\begin{listing}[H]
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+    leafs: list[Node] = []
+    tree.dfs(lambda node: leafs.append(node) if node.left is None and node.right is None else False)
+    leafs
+    # Saída: [Node(1), Node(4), Node(9)]
+    \end{minted}
+    \caption{DFS: Nós folha}
+    \label{listing:dfs-encontra-folhas}
+\end{listing}
+
+\subsubsection{DFS: Nó folha até a raiz}
+
+Uma vez que tem se a lista de nós folha, pode-se utilizar o método \textbf{goToRoot} para saber quais nós estão entre a folha e a raiz.
+O Código \ref{listing:dfs-folha-raiz} mostra que os nós $(4, 3, 2, 5)$ formam o caminho entre o nó $4$ (folha), e $5$ (raiz).
+
+\begin{listing}[H]
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+    tree.goToRoot(leafs[1], lambda node: print(node))
+    # Saída: Node(4)
+    # Saída: Node(3)
+    # Saída: Node(2)
+    # Saída: Node(5)
+    \end{minted}
+    \caption{DFS: Folha à raiz}
+    \label{listing:dfs-folha-raiz}
+\end{listing}
+
+\subsubsection{DFS: Altura da árvore}
+
+O Código \ref{listing:dfs-altura} demonstra a utilização de composição de funções para calcular a altura da
+árvore. Nas linhas 1 a 9 são definidas as funções utilitárias. Por fim, descobre-se na linha 15 que a árvore
+tem altura 4.
+\vfill
+\pagebreak
+
+\begin{listing}[H]
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+    def pathToRoot(node: Node, tree: BinaryTree):
+        arr: list[Node] = []
+        tree.goToRoot(node, lambda n: arr.append(n))
+        return arr
+
+    def node_paths(lfs: list[Node]): return [ (leaf, pathToRoot(leaf, tree)) for leaf in lfs ]
+    def node_length(node: Node, path: list[Node]): return ( node, len(path) )
+
+    tree_heights_pipe = compose_left(
+        node_paths,
+        lambda arr: [ node_length(node, path) for node, path in arr ],
+        lambda arr: [ size for _, size in arr ],
+    )
+
+    compose(max, tree_heights_pipe)(leafs)
+    # Saída: 4
+    \end{minted}
+    \caption{DFS: Altura da árvore}
+    \label{listing:dfs-altura}
+\end{listing}
+
+\subsubsection{DFS: Balanceamento da árvore}
+
+Por fim, tendo-se as informações de altura dos nós folha com a ajuda da função \textbf{tree\_heights\_pipe} (Código \ref{listing:dfs-altura}, linha 9),
+pode-se calcular o balanceamento da árvore conoforme mostra a linha 8 do Código \ref{listing:dfs-balanceamento}:
+
+\begin{listing}[H]
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+    min_height = compose(min, tree_heights_pipe)(leafs)
+    diff_height = compose_left(
+        lambda arr: tree_heights_pipe(arr),
+        lambda arr: [ i - min_height for i in arr ],
+        max
+    )(leafs)
+
+    print(f"A árvore está { "des" if diff_height > 1 else "" }balanceada")
+    # Saída: A árvore está balanceada
+    \end{minted}
+    \caption{DFS: Altura da árvore}
+    \label{listing:dfs-balanceamento}
+\end{listing}
+
+Fica evidente que a árvore está totalmente balanceada pois não há nós folha com diferença de altura maior que 1.
+
+% \subsection{Implementação}
+% \subsubsection{Node}
+% \subsubsection{BinaryTree}
