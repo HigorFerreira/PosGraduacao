@@ -4,7 +4,7 @@ O Código \ref{listing:abp} abaixo demonstra a instanciação de uma árvore bin
 serão discutidos adiante. O objetivo em um primeiro momento é demonstrar a facilidade de usar implementações funcionais
 sobre a árvore afim de realizar algumas operações mais comuns.
 
-\begin{listing}[!ht]
+\begin{listing}[H]
     \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
     from Btree import BinaryTree, Node
     from toolz import compose, compose_left
@@ -45,7 +45,7 @@ Um dos usos mais comuns da Árvore Binária são os percorrimentos em:
 O percorrimento \textbf{Em-Ordem} pode ser utilizado para percorrer todos os nós da árvore de forma que os nós mais à esquerda são visitados primeiro. Dada a natureza de inserção dos itens em uma Árvore Binária,
 sabe-se que os items cujos valores sejam menores estarão à esquerda, ao passo que os maiores à direita. Desta forma, pode-se imprimir a lista totalmente ordenada conforme mostrado no Côdigo \ref{listing:abp-in-order}:
 
-\begin{listing}[!ht]
+\begin{listing}[H]
     \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
     tree.inOrderWalk(lambda node: print(node.value, end=" "))
     # Saída: 1 2 3 4 5 6 9 10 
@@ -68,7 +68,7 @@ aprofundando tanto quanto possível a partir do primeiro nó filho. Quando a bus
 novamente.
 O Código \ref{listing:dfs-percorrer} mostra o percorrimento utilizando DFS.
 
-\begin{listing}[!ht]
+\begin{listing}[H]
     \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
     tree.dfs(lambda node: print(node.value, end=" "))
     # Saída: 5 2 1 3 4 6 10 9 
@@ -88,7 +88,7 @@ retorne o valor \textbf{True}, a busca é interrompida. Quando \textbf{False}, a
 O Código \ref{listing:dfs-encontra-no-funcoes} mostra a definição de duas funções nas linhas 1 e 2 para serem
 utilizadas na \textbf{dfs}:
 
-\begin{listing}[!ht]
+\begin{listing}[H]
     \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
     def retorna_verdadeiro(node: Node): print("Nó visitado:", node); return True
     def encontre_no(node_number: int):
@@ -106,21 +106,21 @@ que compara o nó atual com um valor passado como argumento. Desta forma, \textb
 Conforme se observa no Código \ref{listing:dfs-encontra-no-verdadeiro}, apenas o nó raiz é visitado pois \textbf{retorna\_verdadeiro} imediatemente retorna
 o valor \textbf{True}. Quando uma função retorna \textbf{True}, a \textbf{dfs} retorna o nó atual que está sendo visitado:
 
-\begin{listing}[!ht]
+\begin{listing}[H]
     \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
     tree.dfs(retorna_verdadeiro)
     # Saída: Nó visitado: Node(5)
     # Saída: 
     # Saída: Node(5)
     \end{minted}
-    \caption{DFS: retorna_verdadeiro}
+    \caption{DFS: retorna\_verdadeiro}
     \label{listing:dfs-encontra-no-verdadeiro}
 \end{listing}
 
 No Código \ref{listing:dfs-encontra-no-1} pode-se observar que mais nós são visitados. Ao final, depois de percorrer
 os nós $5,2,1$, finalmente é retornado o nó $1$ por ele ter sido encontrado.
 
-\begin{listing}[!ht]
+\begin{listing}[H]
     \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
     tree.dfs(encontre_no(1))
     # Saída: Nó visitado: Node(5)
@@ -129,13 +129,13 @@ os nós $5,2,1$, finalmente é retornado o nó $1$ por ele ter sido encontrado.
     # Saída: 
     # Saída: Node(1)
     \end{minted}
-    \caption{DFS: encontre_no(1)}
+    \caption{DFS: encontre\_no(1)}
     \label{listing:dfs-encontra-no-1}
 \end{listing}
 
 Finalmente, quando um determinado nó não é encontrado, a árvore inteira é percorrida conforme abaixo:
 
-\begin{listing}[!ht]
+\begin{listing}[H]
     \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
     tree.dfs(encontre_no(11))
     # Saída: Nó visitado: Node(5)
@@ -147,7 +147,7 @@ Finalmente, quando um determinado nó não é encontrado, a árvore inteira é p
     # Saída: Nó visitado: Node(10)
     # Saída: Nó visitado: Node(9)
     \end{minted}
-    \caption{DFS: encontre_no(11)}
+    \caption{DFS: encontre\_no(11)}
     \label{listing:dfs-encontra-no-11}
 \end{listing}
 
