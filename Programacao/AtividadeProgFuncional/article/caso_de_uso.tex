@@ -75,25 +75,82 @@ O Código \ref{listing:dfs-percorrer} mostra o percorrimento utilizando DFS.
     \end{minted}
     \caption{DFS: }
     \label{listing:dfs-percorrer}
-\end{listing}\linebreak
+\end{listing}
 
 Nota-se que o resultado apresentado agora é diferente do percorrimento em ordem apresentado no Código \ref{listing:abp-in-order}.
 A busca começa a partir do nó raiz e segue até o último nó folha. Evidentemente, os valores impressos não são exibidos de forma ordenada.
 
 \subsubsection{DFS: Encontrar um nó}
 
-A função 
+A função passada como argumento para \textbf{dfs}, ao contrário das já apresentadas, espera um valor booleano de retorno.
+Este valor é utilizado para controlar quando parar a busca dfs. Caso uma chamada à função passada a \textbf{dfs}
+retorne o valor \textbf{True}, a busca é interrompida. Quando \textbf{False}, a busca procede.\linebreak
+O Código \ref{listing:dfs-encontra-no-funcoes} mostra a definição de duas funções nas linhas 1 e 2 para serem
+utilizadas na \textbf{dfs}:
 
 \begin{listing}[!ht]
     \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
-    tree.dfs(lambda node: node.value == 1)
-    # Saída: Node(1)
-    tree.dfs(lambda node: node.value == 11)
-    # Saída: None
+    def retorna_verdadeiro(node: Node): print("Nó visitado:", node); return True
+    def encontre_no(node_number: int):
+        def closure(node: Node): print("Nó visitado:", node); return node.value == node_number
+        return closure
+    \end{minted}
+    \caption{DFS: Funções de busca}
+    \label{listing:dfs-encontra-no-funcoes}
+\end{listing}
+A função \textbf{retorna\_verdadeiro} apenas exibe o nó visitado e imediatamente retorna \textbf{True}. Enquanto que \textbf{encontre\_no}
+retorna uma \textit{Closure}\footnote{
+    Explicar closure
+}
+que compara o nó atual com um valor passado como argumento. Desta forma, \textbf{encontre\_no} se utiliza de DFS para procurar um nó na árvore.\linebreak
+Conforme se observa no Código \ref{listing:dfs-encontra-no-verdadeiro}, apenas o nó raiz é visitado pois \textbf{retorna\_verdadeiro} imediatemente retorna
+o valor \textbf{True}. Quando uma função retorna \textbf{True}, a \textbf{dfs} retorna o nó atual que está sendo visitado:
+
+\begin{listing}[!ht]
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+    tree.dfs(retorna_verdadeiro)
+    # Saída: Nó visitado: Node(5)
+    # Saída: 
+    # Saída: Node(5)
     \end{minted}
     \caption{DFS: }
-    \label{listing:dfs-no}
-\end{listing}\linebreak
+    \label{listing:dfs-encontra-no-verdadeiro}
+\end{listing}
+
+No Código \ref{listing:dfs-encontra-no-1} pode-se observar que mais nós são visitados. Ao final, depois de percorrer
+os nós $5,2,1$, finalmente é retornado o nó $1$ por ele ter sido encontrado.
+
+\begin{listing}[!ht]
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+    tree.dfs(encontre_no(1))
+    # Saída: Nó visitado: Node(5)
+    # Saída: Nó visitado: Node(2)
+    # Saída: Nó visitado: Node(1)
+    # Saída: 
+    # Saída: Node(1)
+    \end{minted}
+    \caption{DFS: }
+    \label{listing:dfs-encontra-no-1}
+\end{listing}
+
+Finalmente, quando um determinado nó não é encontrado, a árvore inteira é percorrida conforme abaixo:
+
+\begin{listing}[!ht]
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+    # Saída: Nó visitado: Node(5)
+    # Saída: Nó visitado: Node(2)
+    # Saída: Nó visitado: Node(1)
+    # Saída: Nó visitado: Node(3)
+    # Saída: Nó visitado: Node(4)
+    # Saída: Nó visitado: Node(6)
+    # Saída: Nó visitado: Node(10)
+    # Saída: Nó visitado: Node(9)
+    \end{minted}
+    \caption{DFS: }
+    \label{listing:dfs-encontra-no-11}
+\end{listing}
+
+\subsubsection{DFS: Encontrar nós folha}
 
 \subsection{Implementação}
 \subsubsection{Node}
