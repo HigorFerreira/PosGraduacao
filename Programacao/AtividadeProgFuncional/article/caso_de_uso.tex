@@ -73,7 +73,7 @@ O Código \ref{listing:dfs-percorrer} mostra o percorrimento utilizando DFS.
     tree.dfs(lambda node: print(node.value, end=" "))
     # Saída: 5 2 1 3 4 6 10 9 
     \end{minted}
-    \caption{DFS: }
+    \caption{DFS: Percorrimento}
     \label{listing:dfs-percorrer}
 \end{listing}
 
@@ -113,7 +113,7 @@ o valor \textbf{True}. Quando uma função retorna \textbf{True}, a \textbf{dfs}
     # Saída: 
     # Saída: Node(5)
     \end{minted}
-    \caption{DFS: }
+    \caption{DFS: retorna_verdadeiro}
     \label{listing:dfs-encontra-no-verdadeiro}
 \end{listing}
 
@@ -129,7 +129,7 @@ os nós $5,2,1$, finalmente é retornado o nó $1$ por ele ter sido encontrado.
     # Saída: 
     # Saída: Node(1)
     \end{minted}
-    \caption{DFS: }
+    \caption{DFS: encontre_no(1)}
     \label{listing:dfs-encontra-no-1}
 \end{listing}
 
@@ -137,6 +137,7 @@ Finalmente, quando um determinado nó não é encontrado, a árvore inteira é p
 
 \begin{listing}[!ht]
     \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+    tree.dfs(encontre_no(11))
     # Saída: Nó visitado: Node(5)
     # Saída: Nó visitado: Node(2)
     # Saída: Nó visitado: Node(1)
@@ -146,7 +147,7 @@ Finalmente, quando um determinado nó não é encontrado, a árvore inteira é p
     # Saída: Nó visitado: Node(10)
     # Saída: Nó visitado: Node(9)
     \end{minted}
-    \caption{DFS: }
+    \caption{DFS: encontre_no(11)}
     \label{listing:dfs-encontra-no-11}
 \end{listing}
 
