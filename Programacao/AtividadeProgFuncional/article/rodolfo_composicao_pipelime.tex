@@ -1,0 +1,236 @@
+\subsection{Composição de Funções}
+A composição de funções é um conceito no paradigma de programação funcional que permite combinar funções simples para criar outras mais complexas. Essa técnica é essencial para a construção de programas modulares, reutilizáveis e fáceis de testar.
+
+\subsubsection{Definição e Conceito}
+A composição de funções é como montar um quebra-cabeça, onde cada peça (função) se encaixa na próxima para formar uma agregação maior para apresentação do resultado. Em termos matemáticos, a composição de funções $f$ e $g$ resulta em uma nova função $h(x) = g(f(x))$, onde a saída de $f$ se torna a entrada de $g$.
+
+\subsubsection{Exemplo Prático: Transformação de Dados}
+Deseja-se resolver o seguinte problema computacional com base na lista de trabalho:
+\begin{minted}[frame=none, xleftmargin=5mm]{python}
+lista = [5, 12, 14, 0, 1, 2, 24, 49, 40, 3, 7]
+\end{minted}
+As etapas da transformação são:
+\begin{itemize}
+    \item Ordenar a lista de números.
+    \item Filtrar apenas os números pares da lista ordenada.
+    \item Calcular o quadrado de cada número filtrado.
+\end{itemize}
+
+\subsubsection{Comparativo: Imperativo vs. Funcional}
+\textbf{Abordagem Imperativa}:
+
+\begin{codelisting}{Transformação de dados de forma imperativa}
+    \label{listing:imperativa}
+    \begin{minted}{python}
+# Funcao Ordena Lista
+def ordenaLista(lista):
+  return sorted(lista)
+
+# Funcao Filtra Lista
+def filtraLista(lista):
+  resultado_filtra = []
+  for numero in lista:
+    if numero % 2 == 0:
+      resultado_filtra.append(numero)
+  return resultado_filtra
+
+# Funcao Calcula Lista
+def calculaLista(lista):
+  resultado_calcula = []
+  for numero in lista:
+    resultado_calcula.append(numero**2)
+  return resultado_calcula
+
+# Estrutura Principal
+resultado_lista_ordenada = ordenaLista(lista)
+resultado_lista_filtrada = filtraLista(resultado_lista_ordenada)
+resultado_lista_calculada = calculaLista(resultado_lista_filtrada)
+    \end{minted}
+\end{codelisting}
+
+\textbf{Abordagem Funcional com Composição}:
+\begin{codelisting}{Transformação de dados com composição funcional}
+    \label{listing:funcional}
+    \begin{minted}{python}
+# Abordagem 1: Composição explícita (aninhada)
+resultado_aninhado = calculaLista(filtraLista(ordenaLista(lista)))
+
+# Abordagem 2: Pipeline funcional com map e filter
+resultado_pipeline = list(map(lambda x: x**2, 
+    filter(lambda x: x % 2 == 0, sorted(lista))))
+    \end{minted}
+\end{codelisting}
+
+A versão funcional expressa o fluxo de dados de forma mais direta e declarativa.
+
+\subsubsection{Análise dos Resultados}
+\textbf{Quantitativa}
+\begin{itemize}
+    \item \textbf{Imperativa:} 10 linhas de código (sem contar a inicialização, apenas as 3 funções de apoio).
+    \item \textbf{Funcional:} 1 linha de código (sem contar a inicialização, para a versão com \texttt{map/filter}).
+\end{itemize}
+
+\textbf{Qualitativa}
+\begin{itemize}
+    \item \textbf{Reutilização:} Funções individuais (\texttt{ordena}, \texttt{filtra}, \texttt{calcula}) podem ser reutilizadas em diferentes composições, aumentando a modularidade.
+    \item \textbf{Testabilidade:} Funções puras, sem efeitos colaterais, são fáceis de testar individualmente.
+    \item \textbf{Clareza:} A composição de funções pode tornar o código mais legível, pois cada função tem uma responsabilidade específica e o fluxo de dados é explícito.
+    \item \textbf{Manutenção:} Funções pequenas e bem definidas são mais fáceis de manter e modificar.
+\end{itemize}
+
+\subsubsection{Considerações Finais}
+A programação funcional facilita a programação modular, já que permite construir funções complexas a partir de funções simples e programas a partir da composição de outros programas. Uma função é uma regra de correspondência, como uma função matemática que mapeia membros de um conjunto domínio para um conjunto imagem (PELLEGRINI, 2013).
+
+Uma linguagem funcional oferece: 1) um conjunto de funções primitivas; 2) um conjunto de formas funcionais para construir funções complexas; 3) uma operação de aplicação das funções; e 4) estruturas para representar dados (PELLEGRINI, 2013).
+
+Assim, a composição de funções é uma técnica poderosa na programação funcional, permitindo a construção de código modular, reutilizável e fácil de entender e manter, seguindo os princípios de funções puras e imutabilidade.
+
+% \begin{thebibliography}{9}
+%     \bibitem{pellegrini2013} PELLEGRINI, T. A. \textit{Paradigmas de programação: uma introdução}. 2013. Disponível em: \url{https://cepein.femanet.com.br/BDigital/arqPics/1911420024P1028.pdf}
+%     \bibitem{synapse2021} \textit{Paradigmas de Programação: Uma Introdução}. Editora Synapse, 2021. Disponível em: \url{https://www.editorasynapse.org/wp-content/uploads/2021/03/paradigmas_programacao_uma_introducao_V0.pdf}
+% \end{thebibliography}
+
+
+
+\subsection{Pipelines de Transformação}
+Pipelines de transformação de dados são sequências de etapas que automatizam o processo de preparação e transformação de dados, desde a coleta até a análise. Eles ajudam a garantir que os dados sejam processados de maneira consistente e eficiente.
+
+Imagine uma empresa que coleta dados de vendas de várias fontes: planilhas, sistemas de gerenciamento de clientes e redes sociais. Com o crescente volume dessas informações, o tratamento dos dados torna-se exaustivo, gastando horas limpando, organizando e analisando esses dados manualmente. Muitas vezes, erros passam despercebidos, resultando em decisões baseadas em informações imprecisas.
+
+É nesse cenário caótico que os pipelines de transformação de dados se tornam essenciais. Eles automatizam todo o processo, desde a coleta até a análise, garantindo que os dados sejam consistentes, confiáveis e prontos para serem usados na tomada de decisões estratégicas. Com um pipeline eficiente, as empresas conseguem transformar dados brutos em insights valiosos em questão de minutos, não horas.
+
+\subsubsection{Definição e Conceito}
+No paradigma funcional, pipelines de transformação referem-se à aplicação sequencial de funções sobre dados, onde a saída de uma função se torna a entrada da próxima. Essa abordagem, conhecida como composição funcional, permite criar transformações complexas de forma modular e reutilizável, evitando efeitos colaterais e tornando o código mais fácil de entender e manter, especialmente em pipelines de dados ETL (Extração, Transformação, Carregamento).
+
+\subsubsection{Por que usar Pipelines?}
+\begin{itemize}
+    \item \textbf{Automatização:} Pipelines permitem que o processo de transformação de dados seja automatizado, reduzindo a necessidade de intervenção manual e minimizando erros.
+    \item \textbf{Reprodutibilidade:} Uma vez configurado, o pipeline pode ser executado repetidamente com diferentes conjuntos de dados, garantindo que o processo seja consistente.
+    \item \textbf{Eficiência:} Pipelines ajudam a economizar tempo, permitindo que as equipes se concentrem na análise e interpretação dos dados, em vez de se perderem em tarefas manuais.
+    \item \textbf{Escalabilidade:} Com o aumento do volume de dados, pipelines podem ser escalados para lidar com grandes quantidades de informações sem comprometer a performance.
+\end{itemize}
+
+\subsubsection{Características das Pipelines Funcionais}
+No contexto de Programação Funcional, os pipelines de transformação apresentam as seguintes características:
+\begin{itemize}
+    \item \textbf{Funções Puras:} As funções devem ser puras, ou seja, para a mesma entrada, a saída é sempre a mesma, e não há efeitos colaterais (como modificar variáveis externas).
+    \item \textbf{Funções como blocos:} Em vez de manipular dados diretamente com laços e condicionais, o paradigma funcional usa funções como blocos de construção. Cada função realiza uma transformação específica.
+    \item \textbf{Composição de Funções:} As funções são "encadeadas" de forma que a saída de uma alimenta a entrada da próxima. Isso cria um fluxo de dados através de uma série de transformações.
+    \item \textbf{Imutabilidade:} Dados em um pipeline funcional são tipicamente imutáveis. Cada função cria uma nova versão modificada dos dados, preservando a integridade dos dados originais.
+    \item \textbf{Paralelização:} A imutabilidade e a natureza pura das funções facilitam a paralelização das operações, permitindo que diferentes etapas sejam executadas simultaneamente.
+    \item \textbf{Padrões de projeto:} Funções de ordem superior, como \texttt{map}, \texttt{filter} e \texttt{reduce}, são frequentemente utilizadas para manipular coleções de dados.
+\end{itemize}
+
+\subsubsection{Aplicação Prática}
+\textbf{Exemplo 1: Pipeline Genérico}
+
+Neste exemplo, dado uma lista de números, implementa-se um pipeline para percorrer a lista e aplicar, para cada elemento, as seguintes funções:
+\begin{enumerate}
+    \item Adicionar 1 (\texttt{adicionar\_um(x)}).
+    \item Multiplicar por 2 (\texttt{multiplicar\_por\_dois(x)}).
+\end{enumerate}
+
+\begin{codelisting}{Implementação de um pipeline de funções}
+    \label{listing:pipeline_generico}
+    \begin{minted}{python}
+# Funcao para incrementar um valor "X"
+def adicionar_um(x):
+  return x + 1
+
+# Funcao para multiplicar um valor "X" por 2
+def multiplicar_por_dois(x):
+  return x * 2
+
+# Funcao Pipeline que aplica uma lista de funcoes a uma lista de dados
+def pipeline(dados, funcoes):
+  resultado = []
+  for item in dados:
+    processado = item
+    for funcao in funcoes:
+      processado = funcao(processado)
+    resultado.append(processado)
+  return resultado
+
+# Dados iniciais
+numeros = [1, 2, 3, 4, 5]
+# Criando o pipeline com a sequencia de transformacoes
+transformacoes = [adicionar_um, multiplicar_por_dois]
+
+# Aplicando o pipeline
+resultado_final = pipeline(numeros, transformacoes)
+
+# Resultado: [4, 6, 8, 10, 12]
+print(resultado_final)
+    \end{minted}
+\end{codelisting}
+
+\textbf{Exemplo 2: Pipeline com Funções Lambda e Filtro}
+
+Neste exemplo, um pipeline de transformação e filtragem é aplicado a uma lista de entrada para:
+\begin{enumerate}
+    \item Aplicar a função \texttt{dobro}.
+    \item Aplicar a função \texttt{somar\_dez}.
+    \item Filtrar os resultados com a função \texttt{filtro} (manter apenas valores $> 10$).
+\end{enumerate}
+
+\begin{codelisting}{Pipeline com lambda e filter}
+    \label{listing:pipeline_lambda}
+    \begin{minted}{python}
+# Funcao de pipeline definida no exemplo anterior
+def pipeline(dados, funcoes):
+    # ... (mesma implementacao)
+    resultado = []
+    for item in dados:
+        processado = item
+        for funcao in funcoes:
+            processado = funcao(processado)
+        resultado.append(processado)
+    return resultado
+
+entrada = [1, 2, 3, 4, 5]
+dobro = lambda x: x * 2
+somar_dez = lambda x: x + 10
+filtro = lambda x: x > 10
+
+# Criando o pipeline de transformacao
+transformacoes = [dobro, somar_dez]
+resultado_transformado = pipeline(entrada, transformacoes)
+
+# Aplicando o Filtro apos a transformacao
+resultado_filtrado = filter(filtro, resultado_transformado)
+
+# Resultado Final: [12, 14, 16, 18, 20]
+print(list(resultado_filtrado))
+    \end{minted}
+\end{codelisting}
+
+\subsubsection{Benefícios dos Pipelines Funcionais}
+\begin{itemize}
+    \item \textbf{Reutilização:} Funções podem ser combinadas de diferentes maneiras para criar outras transformações em diferentes pipelines.
+    \item \textbf{Testabilidade:} Funções individuais e puras são mais fáceis de testar, pois o resultado é sempre previsível.
+    \item \textbf{Clareza:} O fluxo de dados é mais fácil de seguir, pois a lógica é dividida em funções pequenas e independentes.
+    \item \textbf{Manutenção:} Modificações em uma parte do pipeline geralmente não afetam outras partes e são mais fáceis de entender.
+    \item \textbf{Escalabilidade:} A imutabilidade e a natureza pura facilitam a paralelização e a escalabilidade do pipeline.
+\end{itemize}
+
+\subsubsection{Aplicações de Pipelines}
+\begin{itemize}
+    \item \textbf{ETL:} Pipelines são amplamente usados em sistemas ETL (Extração, Transformação e Carga) para processar grandes volumes de dados.
+    \item \textbf{Processamento de imagens:} Podem ser usados para aplicar uma série de transformações em imagens, como redimensionamento, correção de cores e filtros.
+    \item \textbf{Análise de dados:} São essenciais para o pré-processamento dos dados antes da análise, como limpeza, agregação e normalização.
+\end{itemize}
+
+\subsubsection*{Considerações Finais}
+Pipelines de transformação no paradigma de programação funcional oferecem uma abordagem modular, reutilizável e escalável para processar dados, com benefícios significativos em termos de testabilidade, manutenção e desempenho.
+
+% \begin{thebibliography}{9}
+%     \bibitem{medium_funcional}
+%     Gomes, M. \textit{Programação Funcional: Teoria e Conceitos}. Medium, 2020. Disponível em: \url{https://medium.com/@marcelomg21/programa%C3%A7%C3%A3o-funcional-teoria-e-conceitos-975375cfb010}
+
+%     \bibitem{dio_pipelines}
+%     \textit{Descomplicando a Análise de Dados: Conheça os Pipelines}. DIO.me. Disponível em: \url{https://www.dio.me/articles/descomplicando-a-analise-da-dados-conheca-os-pipelines}
+    
+%     \bibitem{ufc_repo}
+%     Queiroz, P. C. G. \textit{Título do Trabalho}. Repositório UFC, 2024. Disponível em: \url{https://repositorio.ufc.br/bitstream/riufc/78403/3/2024_tcc_pcgqueiroz.pdf}
+
+% \end{thebibliography}
