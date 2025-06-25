@@ -14,6 +14,7 @@
 \usepackage{pgf-pie}
 \usepackage{minted}
 \usepackage{float}
+\usepackage{graphicx} % Required for \includegraphics
 \usepackage[numbers, sort&compress]{natbib}  % citações numéricas por padrão
 % \usepackage{biblatex}
 
@@ -54,7 +55,15 @@ Python: Paradigma Funcional Aplicado à Transformação de Dados
 \begin{document}
     \thispagestyle{plain}
     \makeheader
-    \renewcommand{\listingscaption}{Código}
+
+    % Define a new float type for "Figura" with its own counter
+    \newfloat{figlisting}{htbp}{lof}%[chapter] % [chapter] resets counter per chapter (optional)
+    \floatname{figlisting}{Figura} % Sets the caption name
+    \newcommand{\listoffiguras}{\listof{figlisting}{Lista de Figuras}} % Optional: Create a list of figuras
+
+    % Keep the original "listing" environment for "Código"
+    \floatname{listing}{Código} % Ensure the original listing uses "Código"
+    \newcommand{\listofcodigos}{\lstlistoflistings} % Optional: List of code listings
 
     %% KEYWORDS
     % \begin{keywords}

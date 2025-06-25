@@ -1,0 +1,24 @@
+digraph G {
+	a[label=5]
+	b[label=2]
+	c[label=1]
+	d[label=3]
+	e[label=4]
+	f[label=6]
+	g[label=10]
+	h[label=9]
+	n1[style=invis]
+	n2[style=invis]
+	n3[style=invis]
+	
+	a -> b
+	b -> c
+	b -> d
+	d -> e
+	d -> n1[style=invis]
+	a -> f
+	f -> g
+	g -> h
+	g -> n2[style=invis]
+	g -> n3[style=invis]
+}

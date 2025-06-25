@@ -2,7 +2,7 @@
 
 O Código \ref{listing:abp} abaixo demonstra a instanciação de uma árvore binária de pesquisa, os detalhes da implementação
 serão discutidos adiante. O objetivo em um primeiro momento é demonstrar a facilidade de usar implementações funcionais
-sobre a árvore afim de realizar algumas operações mais comuns.
+sobre a árvore afim de realizar algumas operações comuns.
 
 \begin{listing}[H]
     \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
@@ -15,9 +15,19 @@ sobre a árvore afim de realizar algumas operações mais comuns.
     \label{listing:abp}
 \end{listing}
 
-Nota-se na linha 4 que a árvore \textbf{tree} é criada a partir de uma lista de inteiros. O objetivo
-é analisar as chamadas e usos de funções sobre operações comuns desta estrutura de dados, tais como:
+Nota-se na linha 4 que a árvore \textbf{tree} é criada a partir de uma lista de inteiros.
+As inserções destes inteiros produzem a árvore representada na Figura \ref{fig:btree}:
 
+\begin{figlisting}[H]
+    \centering
+    \includegraphics[width=0.35\textwidth]{figs/btree.png} % Adjust width as needed
+    \caption{Árvore binária} % Will appear as "Figura 1"
+    \label{fig:btree}
+    % Your content (e.g., image, diagram, etc.)
+\end{figlisting}
+
+O objetivo é analisar as chamadas e usos de funções sobre operações comuns desta estrutura de dados, tais como:
+\vfill\pagebreak
 \begin{enumerate}
     \item Percorrimento da árvore em ordem
     \item Uso da Busca em Profundidade, do inglês: \textit{Depth First Search} (DFS)\footnote{
@@ -56,7 +66,7 @@ sabe-se que os items cujos valores sejam menores estarão à esquerda, ao passo 
 
 Nota-se no código \ref{listing:abp-in-order} o nível de abstração quando aplicada a programação funcional, pois a medida que o percorrimento ocorre, cada nó encontrado chama a funçåo lambda\footnote{
     Explicar a função lambda
-} passada como segundo parâmetro de \textbf{inOrderWalk}. A função então desempenha o papel de imprimir o valor do nó
+} passada como segundo parâmetro de \textbf{inOrderWalk}. A função então desempenha o papel de imprimir o valor do nó.
 Observa-se que ao contrário de simplesmente imprimir o nó, poderia fazer-se qualquer outra operação com o mesmo, como empilhá-los para formar uma nova lista
 ordenada, por exemplo.
 
@@ -82,8 +92,8 @@ A busca começa a partir do nó raiz e segue até o último nó folha. Evidentem
 
 \subsubsection{DFS: Encontrar um nó}
 
-A função passada como argumento para \textbf{dfs}, ao contrário das já apresentadas, espera um valor booleano de retorno.
-Este valor é utilizado para controlar quando parar a busca dfs. Caso uma chamada à função passada a \textbf{dfs}
+A função passada como argumento para \textbf{dfs} (ao contrário das já apresentadas), espera um valor booleano de retorno.
+Este valor é utilizado para controlar quando parar a busca \textbf{dfs}. Caso uma chamada à função passada a \textbf{dfs}
 retorne o valor \textbf{True}, a busca é interrompida. Quando \textbf{False}, a busca procede.\linebreak
 O Código \ref{listing:dfs-encontra-no-funcoes} mostra a definição de duas funções nas linhas 1 e 2 para serem
 utilizadas na \textbf{dfs}:
@@ -103,7 +113,7 @@ retorna uma \textit{Closure}\footnote{
     Explicar closure
 }
 que compara o nó atual com um valor passado como argumento. Desta forma, \textbf{encontre\_no} se utiliza de DFS para procurar um nó na árvore.\linebreak
-Conforme se observa no Código \ref{listing:dfs-encontra-no-verdadeiro}, apenas o nó raiz é visitado pois \textbf{retorna\_verdadeiro} imediatemente retorna
+Conforme se observa no Código \ref{listing:dfs-encontra-no-verdadeiro}, apenas o nó raiz é visitado quando se usa \textbf{retorna\_verdadeiro}. Isto se deve ao fato de que \textbf{retorna\_verdadeiro} imediatemente retorna
 o valor \textbf{True}. Quando uma função retorna \textbf{True}, a \textbf{dfs} retorna o nó atual que está sendo visitado:
 
 \begin{listing}[H]
@@ -117,8 +127,8 @@ o valor \textbf{True}. Quando uma função retorna \textbf{True}, a \textbf{dfs}
     \label{listing:dfs-encontra-no-verdadeiro}
 \end{listing}
 
-No Código \ref{listing:dfs-encontra-no-1} pode-se observar que mais nós são visitados. Ao final, depois de percorrer
-os nós $(5,2,1)$, finalmente é retornado o nó $1$ por ele ter sido encontrado.
+No Código \ref{listing:dfs-encontra-no-1} pode-se observar que mais nós são visitados quando se usa \textbf{encontre\_no}. Ao final, depois de percorrer
+os nós $(5,2,1)$, o nó $1$ é encontrado e retornado.
 
 \begin{listing}[H]
     \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
@@ -133,7 +143,7 @@ os nós $(5,2,1)$, finalmente é retornado o nó $1$ por ele ter sido encontrado
     \label{listing:dfs-encontra-no-1}
 \end{listing}
 
-Finalmente, quando um determinado nó não é encontrado, a árvore inteira é percorrida conforme abaixo:
+Finalmente, quando um determinado nó não é encontrado, a árvore inteira é percorrida sem que nada seja retornado:
 
 \begin{listing}[H]
     \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
@@ -153,8 +163,8 @@ Finalmente, quando um determinado nó não é encontrado, a árvore inteira é p
 
 \subsubsection{DFS: Encontrar nós folha}
 
-O Código \ref{listing:dfs-encontra-folhas} demonstra como obter uma lista dos nós folha usando dfs a partir da árvore.
-A natureza do percorrimento dfs é ideal para encontrar tais nós. São encontrados 3 nós de acordo com a linha 3:
+O Código \ref{listing:dfs-encontra-folhas} demonstra como obter uma lista dos nós folha usando \textbf{dfs} a partir da árvore.
+A natureza do percorrimento \textbf{dfs} é ideal para encontrar tais nós. São encontrados 3 nós de acordo com a linha 3:
 
 \begin{listing}[H]
     \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
@@ -169,7 +179,7 @@ A natureza do percorrimento dfs é ideal para encontrar tais nós. São encontra
 
 \subsubsection{DFS: Nó folha até a raiz}
 
-Uma vez que tem se a lista de nós folha, pode-se utilizar o método \textbf{goToRoot} para saber quais nós estão entre a folha e a raiz.
+Uma vez que se tem a lista de nós folha, pode-se utilizar o método \textbf{goToRoot} para saber quais nós estão entre a folha e a raiz.
 O Código \ref{listing:dfs-folha-raiz} mostra que os nós $(4, 3, 2, 5)$ formam o caminho entre o nó $4$ (folha), e $5$ (raiz).
 
 \begin{listing}[H]
@@ -189,8 +199,6 @@ O Código \ref{listing:dfs-folha-raiz} mostra que os nós $(4, 3, 2, 5)$ formam 
 O Código \ref{listing:dfs-altura} demonstra a utilização de composição de funções para calcular a altura da
 árvore. Nas linhas 1 a 9 são definidas as funções utilitárias. Por fim, descobre-se na linha 15 que a árvore
 tem altura 4.
-\vfill
-\pagebreak
 
 \begin{listing}[H]
     \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
