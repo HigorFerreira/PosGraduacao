@@ -246,6 +246,152 @@ pode-se calcular o balanceamento da árvore conoforme mostra a linha 8 do Códig
 
 Fica evidente que a árvore está totalmente balanceada pois não há nós folha com diferença de altura maior que 1.
 
-% \subsection{Implementação}
-% \subsubsection{Node}
-% \subsubsection{BinaryTree}
+\subsection{Implementação}
+Conforme visto no Código \ref{listing:abp} (linha 1), a árvore mostrada nos exemplos pertence à bilbioreca \textbf{Btree}
+que exporta dois objetos: \textbf{BinaryTree} e \textbf{Node}.\linebreak
+A implementação deste módulo consiste em uma estrutura de pastas com três arquivos conforme mosta a Figura \ref{fig:modulo-btree}:
+
+\begin{figlisting}[H]
+    \centering
+    \includegraphics[width=0.35\textwidth]{figs/btree_module.png} % Adjust width as needed
+    \caption{Módulo Btree} % Will appear as "Figura 1"
+    \label{fig:modulo-btree}
+    % Your content (e.g., image, diagram, etc.)
+\end{figlisting}
+
+\subsubsection{Node}
+
+A árvore binária é montada com base em seus nós. Um nó é um modelo que representa um dado numérico, contento também
+as referências para os nós filhos da direita e esquerda, assim como uma referência ao nó pai.\linebreak
+O Código \ref{listing:impl-node} demonstra a implementação do nó:
+
+\begin{listing}[H]
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+    from typing import Optional
+
+    class Node:
+        value: int
+        parent: Optional['Node']
+        right: Optional['Node']
+        left: Optional['Node']
+
+        def __init__(self, value: int):
+            self.value = value
+            self.left = None
+            self.right = None
+            self.parent = None
+
+        def __repr__(self): return f'Node({self.value})'
+    \end{minted}
+    \caption{Node: Implementação}
+    \label{listing:impl-node}
+\end{listing}
+
+A linha 15 define o método \textbf{\_\_repr\_\_}. Este método retorna um formato de texto que dita como
+o nó deve ser exibido quando sua instância é referenciada no notebook, ou quando passada para uma função \textbf{print}.
+
+\subsubsection{BinaryTree}
+
+A implementação de BinaryTree é a árvore em si. No Código \ref{listing:impl-btree-ini} tem-se o método de inserção,
+que consiste em inserir os nós filhos na esquerda ou direita a partir da maioridade ou menoridade com o nó pai.
+\vfill
+\pagebreak
+
+\begin{listing}[H]
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+    from copy import deepcopy
+    from typing import Callable
+    from .Node import Node
+
+    class BinaryTree:
+        root: Node | None = None
+
+        def __init__(self, arr: list[int]):
+            for i in arr:
+                self.insert(Node(i))
+
+        def insert(self, node: Node, parent: Node | None = None):
+            if self.root is None: self.root = node; return deepcopy(node)
+            if parent is None: parent = self.root
+
+            if node.value < parent.value:
+                if parent.left is None:
+                    node.parent = parent
+                    parent.left = node
+                    return deepcopy(node)
+                return self.insert(node, parent.left)
+            
+            if parent.right is None:
+                node.parent = parent
+                parent.right = node
+                return deepcopy(node)
+            return self.insert(node, parent.right)
+        ...
+    \end{minted}
+    \caption{BinaryTree: Implementação inicial}
+    \label{listing:impl-btree-ini}
+\end{listing}
+
+\subsubsection{BinaryTree: inOrderWalk}
+
+\begin{listing}[H]
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt,firstnumber=28]{python}
+    ...
+        def inOrderWalk(self, callback: Callable[[Node], None] | None = None):
+            def inOrderRecursive(node: Node | None):
+                if node is not None:
+                    inOrderRecursive(node.left)
+                    if callback: callback(deepcopy(node))
+                    inOrderRecursive(node.right)
+
+            inOrderRecursive(self.root)
+    ...
+    \end{minted}
+    \caption{BinaryTree: Método inOrderWalk}
+    \label{listing:inOrderWalk}
+\end{listing}
+
+\subsubsection{BinaryTree: dfs}
+
+\begin{listing}[H]
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt,firstnumber=38]{python}
+    ...
+        def dfs(self, callback: Callable[[Node], bool] | None = None) -> Node | None:
+            def _dfs(node: Node):
+                if node is None: return
+                # print(node)
+                if callback:
+                    res = callback(node)
+                    if res:
+                        return node
+                if res:=_dfs(node.left): return res
+                if res:=_dfs(node.right): return res
+
+            return _dfs(self.root)
+    ...
+    \end{minted}
+    \caption{BinaryTree: Método dfs}
+    \label{listing:btree-dfs}
+\end{listing}
+
+\subsubsection{BinaryTree: goToRoot}
+
+\begin{listing}[H]
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt,firstnumber=51]{python}
+    ...
+        def goToRoot(self, node: Node, callback: Callable[[Node], None] | None = None):
+            callback(node)
+            if node == self.root: return
+            self.goToRoot(node.parent, callback)
+    ...
+    \end{minted}
+    \caption{BinaryTree: Método dfs}
+    \label{listing:btree-dfs}
+\end{listing}
+
+% \begin{listing}[H]
+%     \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
+%     \end{minted}
+%     \caption{AAAAAAAAAAAAA}
+%     \label{listing:AAAAAAAAAAAA}
+% \end{listing}

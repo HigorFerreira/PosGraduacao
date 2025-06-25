@@ -1,0 +1,13 @@
+digraph G {
+    rankdir=TB
+    node [shape=box, fontname="Arial", fontsize=10]
+    
+    Btree [shape=folder, style=filled, color=lightblue]
+    BTree_py [label="BTree.py"]
+    init_py [label="__init__.py"]
+    Node_py [label="Node.py"]
+    
+    Btree -> BTree_py
+    Btree -> init_py
+    Btree -> Node_py
+}
