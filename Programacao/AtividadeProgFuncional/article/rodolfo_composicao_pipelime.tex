@@ -6,7 +6,7 @@ A composição de funções é como montar um quebra-cabeça, onde cada peça (f
 
 \subsubsection{Exemplo Prático: Transformação de Dados}
 Deseja-se resolver o seguinte problema computacional com base na lista de trabalho:
-\begin{minted}[frame=none, xleftmargin=5mm]{python}
+\begin{minted}[xleftmargin=2mm,linenos,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
 lista = [5, 12, 14, 0, 1, 2, 24, 49, 40, 3, 7]
 \end{minted}
 As etapas da transformação são:
@@ -17,11 +17,11 @@ As etapas da transformação são:
 \end{itemize}
 
 \subsubsection{Comparativo: Imperativo vs. Funcional}
+
 \textbf{Abordagem Imperativa}:
 
-\begin{codelisting}{Transformação de dados de forma imperativa}
-    \label{listing:imperativa}
-    \begin{minted}{python}
+\begin{listing}[H]{Transformação de dados de forma imperativa}
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
 # Funcao Ordena Lista
 def ordenaLista(lista):
   return sorted(lista)
@@ -46,12 +46,13 @@ resultado_lista_ordenada = ordenaLista(lista)
 resultado_lista_filtrada = filtraLista(resultado_lista_ordenada)
 resultado_lista_calculada = calculaLista(resultado_lista_filtrada)
     \end{minted}
-\end{codelisting}
+    \label{listing:imperativa}
+\end{listing}
 
 \textbf{Abordagem Funcional com Composição}:
-\begin{codelisting}{Transformação de dados com composição funcional}
+\begin{listing}[H]{Transformação de dados com composição funcional}
     \label{listing:funcional}
-    \begin{minted}{python}
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
 # Abordagem 1: Composição explícita (aninhada)
 resultado_aninhado = calculaLista(filtraLista(ordenaLista(lista)))
 
@@ -59,7 +60,7 @@ resultado_aninhado = calculaLista(filtraLista(ordenaLista(lista)))
 resultado_pipeline = list(map(lambda x: x**2, 
     filter(lambda x: x % 2 == 0, sorted(lista))))
     \end{minted}
-\end{codelisting}
+\end{listing}
 
 A versão funcional expressa o fluxo de dados de forma mais direta e declarativa.
 
@@ -130,9 +131,9 @@ Neste exemplo, dado uma lista de números, implementa-se um pipeline para percor
     \item Multiplicar por 2 (\texttt{multiplicar\_por\_dois(x)}).
 \end{enumerate}
 
-\begin{codelisting}{Implementação de um pipeline de funções}
+\begin{listing}[H]{Implementação de um pipeline de funções}
     \label{listing:pipeline_generico}
-    \begin{minted}{python}
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
 # Funcao para incrementar um valor "X"
 def adicionar_um(x):
   return x + 1
@@ -162,7 +163,7 @@ resultado_final = pipeline(numeros, transformacoes)
 # Resultado: [4, 6, 8, 10, 12]
 print(resultado_final)
     \end{minted}
-\end{codelisting}
+\end{listing}
 
 \textbf{Exemplo 2: Pipeline com Funções Lambda e Filtro}
 
@@ -173,9 +174,9 @@ Neste exemplo, um pipeline de transformação e filtragem é aplicado a uma list
     \item Filtrar os resultados com a função \texttt{filtro} (manter apenas valores $> 10$).
 \end{enumerate}
 
-\begin{codelisting}{Pipeline com lambda e filter}
+\begin{listing}[H]{Pipeline com lambda e filter}
     \label{listing:pipeline_lambda}
-    \begin{minted}{python}
+    \begin{minted}[linenos,xleftmargin=2mm,tabsize=2,breaklines,autogobble,numbersep=5pt]{python}
 # Funcao de pipeline definida no exemplo anterior
 def pipeline(dados, funcoes):
     # ... (mesma implementacao)
@@ -202,7 +203,7 @@ resultado_filtrado = filter(filtro, resultado_transformado)
 # Resultado Final: [12, 14, 16, 18, 20]
 print(list(resultado_filtrado))
     \end{minted}
-\end{codelisting}
+\end{listing}
 
 \subsubsection{Benefícios dos Pipelines Funcionais}
 \begin{itemize}
